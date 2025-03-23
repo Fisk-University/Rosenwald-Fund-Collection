@@ -1,0 +1,27 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ */
+
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+$searchAction = $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], true);
+$searchValue = isset($searchValue) ? $searchValue : '';
+?>
+
+<div class="search-form">
+    <form id="search-form" action="<?php echo $searchAction; ?>" method="get">
+        <div class="search-form-content">
+            <input type="text" 
+                   name="search" 
+                   id="search" 
+                   value="<?php echo $escape($searchValue); ?>" 
+                   placeholder="<?php echo $escape($translate('Enter search')); ?>"
+                   aria-label="<?php echo $escape($translate('Search')); ?>">
+            <button type="submit" class="search-submit">
+                <span class="search-icon"></span>
+            </button>
+        </div>
+    </form>
+</div>

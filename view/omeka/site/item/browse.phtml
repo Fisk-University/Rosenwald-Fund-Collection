@@ -1,71 +1,148 @@
 <?php
-$escape = $this->plugin('escapeHtml');
-$this->htmlElement('body')->appendAttribute('class', 'item resource browse');
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ */
 
-$sortHeadings = [
-    [
-        'label' => $this->translate('Title'),
-        'value' => 'dcterms:title'
-    ],
-    [
-        'label' => $this->translate('Date'),
-        'value' => 'dcterms:date'
-    ],
-];
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+$this->htmlElement('body')->appendAttribute('class', 'item browse');
+$this->headLink()->appendStylesheet($this->assetUrl('css/search-results.css'));
+
+$query = $this->params()->fromQuery();
+$filters = [];
+
+// Extract search parameters
+$searchState = isset($query['state']) ? $query['state'] : '';
+$searchCounty = isset($query['county']) ? $query['county'] : '';
+$totalResults = $this->pagination()->getPaginator()->getTotalCount();
 ?>
 
-<div class="browse-controls">
-    <?php echo $this->pagination(); ?>
-    <?php echo $this->browse()->renderSortSelector('items'); ?>
-</div>
+<?php echo $this->pageTitle($translate('Search Results'), 2); ?>
 
-<h1><?php echo $this->translate('Browse Rosenwald Fund Collection'); ?></h1>
-
-<?php if ($items): ?>
-<div class="resources item-grid">
-    <?php foreach ($items as $item): ?>
-    <div class="resource item">
-        <?php if ($primaryMedia = $item->primaryMedia()): ?>
-        <div class="resource-thumbnail">
-            <?php echo $item->linkRaw($this->thumbnail($primaryMedia, 'medium')); ?>
-        </div>
-        <?php endif; ?>
+<div class="search-results-container">
+    <div class="search-results-header">
+        <h3><?php echo $escape($translate('YOU SEARCHED FOR:')); ?></h3>
         
-        <div class="resource-meta">
-            <h4><?php echo $item->link($item->displayTitle()); ?></h4>
-            
-            <?php if ($description = $item->displayDescription()): ?>
-            <div class="description">
-                <?php echo $escape($description); ?>
+        <div class="search-filters">
+            <div class="search-filter-group">
+                <div class="filter-label">
+                    <label for="state"><?php echo $escape($translate('State')); ?> *</label>
+                </div>
+                <div class="filter-input">
+                    <select id="state" name="state">
+                        <option value="Mississippi" <?php echo $searchState == 'Mississippi' ? 'selected' : ''; ?>>Mississippi</option>
+                        <!-- Add more state options as needed -->
+                    </select>
+                </div>
             </div>
-            <?php endif; ?>
             
-            <?php
-            $dcDate = $item->value('dcterms:date');
-            if ($dcDate): ?>
-            <div class="date">
-                <span class="label"><?php echo $this->translate('Date:'); ?></span>
-                <?php echo $escape($dcDate); ?>
+            <div class="search-filter-group">
+                <div class="filter-label">
+                    <label for="county"><?php echo $escape($translate('County (optional)')); ?></label>
+                </div>
+                <div class="filter-input">
+                    <select id="county" name="county">
+                        <option value="Forrest County" <?php echo $searchCounty == 'Forrest County' ? 'selected' : ''; ?>>Forrest County</option>
+                        <!-- Add more county options as needed -->
+                    </select>
+                </div>
             </div>
-            <?php endif; ?>
             
-            <?php
-            $dcCreator = $item->value('dcterms:creator');
-            if ($dcCreator): ?>
-            <div class="creator">
-                <span class="label"><?php echo $this->translate('Creator:'); ?></span>
-                <?php echo $escape($dcCreator); ?>
+            <button type="submit" class="search-button"><?php echo $escape($translate('Search')); ?></button>
+        </div>
+    </div>
+    
+    <div class="search-results-body">
+        <div class="search-sidebar">
+            <div class="filters-section">
+                <h3><?php echo $escape($translate('Filters')); ?></h3>
+                
+                <div class="filter-group">
+                    <h4><?php echo $escape($translate('DATE RANGE')); ?></h4>
+                    <div class="date-slider-container">
+                        <p><?php echo $escape($translate('Change the slider to your preferred date range.')); ?></p>
+                        <div class="date-slider">
+                            <input type="range" min="1910" max="1938" value="1910" class="date-range-min">
+                            <input type="range" min="1910" max="1938" value="1938" class="date-range-max">
+                        </div>
+                        <div class="date-labels">
+                            <span class="date-min">1910</span>
+                            <span class="date-max">1938</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4><?php echo $escape($translate('FILE TYPE')); ?></h4>
+                    <div class="file-type-options">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="jpeg-jpg" name="file_type[]" value="jpeg/jpg">
+                            <label for="jpeg-jpg">jpeg/jpg</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="png" name="file_type[]" value="png">
+                            <label for="png">png</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="pdf" name="file_type[]" value="pdf">
+                            <label for="pdf">pdf</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="search-results-content">
+            <div class="results-header">
+                <h3><?php echo $totalResults; ?> <?php echo $escape($translate('Results')); ?></h3>
+                
+                <div class="sort-controls">
+                    <select class="sort-by">
+                        <option value="created">Created</option>
+                        <option value="title">Title</option>
+                        <option value="date">Date</option>
+                    </select>
+                    
+                    <select class="sort-direction">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                    
+                    <button class="sort-button"><?php echo $escape($translate('Sort')); ?></button>
+                </div>
+            </div>
+            
+            <?php if ($items): ?>
+            <div class="results-list">
+                <?php foreach ($items as $item): ?>
+                <div class="result-item">
+                    <div class="result-content">
+                        <h4 class="result-title">
+                            <a href="<?php echo $escape($item->url()); ?>"><?php echo $escape($item->displayTitle()); ?></a>
+                        </h4>
+                        <div class="result-description">
+                            <?php echo $item->displayDescription(); ?>
+                        </div>
+                    </div>
+                    <?php if ($primaryMedia = $item->primaryMedia()): ?>
+                    <div class="result-thumbnail">
+                        <a href="<?php echo $escape($item->url()); ?>">
+                            <img src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>" 
+                                 alt="<?php echo $escape($primaryMedia->displayTitle()); ?>">
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <?php echo $this->pagination(); ?>
+            
+            <?php else: ?>
+            <div class="no-results">
+                <p><?php echo $escape($translate('No results found.')); ?></p>
             </div>
             <?php endif; ?>
         </div>
     </div>
-    <?php endforeach; ?>
 </div>
-
-<?php echo $this->pagination(); ?>
-
-<?php else: ?>
-<div class="no-resources">
-    <p><?php echo $this->translate('No items found.'); ?></p>
-</div>
-<?php endif; ?>

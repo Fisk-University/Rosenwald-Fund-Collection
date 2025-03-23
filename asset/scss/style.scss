@@ -1,0 +1,356 @@
+// Variables - these will be overridden by the CSS custom properties from layout.phtml
+$background-color: #f9f5f1;
+$primary-color: #6d4534;
+$accent-color: #a56336;
+$text-color: #39302a;
+$secondary-color: #b2856f;
+$light-color: #e2d3c9;
+$border-color: #e5e0d9;
+
+// Using CSS custom properties to allow theme settings to override these values
+:root {
+  // These are fallbacks - the actual values are set inline in layout.phtml
+  --background-color: #{$background-color};
+  --primary-color: #{$primary-color};
+  --accent-color: #{$accent-color};
+  --text-color: #{$text-color};
+  --secondary-color: #{$secondary-color};
+  --light-color: #{$light-color};
+}
+
+// Base styles
+body {
+  font-family: 'Sorts Mill Goudy', Georgia, serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../img/background-pattern.png');
+    background-size: 300px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  
+  &:hover, &:focus {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+// Header and Navigation
+.header-wrapper {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+  }
+}
+
+.site-title-container {
+  flex: 0 0 auto;
+  padding: 0.5rem 0;
+  
+  .site-logo {
+    display: block;
+    max-width: 180px;
+    height: auto;
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  
+  .site-title {
+    color: var(--primary-color);
+    font-family: 'Sorts Mill Goudy', Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: block;
+    
+    &:hover, &:focus {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+  }
+}
+
+.main-navigation {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .navigation {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    li {
+      position: relative;
+      margin: 0 0.25rem;
+      
+      @media (max-width: 768px) {
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+      
+      a {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: var(--text-color);
+        text-decoration: none;
+        font-family: 'Sorts Mill Goudy', Georgia, serif;
+        font-size: 1.1rem;
+        transition: color 0.2s;
+        
+        &:hover, &:focus {
+          color: var(--accent-color);
+          text-decoration: none;
+        }
+      }
+      
+      &.active > a {
+        color: var(--accent-color);
+        font-weight: 700;
+      }
+      
+      // Dropdown styling
+      ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 220px;
+        background: #fff;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        border: 1px solid $border-color;
+        border-radius: 3px;
+        padding: 0.5rem 0;
+        margin: 0;
+        
+        @media (max-width: 768px) {
+          position: static;
+          box-shadow: none;
+          border: none;
+          border-left: 3px solid var(--accent-color);
+          margin-left: 1rem;
+          padding: 0;
+          width: auto;
+        }
+        
+        li {
+          margin: 0;
+          
+          a {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+          }
+        }
+      }
+      
+      &:hover > ul, &:focus-within > ul {
+        display: block;
+      }
+    }
+  }
+}
+
+.utility-nav {
+  display: flex;
+  align-items: center;
+  margin-left: 1.5rem;
+  
+  @media (max-width: 768px) {
+    margin-left: 0;
+    margin-top: 1rem;
+    width: 100%;
+  }
+}
+
+// Mobile menu toggle
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: auto;
+  
+  @media (max-width: 768px) {
+    display: block;
+  }
+  
+  &:hover, &:focus {
+    color: var(--accent-color);
+  }
+}
+
+// Search form
+.search-form {
+  position: relative;
+  width: 240px;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  
+  .search-form-content {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    font-family: 'Sorts Mill Goudy', Georgia, serif;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    background-color: #fff;
+    
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(var(--accent-color), 0.1);
+    }
+    
+    &::placeholder {
+      color: rgba(var(--text-color), 0.5);
+    }
+  }
+  
+  .search-submit {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    padding: 0.25rem;
+    
+    &:hover, &:focus {
+      color: var(--primary-color);
+    }
+    
+    .search-icon {
+      display: block;
+      width: 16px;
+      height: 16px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23a56336' d='M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z'%3E%3C/path%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
+
+// Banner
+.banner {
+  width: 100%;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Content
+#content {
+  padding: 2rem 0;
+}
+
+// Footer
+footer {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 2rem 0;
+  margin-top: 3rem;
+  
+  a {
+    color: #fff;
+    margin-right: 1.5rem;
+    
+    &:hover, &:focus {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      
+      p {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
