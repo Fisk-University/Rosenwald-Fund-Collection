@@ -1,0 +1,71 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$this->htmlElement('body')->appendAttribute('class', 'item resource browse');
+
+$sortHeadings = [
+    [
+        'label' => $this->translate('Title'),
+        'value' => 'dcterms:title'
+    ],
+    [
+        'label' => $this->translate('Date'),
+        'value' => 'dcterms:date'
+    ],
+];
+?>
+
+<div class="browse-controls">
+    <?php echo $this->pagination(); ?>
+    <?php echo $this->browse()->renderSortSelector('items'); ?>
+</div>
+
+<h1><?php echo $this->translate('Browse Rosenwald Fund Collection'); ?></h1>
+
+<?php if ($items): ?>
+<div class="resources item-grid">
+    <?php foreach ($items as $item): ?>
+    <div class="resource item">
+        <?php if ($primaryMedia = $item->primaryMedia()): ?>
+        <div class="resource-thumbnail">
+            <?php echo $item->linkRaw($this->thumbnail($primaryMedia, 'medium')); ?>
+        </div>
+        <?php endif; ?>
+        
+        <div class="resource-meta">
+            <h4><?php echo $item->link($item->displayTitle()); ?></h4>
+            
+            <?php if ($description = $item->displayDescription()): ?>
+            <div class="description">
+                <?php echo $escape($description); ?>
+            </div>
+            <?php endif; ?>
+            
+            <?php
+            $dcDate = $item->value('dcterms:date');
+            if ($dcDate): ?>
+            <div class="date">
+                <span class="label"><?php echo $this->translate('Date:'); ?></span>
+                <?php echo $escape($dcDate); ?>
+            </div>
+            <?php endif; ?>
+            
+            <?php
+            $dcCreator = $item->value('dcterms:creator');
+            if ($dcCreator): ?>
+            <div class="creator">
+                <span class="label"><?php echo $this->translate('Creator:'); ?></span>
+                <?php echo $escape($dcCreator); ?>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+<?php echo $this->pagination(); ?>
+
+<?php else: ?>
+<div class="no-resources">
+    <p><?php echo $this->translate('No items found.'); ?></p>
+</div>
+<?php endif; ?>

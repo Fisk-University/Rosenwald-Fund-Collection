@@ -1,0 +1,47 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$this->headLink()->appendStylesheet($this->assetUrl('css/resource-page.css'));
+$this->htmlElement('body')->appendAttribute('class', 'item resource show');
+?>
+
+<div class="resource-page">
+    <h1 class="resource-title"><?php echo $escape($item->displayTitle()); ?></h1>
+    
+    <?php if ($item->media()): ?>
+    <div class="resource-media">
+        <?php echo $this->resourcePageBlocks($item, 'main')->getBlocks(); ?>
+    </div>
+    <?php endif; ?>
+    
+    <div class="resource-metadata">
+        <?php if ($item->displayDescription()): ?>
+        <div class="resource-description">
+            <?php echo $escape($item->displayDescription()); ?>
+        </div>
+        <?php endif; ?>
+        
+        <div class="resource-details">
+            <?php echo $item->displayValues(); ?>
+        </div>
+        
+        <?php if ($item->itemSets()): ?>
+        <div class="resource-sets">
+            <h3><?php echo $this->translate('Part of collections'); ?></h3>
+            <ul>
+                <?php foreach ($item->itemSets() as $itemSet): ?>
+                <li><?php echo $itemSet->link($itemSet->displayTitle()); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
+        
+        <?php
+        $subjects = $item->subjectValues();
+        if ($subjects): ?>
+        <div class="resource-subjects">
+            <h3><?php echo $this->translate('Related resources'); ?></h3>
+            <?php echo $subjects; ?>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>

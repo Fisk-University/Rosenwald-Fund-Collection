@@ -1,0 +1,68 @@
+<?php
+/**
+ * @var \Laminas\View\Renderer\PhpRenderer $this
+ * @var \Omeka\Api\Representation\SitePageRepresentation $page
+ */
+$escape = $this->plugin('escapeHtml');
+$this->headLink()->appendStylesheet($this->assetUrl('css/home-page.css'));
+$this->htmlElement('body')->appendAttribute('class', 'page home-page');
+?>
+
+<div class="home-banner">
+    <div class="container">
+        <h1 class="home-title"><?php echo $escape($page->title()); ?></h1>
+        <div class="home-subtitle">
+            <?php echo $this->translate('Discover the Rosenwald Fund Collection'); ?>
+        </div>
+    </div>
+</div>
+
+<div class="home-content container">
+    <div class="home-intro">
+        <div class="home-intro-text">
+            <?php foreach ($page->blocks() as $block): ?>
+                <?php echo $block->render(); ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    
+    <div class="home-featured">
+        <h2><?php echo $this->translate('Featured Items'); ?></h2>
+        
+        <?php
+        $items = $this->api()->search('items', [
+            'site_id' => $site->id(),
+            'sort_by' => 'created',
+            'sort_order' => 'desc',
+            'limit' => 4
+        ])->getContent();
+        
+        if ($items): ?>
+        <div class="home-featured-grid">
+            <?php foreach ($items as $item): ?>
+            <div class="featured-item">
+                <?php if ($primaryMedia = $item->primaryMedia()): ?>
+                <div class="featured-item-thumbnail">
+                    <?php echo $item->linkRaw($this->thumbnail($primaryMedia, 'medium')); ?>
+                </div>
+                <?php endif; ?>
+                
+                <h3 class="featured-item-title">
+                    <?php echo $item->link($item->displayTitle()); ?>
+                </h3>
+                
+                <?php if ($description = $item->displayDescription()): ?>
+                <div class="featured-item-description">
+                    <?php echo $this->truncate($description, 100); ?>
+                </div>
+                <?php endif; ?>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <div class="home-browse-link">
+            <a href="<?php echo $this->url('site/resource', ['site-slug' => $site->slug(), 'controller' => 'item'], true); ?>" class="button"><?php echo $this->translate('Browse All Items'); ?></a>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>

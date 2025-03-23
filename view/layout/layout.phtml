@@ -1,0 +1,141 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$siteTitle = $site->title();
+$this->htmlElement('html')->setAttribute('lang', $this->lang());
+$this->headMeta()->setCharset('utf-8');
+$this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1');
+$this->headTitle($siteTitle)->setSeparator(' · ');
+$this->headTitle()->append($this->setting('installation_title', 'Omeka S'));
+
+// Stylesheet loading
+$this->headLink()->prependStylesheet($this->assetUrl('css/style.css'));
+$this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka'));
+$this->headLink()->prependStylesheet('https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&display=swap');
+
+// Script loading
+$this->headScript()->prependFile($this->assetUrl('js/theme.js'));
+$this->headScript()->prependFile($this->assetUrl('js/global.js', 'Omeka'));
+$this->headScript()->prependFile($this->assetUrl('vendor/jquery/jquery.min.js', 'Omeka'));
+$this->jsTranslate();
+
+// Theme settings
+$backgroundColor = $this->themeSetting('background_color', '#f9f5f1');
+$primaryColor = $this->themeSetting('primary_color', '#6d4534');
+$accentColor = $this->themeSetting('accent_color', '#a56336');
+$textColor = $this->themeSetting('text_color', '#39302a');
+
+// Banner settings from your code
+$banner = $this->themeSettingAssetUrl('banner');
+$bannerHeight = $this->themeSetting('banner_height');
+$bannerHeightMobile = $this->themeSetting('banner_height_mobile');
+$bannerPosition = ($this->themeSetting('banner_position')) ? str_replace('_','-', $this->themeSetting('banner_position')) : 'center';
+
+$this->trigger('view.layout');
+$userBar = $this->userBar();
+?>
+<?php echo $this->doctype(); ?>
+<?php echo $this->htmlElement('html'); ?>
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->headScript(); ?>
+        
+        <style>
+            :root {
+                --background-color: <?php echo $backgroundColor; ?>;
+                --primary-color: <?php echo $primaryColor; ?>;
+                --accent-color: <?php echo $accentColor; ?>;
+                --text-color: <?php echo $textColor; ?>;
+                --secondary-color: #b2856f;
+                --light-color: #e2d3c9;
+            }
+            
+            <?php if ($accentColor): ?>
+            a:link,
+            a:visited {
+                color: <?php echo $accentColor; ?>
+            }
+            
+            a:active,
+            a:hover {
+                color: <?php echo $accentColor; ?>;
+                opacity: .75;
+            }
+            <?php endif; ?>
+
+            <?php if ($bannerPosition): ?>
+            .banner {
+                height: <?php echo ($bannerHeight !== '') ? $bannerHeight: 'auto'  ?>;
+                align-items: <?php echo $bannerPosition; ?>;
+                display: flex;
+                justify-content: center;
+            }
+            <?php if ($bannerHeightMobile !== ''): ?>
+                @media screen and (max-width:640px) {
+                    .banner {
+                        height: <?php echo $bannerHeightMobile; ?>;
+                    }
+                }
+            <?php endif; ?>
+            <?php endif; ?>
+        </style>
+        <?php echo $this->headStyle(); ?>
+    </head>
+
+    <?php echo $this->htmlElement('body'); ?>
+        <a id="skipnav" href="#content"><?php echo $this->translate('Skip to main content'); ?></a>
+        <?php echo $userBar; ?>
+        
+        <header>
+            <div class="container">
+                <h1 class="site-title">
+                    <a href="<?php echo $site->url(); ?>">
+                    <?php if ($this->themeSetting('logo')): ?>
+                        <img src="<?php echo $this->themeSettingAssetUrl('logo'); ?>" alt="<?php echo $escape($siteTitle); ?>" />
+                    <?php else: ?>
+                        <?php echo $escape($siteTitle); ?>
+                    <?php endif; ?>
+                    </a>
+                </h1>
+
+                <nav class="main-nav">
+                <?php
+                echo $site->publicNav()->menu()->renderMenu(null, [
+                    'maxDepth' => $this->themeSetting('nav_depth', 0)
+                ]);
+                ?>
+                </nav>
+            </div>
+        </header>
+        
+        <?php if ($banner): ?>
+        <div class="banner">
+            <img src="<?php echo $banner; ?>" alt="<?php echo $escape($siteTitle); ?> banner">
+        </div>
+        <?php endif; ?>
+        
+        <div id="content" role="main">
+            <div class="container">
+                <?php echo $this->content; ?>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="container">
+                <?php if ($footerContent = $this->themeSetting('footer')): ?>
+                    <?php echo $footerContent; ?>
+                <?php else: ?>
+                    <div class="footer-content">
+                        <p>&copy; <?php echo date('Y'); ?> <?php echo $escape($siteTitle); ?></p>
+                        <p>
+                            <a href="<?php echo $this->url('site/page', ['site-slug' => $site->slug(), 'page-slug' => 'about']); ?>">About</a>
+                            <a href="<?php echo $this->url('site/page', ['site-slug' => $site->slug(), 'page-slug' => 'browse']); ?>">Browse</a>
+                            <a href="<?php echo $site->url(); ?>">Home</a>
+                        </p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </footer>
+    </body>
+</html>
