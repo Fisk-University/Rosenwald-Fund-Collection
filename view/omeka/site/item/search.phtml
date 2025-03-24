@@ -1,0 +1,48 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$translate = $this->plugin('translate');
+$this->htmlElement('body')->appendAttribute('class', 'item resource search');
+?>
+
+<div id="search-results">
+    <?php echo $this->pageTitle($translate('Search'), 2); ?>
+    
+    <div class="search-filters-container">
+        <div class="search-filters">
+            <?php echo $this->partial('common/search-filters'); ?>
+        </div>
+        
+        <?php if ($this->moduleIsActive('DateRangeFilter')): ?>
+        <div class="date-range-container">
+            <!-- DateRangeFilter will inject the slider here through the event listener -->
+        </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="search-results-wrapper">
+        <div class="search-results">
+            <?php if ($response->getTotalResults()): ?>
+                <div class="search-results-count">
+                    <?php echo sprintf($translate('%s results'), $response->getTotalResults()); ?>
+                </div>
+                
+                <?php echo $this->pagination(); ?>
+                
+                <div class="resource-list">
+                    <?php foreach ($response->getContent() as $item): ?>
+                    <div class="resource-item">
+                        <?php echo $this->partial('omeka/site/item/browse-preview', ['item' => $item]); ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                
+                <?php echo $this->pagination(); ?>
+                
+            <?php else: ?>
+                <div class="no-resources">
+                    <p><?php echo $translate('No results found.'); ?></p>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

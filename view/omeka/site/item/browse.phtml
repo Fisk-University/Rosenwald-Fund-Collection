@@ -6,7 +6,6 @@
 $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
 $this->htmlElement('body')->appendAttribute('class', 'item browse');
-$this->headLink()->appendStylesheet($this->assetUrl('css/search-results.css'));
 
 $query = $this->params()->fromQuery();
 $searchState = isset($query['state']) ? $query['state'] : '';
@@ -30,18 +29,11 @@ $totalResults = $this->pagination()->getPaginator()->getTotalCount();
                         <div class="filter-input">
                             <select id="state" name="state">
                                 <option value="">-- <?php echo $escape($translate('Select a State')); ?> --</option>
-                                <option value="Alabama" <?php echo $searchState == 'Alabama' ? 'selected' : ''; ?>>Alabama</option>
-                                <option value="Arkansas" <?php echo $searchState == 'Arkansas' ? 'selected' : ''; ?>>Arkansas</option>
-                                <option value="Florida" <?php echo $searchState == 'Florida' ? 'selected' : ''; ?>>Florida</option>
-                                <option value="Georgia" <?php echo $searchState == 'Georgia' ? 'selected' : ''; ?>>Georgia</option>
-                                <option value="Kentucky" <?php echo $searchState == 'Kentucky' ? 'selected' : ''; ?>>Kentucky</option>
-                                <option value="Louisiana" <?php echo $searchState == 'Louisiana' ? 'selected' : ''; ?>>Louisiana</option>
                                 <option value="Mississippi" <?php echo $searchState == 'Mississippi' ? 'selected' : ''; ?>>Mississippi</option>
+                                <option value="Alabama" <?php echo $searchState == 'Alabama' ? 'selected' : ''; ?>>Alabama</option>
+                                <option value="Georgia" <?php echo $searchState == 'Georgia' ? 'selected' : ''; ?>>Georgia</option>
                                 <option value="North Carolina" <?php echo $searchState == 'North Carolina' ? 'selected' : ''; ?>>North Carolina</option>
                                 <option value="South Carolina" <?php echo $searchState == 'South Carolina' ? 'selected' : ''; ?>>South Carolina</option>
-                                <option value="Tennessee" <?php echo $searchState == 'Tennessee' ? 'selected' : ''; ?>>Tennessee</option>
-                                <option value="Texas" <?php echo $searchState == 'Texas' ? 'selected' : ''; ?>>Texas</option>
-                                <option value="Virginia" <?php echo $searchState == 'Virginia' ? 'selected' : ''; ?>>Virginia</option>
                             </select>
                         </div>
                     </div>
@@ -53,8 +45,9 @@ $totalResults = $this->pagination()->getPaginator()->getTotalCount();
                         <div class="filter-input">
                             <select id="county" name="county">
                                 <option value="">-- <?php echo $escape($translate('Select a County')); ?> --</option>
-                                <?php if ($searchState): ?>
-                                    <option value="<?php echo $escape($searchCounty); ?>" <?php echo $searchCounty ? 'selected' : ''; ?>><?php echo $escape($searchCounty); ?></option>
+                                <?php if ($searchState == 'Mississippi'): ?>
+                                    <option value="Forrest County" <?php echo $searchCounty == 'Forrest County' ? 'selected' : ''; ?>>Forrest County</option>
+                                    <option value="Hinds County" <?php echo $searchCounty == 'Hinds County' ? 'selected' : ''; ?>>Hinds County</option>
                                 <?php endif; ?>
                             </select>
                         </div>
@@ -66,85 +59,77 @@ $totalResults = $this->pagination()->getPaginator()->getTotalCount();
         </form>
     </div>
     
-    <div class="search-results-body">
-        <div class="search-content">
-            <?php if ($items): ?>
-                <div class="results-header">
-                    <h3><?php echo $totalResults; ?> <?php echo $escape($translate('Results')); ?></h3>
+    <!-- Search Results -->
+    <?php if (isset($items) && count($items) > 0): ?>
+    <div class="search-results-content">
+        <div class="results-header">
+            <h3><?php echo $totalResults; ?> <?php echo $escape($translate('Results')); ?></h3>
+            
+            <form method="get" class="sort-form">
+                <div class="sort-controls">
+                    <select name="sort_by" class="sort-by">
+                        <option value="created" <?php echo isset($query['sort_by']) && $query['sort_by'] == 'created' ? 'selected' : ''; ?>>Date</option>
+                        <option value="title" <?php echo isset($query['sort_by']) && $query['sort_by'] == 'title' ? 'selected' : ''; ?>>Title</option>
+                    </select>
                     
-                    <div class="sort-controls">
-                        <select name="sort_by" class="sort-by">
-                            <option value="created" <?php echo isset($query['sort_by']) && $query['sort_by'] == 'created' ? 'selected' : ''; ?>>Created</option>
-                            <option value="title" <?php echo isset($query['sort_by']) && $query['sort_by'] == 'title' ? 'selected' : ''; ?>>Title</option>
-                            <option value="date" <?php echo isset($query['sort_by']) && $query['sort_by'] == 'date' ? 'selected' : ''; ?>>Date</option>
-                        </select>
-                        
-                        <select name="sort_order" class="sort-direction">
-                            <option value="asc" <?php echo isset($query['sort_order']) && $query['sort_order'] == 'asc' ? 'selected' : ''; ?>>Ascending</option>
-                            <option value="desc" <?php echo isset($query['sort_order']) && $query['sort_order'] == 'desc' ? 'selected' : ''; ?>>Descending</option>
-                        </select>
-                        
-                        <button type="submit" class="sort-button" name="sort" value="1"><?php echo $escape($translate('Sort')); ?></button>
-                    </div>
+                    <select name="sort_order" class="sort-order">
+                        <option value="asc" <?php echo isset($query['sort_order']) && $query['sort_order'] == 'asc' ? 'selected' : ''; ?>>Ascending</option>
+                        <option value="desc" <?php echo isset($query['sort_order']) && $query['sort_order'] == 'desc' ? 'selected' : ''; ?>>Descending</option>
+                    </select>
+                    
+                    <button type="submit" class="sort-button"><?php echo $escape($translate('Sort')); ?></button>
                 </div>
-                
-                <div class="results-list">
-                    <?php foreach ($items as $item): ?>
-                    <div class="result-item">
-                        <div class="result-content">
-                            <h4 class="result-title">
-                                <a href="<?php echo $escape($item->url()); ?>"><?php echo $escape($item->displayTitle()); ?></a>
-                            </h4>
-                            <?php if ($description = $item->displayDescription()): ?>
-                            <div class="result-description">
-                                <?php echo $description; ?>
-                            </div>
-                            <?php endif; ?>
-                        </div>
-                        <?php if ($primaryMedia = $item->primaryMedia()): ?>
-                        <div class="result-thumbnail">
-                            <a href="<?php echo $escape($item->url()); ?>">
-                                <img src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>" 
-                                     alt="<?php echo $escape($primaryMedia->displayTitle()); ?>">
-                            </a>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                    <?php endforeach; ?>
-                </div>
-                
-                <?php echo $this->pagination(); ?>
-                
-            <?php else: ?>
-                <div class="no-results">
-                    <p><?php echo $escape($translate('No results found.')); ?></p>
-                </div>
-            <?php endif; ?>
+            </form>
         </div>
+        
+        <div class="result-items">
+            <?php foreach ($items as $item): ?>
+            <div class="result-item">
+                <?php if ($primaryMedia = $item->primaryMedia()): ?>
+                <div class="result-thumbnail">
+                    <a href="<?php echo $escape($item->url()); ?>">
+                        <img src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>" 
+                             alt="<?php echo $escape($primaryMedia->displayTitle()); ?>">
+                    </a>
+                </div>
+                <?php endif; ?>
+                
+                <div class="result-content">
+                    <h4 class="result-title">
+                        <a href="<?php echo $escape($item->url()); ?>"><?php echo $escape($item->displayTitle()); ?></a>
+                    </h4>
+                    <?php if ($description = $item->displayDescription()): ?>
+                    <div class="result-description">
+                        <?php echo $description; ?>
+                    </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <?php echo $this->pagination(); ?>
     </div>
+    <?php else: ?>
+    <div class="no-results">
+        <p><?php echo $escape($translate('No results found.')); ?></p>
+    </div>
+    <?php endif; ?>
 </div>
 
 <script>
-// JavaScript to dynamically populate counties based on selected state
 document.addEventListener('DOMContentLoaded', function() {
     const stateSelect = document.getElementById('state');
     const countySelect = document.getElementById('county');
     
     if (stateSelect && countySelect) {
-        // This would be replaced with actual data or an API call in a real implementation
+        // Counties data organized by state
         const countiesByState = {
-            'Alabama': ['Autauga', 'Baldwin', 'Barbour', 'Bibb', 'Blount', 'Bullock', 'Butler', 'Calhoun'],
-            'Arkansas': ['Arkansas', 'Ashley', 'Baxter', 'Benton', 'Boone', 'Bradley', 'Calhoun'],
-            'Florida': ['Alachua', 'Baker', 'Bay', 'Bradford', 'Brevard', 'Broward', 'Calhoun'],
-            'Georgia': ['Appling', 'Atkinson', 'Bacon', 'Baker', 'Baldwin', 'Banks', 'Barrow', 'Bartow'],
-            'Kentucky': ['Adair', 'Allen', 'Anderson', 'Ballard', 'Barren', 'Bath', 'Bell'],
-            'Louisiana': ['Acadia', 'Allen', 'Ascension', 'Assumption', 'Avoyelles', 'Beauregard'],
-            'Mississippi': ['Adams', 'Alcorn', 'Amite', 'Attala', 'Benton', 'Bolivar', 'Calhoun', 'Carroll', 'Forrest'],
-            'North Carolina': ['Alamance', 'Alexander', 'Alleghany', 'Anson', 'Ashe', 'Avery', 'Beaufort', 'Bertie', 'Harnett', 'Pitt'],
-            'South Carolina': ['Abbeville', 'Aiken', 'Allendale', 'Anderson', 'Bamberg', 'Barnwell'],
-            'Tennessee': ['Anderson', 'Bedford', 'Benton', 'Bledsoe', 'Blount', 'Bradley', 'Campbell'],
-            'Texas': ['Anderson', 'Andrews', 'Angelina', 'Aransas', 'Archer', 'Armstrong', 'Atascosa'],
-            'Virginia': ['Accomack', 'Albemarle', 'Alleghany', 'Amelia', 'Amherst', 'Appomattox']
+            'Mississippi': ['Forrest County', 'Hinds County', 'Jackson County', 'Harrison County', 'Rankin County'],
+            'Alabama': ['Jefferson County', 'Mobile County', 'Madison County', 'Montgomery County'],
+            'Georgia': ['Fulton County', 'DeKalb County', 'Cobb County', 'Gwinnett County'],
+            'North Carolina': ['Wake County', 'Mecklenburg County', 'Durham County', 'Pitt County', 'Harnett County'],
+            'South Carolina': ['Charleston County', 'Richland County', 'Greenville County']
         };
         
         // Function to update counties based on selected state
