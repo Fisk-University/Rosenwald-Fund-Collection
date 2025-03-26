@@ -11,6 +11,7 @@ $this->headTitle()->append($this->setting('installation_title', 'Omeka S'));
 $this->headLink()->prependStylesheet($this->assetUrl('css/style.css'));
 $this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka'));
 $this->headLink()->prependStylesheet('https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&display=swap');
+$this->headLink()->appendStylesheet($this->assetUrl('css/background.css'));
 
 // Script loading
 $this->headScript()->prependFile($this->assetUrl('js/theme.js'));
