@@ -84,6 +84,7 @@ header {
   padding: 1.5rem 0;
   background-color: var(--background-color);
   border-bottom: 1px solid var(--border-line);
+  background-image: url(../asset/img/background.jpg);
 }
 
 .site-header {
@@ -289,4 +290,84 @@ img, video, audio, iframe {
   min-width: 0;
   max-width: 100%;
   overflow-x: hidden;
+}
+
+/* Dropdown navigation styling */
+.main-nav .navigation .has-children {
+  position: relative;
+}
+
+/* Caret indicator for dropdown items */
+.main-nav .navigation .has-children > a:after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+/* Dropdown menu styling */
+.main-nav .navigation .has-children > ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  min-width: 200px;
+  background-color: var(--background-color);
+  border: 1px solid var(--light-color);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  padding: 5px 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Show dropdown on hover */
+.main-nav .navigation .has-children:hover > ul {
+  display: block;
+}
+
+/* Style for dropdown menu items */
+.main-nav .navigation .has-children > ul > li {
+  display: block;
+  width: 100%;
+}
+
+.main-nav .navigation .has-children > ul > li > a {
+  display: block;
+  padding: 8px 15px;
+  clear: both;
+  white-space: nowrap;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.main-nav .navigation .has-children > ul > li > a:hover,
+.main-nav .navigation .has-children > ul > li > a:focus {
+  background-color: var(--light-color);
+  text-decoration: none;
+}
+
+/* For mobile devices, adjust dropdown behavior */
+@media screen and (max-width: 768px) {
+  .main-nav .navigation .has-children > ul {
+      position: static;
+      display: block;
+      box-shadow: none;
+      border: none;
+      padding-left: 20px;
+      width: 100%;
+  }
+  
+  .main-nav .navigation .has-children > a:after {
+      transform: rotate(90deg);
+  }
+  
+  .main-nav .navigation .has-children:hover > a:after {
+      transform: rotate(0);
+  }
 }
