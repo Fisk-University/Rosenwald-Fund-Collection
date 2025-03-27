@@ -82,7 +82,7 @@ input[type="submit"]:hover, input[type="button"]:hover {
 
 header {
   padding: 1.5rem 0;
-  background-color: var(--background-color);
+  /* background-color: var(--background-color); */
   border-bottom: 1px solid var(--border-line);
   background-image: url(../asset/img/background.jpg);
 }
