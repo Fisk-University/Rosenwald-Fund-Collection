@@ -12,7 +12,7 @@ $this->headLink()->appendStylesheet($this->assetUrl('css/background.css'));
 $this->headLink()->prependStylesheet($this->assetUrl('css/style.css'));
 $this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka'));
 $this->headLink()->prependStylesheet('https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&display=swap');
-
+$this->headLink()->appendStylesheet($this->assetUrl('css/search-form.css'));
 
 // Script loading
 $this->headScript()->prependFile($this->assetUrl('js/navigation.js'));
@@ -45,127 +45,128 @@ $userBar = $this->userBar();
 
 <?php echo $this->doctype(); ?>
 <?php echo $this->htmlElement('html'); ?>
-<head>
-    <?php echo $this->headMeta(); ?>
-    <?php echo $this->headTitle(); ?>
-    <?php echo $this->headLink(); ?>
-    <?php echo $this->headScript(); ?>
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->headScript(); ?>
 
-    <style>
-        :root {
-            --background-color: <?php echo $backgroundColor; ?>;
-            --primary-color: <?php echo $primaryColor; ?>;
-            --accent-color: <?php echo $accentColor; ?>;
-            --text-color: <?php echo $textColor; ?>;
-            --secondary-color: #b2856f;
-            --light-color: #e2d3c9;
-        }
-
-        <?php if ($accentColor): ?>
-        a:link,
-        a:visited {
-            color: <?php echo $accentColor; ?>;
-        }
-
-        a:active,
-        a:hover {
-            color: <?php echo $accentColor; ?>;
-            opacity: .75;
-        }
-        <?php endif; ?>
-
-        <?php if ($bannerPosition): ?>
-        .banner {
-            height: <?php echo ($bannerHeight !== '') ? $bannerHeight : 'auto'; ?>;
-            align-items: <?php echo $bannerPosition; ?>;
-            display: flex;
-            justify-content: center;
-        }
-        <?php if ($bannerHeightMobile !== ''): ?>
-        @media screen and (max-width:640px) {
-            .banner {
-                height: <?php echo $bannerHeightMobile; ?>;
+        <style>
+            :root {
+                --background-color: <?php echo $backgroundColor; ?>;
+                --primary-color: <?php echo $primaryColor; ?>;
+                --accent-color: <?php echo $accentColor; ?>;
+                --text-color: <?php echo $textColor; ?>;
+                --secondary-color: #b2856f;
+                --light-color: #e2d3c9;
             }
-        }
-        <?php endif; ?>
-        <?php endif; ?>
-    </style>
 
-    <?php echo $this->headStyle(); ?>
-</head>
+            <?php if ($accentColor): ?>
+            a:link,
+            a:visited {
+                color: <?php echo $accentColor; ?>;
+            }
 
-<?php echo $this->htmlElement('body'); ?>
-    <?php echo $userBar; ?>
-
-    <header>
-        <div class="container site-header">
-            <!-- Branding (Logo + Title) -->
-            <div class="branding">
-                <?php if ($showLogo): ?>
-                    <div class="site-logo">
-                        <a href="<?php echo $site->url(); ?>">
-                            <img src="<?php echo $this->escapeHtml($logo); ?>" alt="<?php echo $escape($siteTitle); ?> logo" />
-                        </a>
-                    </div>
-                <?php endif; ?>
-
-                <?php if ($showTitle): ?>
-                    <div class="site-title">
-                        <a href="<?php echo $site->url(); ?>">
-                            <?php echo $escape($siteTitle); ?>
-                        </a>
-                    </div>
-                <?php endif; ?>
-            </div>
-
-            <!-- Navigation -->
-            <nav class="main-nav">
-                <?php
-                echo $site->publicNav()->menu()->renderMenu(null, [
-                    'maxDepth' => $this->themeSetting('nav_depth', 0)
-                ]);
-                ?>
-            </nav>
-
-            <!-- Search Box -->
-            <div class="header-search">
-            <form id="search-form" action="<?php echo $site->url(); ?>" method="get">
-                <input type="text" name="fulltext_search" id="search" placeholder="Enter Search" aria-label="Search">
-                <button type="submit" class="search-submit">
-                <span class="search-icon"></span>
-                </button>
-            </form>
-            </div>
-        </div>
-    </header>
-
-    <?php if ($banner): ?>
-        <div class="banner">
-            <img src="<?php echo $banner; ?>" alt="<?php echo $escape($siteTitle); ?> banner">
-        </div>
-    <?php endif; ?>
-
-    <div id="content" role="main">
-        <div class="container">
-            <?php echo $this->content; ?>
-        </div>
-    </div>
-
-    <footer>
-        <div class="container">
-            <?php if ($footerContent = $this->themeSetting('footer')): ?>
-                <?php echo $footerContent; ?>
-            <?php else: ?>
-                <div class="footer-content">
-                    <p>&copy; <?php echo date('Y'); ?> <?php echo $escape($siteTitle); ?></p>
-                    <p>
-                        <a href="<?php echo $this->url('site/page', ['site-slug' => $site->slug(), 'page-slug' => 'about']); ?>">About</a>
-                        <a href="<?php echo $this->url('site/page', ['site-slug' => $site->slug(), 'page-slug' => 'browse']); ?>">Browse</a>
-                        <a href="<?php echo $site->url(); ?>">Home</a>
-                    </p>
-                </div>
+            a:active,
+            a:hover {
+                color: <?php echo $accentColor; ?>;
+                opacity: .75;
+            }
             <?php endif; ?>
+
+            <?php if ($bannerPosition): ?>
+            .banner {
+                height: <?php echo ($bannerHeight !== '') ? $bannerHeight : 'auto'; ?>;
+                align-items: <?php echo $bannerPosition; ?>;
+                display: flex;
+                justify-content: center;
+            }
+            <?php if ($bannerHeightMobile !== ''): ?>
+            @media screen and (max-width:640px) {
+                .banner {
+                    height: <?php echo $bannerHeightMobile; ?>;
+                }
+            }
+            <?php endif; ?>
+            <?php endif; ?>
+        </style>
+
+        <?php echo $this->headStyle(); ?>
+    </head>
+
+    <?php echo $this->htmlElement('body'); ?>
+        <?php echo $userBar; ?>
+
+        <header>
+            <div class="container site-header">
+                <!-- Branding (Logo + Title) -->
+                <div class="branding">
+                    <?php if ($showLogo): ?>
+                        <div class="site-logo">
+                            <a href="<?php echo $site->url(); ?>">
+                                <img src="<?php echo $this->escapeHtml($logo); ?>" alt="<?php echo $escape($siteTitle); ?> logo" />
+                            </a>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($showTitle): ?>
+                        <div class="site-title">
+                            <a href="<?php echo $site->url(); ?>">
+                                <?php echo $escape($siteTitle); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="main-nav">
+                    <?php
+                    echo $site->publicNav()->menu()->renderMenu(null, [
+                        'maxDepth' => $this->themeSetting('nav_depth', 0)
+                    ]);
+                    ?>
+                </nav>
+
+                <!-- Search Box -->
+                <div class="header-search">
+                <form id="search-form" action="<?php echo $site->url(); ?>" method="get">
+                    <input type="text" name="fulltext_search" id="search" placeholder="Enter Search" aria-label="Search">
+                    <button type="submit" class="search-submit">
+                    <span class="search-icon"></span>
+                    </button>
+                </form>
+                </div>
+            </div>
+        </header>
+
+        <?php if ($banner): ?>
+            <div class="banner">
+                <img src="<?php echo $banner; ?>" alt="<?php echo $escape($siteTitle); ?> banner">
+            </div>
+        <?php endif; ?>
+
+        <div id="content" role="main">
+            <div class="container">
+                <?php echo $this->content; ?>
+            </div>
         </div>
-    </footer>
-</body>
+
+        <footer>
+            <div class="container">
+                <?php if ($footerContent = $this->themeSetting('footer')): ?>
+                    <?php echo $footerContent; ?>
+                <?php else: ?>
+                    <div class="footer-content">
+                        <p>&copy; <?php echo date('Y'); ?> <?php echo $escape($siteTitle); ?></p>
+                        <p>
+                            <a href="<?php echo $this->url('site/page', ['site-slug' => $site->slug(), 'page-slug' => 'about']); ?>">About</a>
+                            <a href="<?php echo $this->url('site/page', ['site-slug' => $site->slug(), 'page-slug' => 'browse']); ?>">Browse</a>
+                            <a href="<?php echo $site->url(); ?>">Home</a>
+                        </p>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </footer>
+        <?php $this->headScript()->appendFile($this->assetUrl('js/search-form.js')); ?>
+    </body>
 </html>
