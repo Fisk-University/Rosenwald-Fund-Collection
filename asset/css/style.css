@@ -29,7 +29,7 @@ body {
   background-color: var(--background-color);
   margin: 0;
   padding: 0;
-  background-image: url('../img/background.jpg');
+  background-image: url('../asset/img/background.jpg');
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -84,6 +84,7 @@ header {
   padding: 1.5rem 0;
   /* background-color: var(--background-color); */
   border-bottom: 1px solid var(--border-line);
+  background-image: url(../asset/img/background.jpg);
 }
 
 .site-header {
@@ -150,6 +151,7 @@ header {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
+  padding-top: 1em;
 }
 
 #search-form {
@@ -174,7 +176,7 @@ header {
 
 #search-form .search-submit {
   position: absolute;
-  right: 0.7rem;
+  right: 0.3rem;
   background: none;
   border: none;
   padding: 0;
@@ -183,7 +185,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  top: -.05rem;
 }
 
 #search-form .search-icon::before {
