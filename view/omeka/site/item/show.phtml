@@ -5,6 +5,7 @@ $this->htmlElement('body')->appendAttribute('class', 'item resource show');
 ?>
 
 <div class="resource-page">
+    <!-- single item page -->
     <h1 class="resource-title"><?php echo $escape($item->displayTitle()); ?></h1>
     
     <?php if ($item->media()): ?>
@@ -14,6 +15,7 @@ $this->htmlElement('body')->appendAttribute('class', 'item resource show');
     <?php endif; ?>
     
     <div class="resource-metadata">
+        <!-- second metadata listing -->
         <?php if ($item->displayDescription()): ?>
         <div class="resource-description">
             <?php echo $escape($item->displayDescription()); ?>
@@ -23,10 +25,11 @@ $this->htmlElement('body')->appendAttribute('class', 'item resource show');
         <div class="resource-details">
             <?php echo $item->displayValues(); ?>
         </div>
-        
+        <!-- end second metadata listing -->
+
         <?php if ($item->itemSets()): ?>
         <div class="resource-sets">
-            <h3><?php echo $this->translate('Part of collections'); ?></h3>
+            <h3><?php echo $this->translate('View Collection'); ?></h3>
             <ul>
                 <?php foreach ($item->itemSets() as $itemSet): ?>
                 <li><?php echo $itemSet->link($itemSet->displayTitle()); ?></li>

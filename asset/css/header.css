@@ -1,0 +1,106 @@
+/* === Rosenwald Fund Collection - Header Styles === */
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 1rem 5em;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 1rem;
+  }
+  
+  .branding {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 1;
+  }
+  
+  .site-logo img {
+    max-height: 60px;
+    width: auto;
+    height: auto;
+  }
+  
+  .site-title {
+    font-size: 1.75rem;
+    margin: 0;
+  }
+  
+  .site-title a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  
+  .header-search {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    /* padding-top: 1em; */
+  }
+  
+  #search-form {
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 300px;
+    flex-wrap: wrap;
+  }
+  
+  #search-form input[type="text"] {
+    padding: 0.6rem 1rem;
+    padding-right: 3rem;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid var(--input-stroke);
+    background-color: var(--search-background);
+    color: var(--body-text);
+    width: 200px;
+    height: 2.5rem;
+  }
+  
+  #search-form .search-submit {
+    position: absolute;
+    right: 0.9rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #search-form .search-icon::before {
+    content: "🔍";
+    font-size: 1.2rem;
+    pointer-events: none;
+    transition: color 0.2s ease;
+    color: var(--input-stroke);
+  }
+  
+  #search-form .search-submit:hover .search-icon::before {
+    color: var(--primary-color);
+  }
+  
+  /* Responsive Adjustments */
+  @media screen and (max-width: 768px) {
+    .site-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .header-search {
+      width: 100%;
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+    }
+    #search-form input[type="text"] {
+      width: 100%;
+    }
+  }
