@@ -1,25 +1,21 @@
 <?php
+$translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
-$this->htmlElement('body')->appendAttribute('class', 'item resource browse');
-
-$sortHeadings = [
-    [
-        'label' => $this->translate('Title'),
-        'value' => 'dcterms:title'
-    ],
-    [
-        'label' => $this->translate('Date'),
-        'value' => 'dcterms:date'
-    ],
-];
 ?>
-<!-- search results page -->
-<div class="browse-controls">
-    <?php echo $this->pagination(); ?>
-    <?php echo $this->browse()->renderSortSelector('items'); ?>
-</div>
 
-<h1><?php echo $this->translate('Browse Rosenwald Fund Collection'); ?></h1>
+<h1><?php echo $escape($translate('Browse Items')); ?></h1>
+
+<?php
+// 👇 Dual property search form for non-admin templates
+echo $this->dualPropertySearchForm([
+    'propertyOne' => 'rsf2:state',
+    'propertyTwo' => 'rsf2:county',
+    'joinType' => 'and',
+]);
+?>
+
+<?php echo $this->pagination(); ?>
+
 
 <?php if ($items): ?>
 <div class="resources item-grid">
@@ -49,23 +45,15 @@ $sortHeadings = [
             </div>
             <?php endif; ?>
             
-            <?php
-            $dcCreator = $item->value('dcterms:creator');
-            if ($dcCreator): ?>
-            <div class="creator">
-                <span class="label"><?php echo $this->translate('Creator:'); ?></span>
-                <?php echo $escape($dcCreator); ?>
-            </div>
-            <?php endif; ?>
         </div>
     </div>
     <?php endforeach; ?>
 </div>
-
-<?php echo $this->pagination(); ?>
 
 <?php else: ?>
 <div class="no-resources">
     <p><?php echo $this->translate('No items found.'); ?></p>
 </div>
 <?php endif; ?>
+
+<?php echo $this->pagination(); ?>
