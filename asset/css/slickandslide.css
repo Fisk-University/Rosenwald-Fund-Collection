@@ -1,0 +1,194 @@
+/**
+ * Styles for the Slick carousel and media display
+ */
+ .slicked-items {
+    margin-bottom: 2rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 4px;
+    padding: 1rem;
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.slick-slider {
+    padding: 0 2rem;
+}
+
+.slick-slide-item {
+    display: flex !important;
+    flex-flow: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 10px;
+    outline: none;
+}
+
+.slick-slide-item:focus {
+    outline: 1px dotted;
+}
+
+.slick-slide-item img {
+    display: flex;
+    max-width: 100%;
+    max-height: 600px;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.slide-caption, 
+.image-caption {
+    font-style: italic;
+    color: var(--text-color);
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+    max-width: 100%;
+    padding: 10px;
+}
+
+/* Slick navigation and structure */
+.slick-track {
+    display: flex;
+}
+
+.slick-track .slick-slide {
+    display: flex;
+    height: auto;
+    justify-content: center;
+    word-wrap: break-word;
+}
+
+.slick-initialized .slick-slide {
+    display: flex;
+}
+
+.slick-vertical .slick-slide {
+    display: flex;
+}
+
+/* Styling for slick navigation arrows */
+.slick-prev,
+.slick-next {
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+}
+
+.slick-prev {
+    left: .5rem;
+}
+
+.slick-next {
+    right: .5rem;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-size: 30px;
+    color: var(--accent-color, #a56336);
+    opacity: 0.75;
+}
+
+.slick-next .slick-next-icon:before,
+.slick-next .slick-prev-icon:before,
+.slick-prev .slick-next-icon:before,
+.slick-prev .slick-prev-icon:before {
+    color: black;
+}
+
+.slick-prev:hover:before,
+.slick-next:hover:before {
+    color: var(--primary-color, #6d4534);
+    opacity: 1;
+}
+
+/* Dots navigation */
+.slick-dots {
+    bottom: -30px;
+    left: 0;
+    right: 0;
+}
+
+.slick-dots li button:before {
+    font-size: 12px;
+    color: var(--accent-color, #a56336);
+    opacity: 0.5;
+}
+
+.slick-dots li.slick-active button:before {
+    color: var(--primary-color, #6d4534);
+    opacity: 1;
+}
+
+/* PDF Styling */
+.pdf-items {
+    margin-top: 2rem;
+}
+
+.pdf-embed {
+    margin-bottom: 2rem;
+}
+
+.pdf-embed h4 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.pdf-viewer {
+    border: 1px solid var(--light-color);
+    border-radius: 4px;
+}
+
+/* Media display for non-images and non-PDFs */
+.other-media {
+    margin-top: 2rem;
+}
+
+.media-item {
+    margin-bottom: 1.5rem;
+}
+
+/* Single image display */
+.single-image {
+    text-align: center;
+}
+
+.single-image img {
+    max-width: 100%;
+    max-height: 600px;
+    margin: 0 auto;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .slick-slide-item img,
+    .single-image img {
+        max-height: 400px;
+    }
+    
+    .pdf-viewer {
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .slick-slide-item img,
+    .single-image img {
+        max-height: 300px;
+    }
+    
+    .pdf-viewer {
+        height: 400px;
+    }
+    
+    .slick-prev,
+    .slick-next {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .slick-prev:before,
+    .slick-next:before {
+        font-size: 24px;
+    }
+}
