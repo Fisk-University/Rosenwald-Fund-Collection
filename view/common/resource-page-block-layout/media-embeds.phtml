@@ -1,0 +1,94 @@
+<?php
+/**
+ * Media Embeds Block Layout for Resource Pages
+ * Uses Accessible Slick for creating a slider of images
+ */
+
+$resourceMedia = $resource->media();
+
+// Load slider assets
+$this->headLink()->prependStylesheet('//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css');
+$this->headLink()->prependStylesheet('//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css');
+$this->headScript()->appendFile('//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js');
+$this->headLink()->appendStylesheet($this->assetUrl('css/slickandslide.css'));
+$this->headScript()->appendFile($this->assetUrl('js/slickandslide.js'));
+
+// Sort media by type
+$imgForCarousel = [];
+$pdfsForDisplay = [];
+$allOthers = [];
+
+if (isset($resourceMedia) && count($resourceMedia) > 0) {
+    foreach ($resourceMedia as $media) {
+        if (null !== $media->extension()) {
+            if (preg_match('/(?:jpg|jpeg|png|gif)/', $media->extension(), $matches) === 1) {
+                $imgForCarousel[] = $media;
+            } elseif (preg_match('/(?:pdf)/', $media->extension(), $matches) === 1) {
+                $pdfsForDisplay[] = $media;
+            } else {
+                $allOthers[] = $media;
+            }
+        } else {
+            // For media without extensions, check the MIME type
+            $mediaType = $media->mediaType();
+            if ($mediaType && strpos($mediaType, 'image/') === 0) {
+                $imgForCarousel[] = $media;
+            } elseif ($mediaType && $mediaType === 'application/pdf') {
+                $pdfsForDisplay[] = $media;
+            } else {
+                $allOthers[] = $media;
+            }
+        }
+    }
+}
+?>
+
+<?php if (count($imgForCarousel) > 0): ?>
+<div class="media-embeds carousel-block">
+    <?php if (count($imgForCarousel) > 1): ?>
+    <div class="slicked-items">
+        <?php foreach ($imgForCarousel as $media): ?>
+            <div class="slick-slide">
+                <?php echo $media->render(); ?>
+                <?php if ($media->displayTitle()): ?>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php else: ?>
+    <div class="single-image">
+        <?php echo $imgForCarousel[0]->render(); ?>
+        <?php if ($imgForCarousel[0]->displayTitle()): ?>
+        <div class="image-caption"><?php echo $this->escapeHtml($imgForCarousel[0]->displayTitle()); ?></div>
+        <?php endif; ?>
+    </div>
+    <?php endif; ?>
+</div>
+<?php endif; ?>
+
+<?php if (count($pdfsForDisplay) > 0): ?>
+<div class="pdf-items">
+    <?php foreach ($pdfsForDisplay as $media): ?>
+        <div class="pdf-embed">
+            <object class="pdf-viewer" 
+                data="<?php echo $media->originalUrl(); ?>"
+                type="application/pdf"
+                width="100%"
+                height="800">
+                <p>Your browser does not support embedded PDFs. 
+                <a href="<?php echo $media->originalUrl(); ?>" target="_blank">Click here to download the PDF</a>.</p>
+            </object>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+<?php if (count($allOthers) > 0): ?>
+<div class="other-media">
+    <?php foreach ($allOthers as $media): ?>
+        <div class="media-item">
+            <?php echo $media->render(); ?>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif; ?>
