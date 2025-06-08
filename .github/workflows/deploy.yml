@@ -1,0 +1,68 @@
+name: Deploy Rosenwald Theme via Git Tag
+
+on:
+  push:
+    tags:
+      - 'v*.*.*-*'  # e.g., v1.0.0-dev, v1.2.3-prod
+
+jobs:
+  parse-env:
+    runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.setenv.outputs.env }}
+      tag_name: ${{ github.ref_name }}
+    steps:
+      - name: Parse environment from tag
+        id: setenv
+        run: |
+          TAG="${{ github.ref_name }}"
+          ENV=$(echo "$TAG" | grep -oE '(dev|test|stage|prod)$')
+          if [ -z "$ENV" ]; then
+            echo "Tag must end in -dev, -test, -stage, or -prod"
+            exit 1
+          fi
+          echo "env=$ENV" >> $GITHUB_OUTPUT
+          echo "tag_name=$TAG" >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: parse-env
+    runs-on: self-hosted
+    environment: ${{ needs.parse-env.outputs.env_name }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Package theme artifact
+        run: |
+          THEME_NAME="Rosenwald-Fund-Collection"
+          TAG="${{ needs.parse-env.outputs.tag_name }}"
+          ZIP_NAME="${THEME_NAME}_${TAG}.zip"
+
+          zip -r "$ZIP_NAME" . -x ".git/*"
+
+          # Export for use in later steps
+          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+          echo "TAG=$TAG" >> $GITHUB_ENV
+
+      - name: Upload artifact to S3
+        run: |
+          aws s3 cp "$ZIP_NAME" "s3://${{ secrets.S3_BUCKET_NAME }}/${{ needs.parse-env.outputs.env_name }}/artifacts/themes/$ZIP_NAME"
+
+      - name: Trigger deploy via SSM
+        run: |
+          ENV="${{ needs.parse-env.outputs.env_name }}"
+          INSTANCE_ID="${{ secrets.INSTANCE_ID }}"
+          S3_BUCKET="${{ secrets.S3_BUCKET_NAME }}"
+
+          aws ssm send-command \
+            --document-name "AWS-RunShellScript" \
+            --instance-ids "$INSTANCE_ID" \
+            --comment "Deploy Theme: Rosenwald-Fund-Collection $TAG" \
+            --parameters "commands=[
+              \"aws s3 cp s3://$S3_BUCKET/$ENV/artifacts/themes/$ZIP_NAME /tmp/theme-artifact.zip\",
+              \"unzip -o /tmp/theme-artifact.zip -d /tmp/deployed-theme\",
+              \"chmod +x /tmp/deployed-theme/.github/workflows/deploy.sh\",
+              \"/tmp/deployed-theme/.github/workflows/deploy.sh $ENV $TAG\"
+            ]" \
+            --region us-east-1
