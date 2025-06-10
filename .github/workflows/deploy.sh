@@ -4,50 +4,56 @@ set -e
 ENV=$1
 TAG=$2
 
-# Hardcoded values
 THEME_NAME="Rosenwald-Fund-Collection"
+DATE=$(date +"%Y%m%d_%H%M%S")
 S3_BUCKET="rw.rosenwald-ci-cd-logs-backups"
 
-DATE=$(date +"%Y%m%d_%H%M%S")
-LOG_DIR="/tmp/theme-logs"
-BACKUP_DIR="/tmp/theme-backups/omeka-themes-${ENV}-${DATE}"
-ARTIFACT_PATH="/var/www/html/omeka-s/themes/$THEME_NAME"
+LOG_DIR="$HOME/deploy-logs"
+BACKUP_DIR="$HOME/backups/omeka-themes-${DATE}"
+DEST_PATH="/var/www/html/omeka-s/themes/$THEME_NAME"
+SRC_PATH="/tmp/deployed-theme"
 
 mkdir -p "$LOG_DIR" "$BACKUP_DIR"
-LOG_FILE="${LOG_DIR}/${THEME_NAME}_${TAG}.log"
+LOG_FILE="$LOG_DIR/theme_deploy_${THEME_NAME}_${TAG}.log"
 
-echo "[INFO] Starting theme deployment: $THEME_NAME ($TAG) → $ENV" | tee "$LOG_FILE"
-echo "[INFO] Backing up $ARTIFACT_PATH to $BACKUP_DIR" | tee -a "$LOG_FILE"
+echo "[INFO] Deploying theme: $THEME_NAME - $TAG" | tee "$LOG_FILE"
 
-# Backup current theme
-cp -r "$ARTIFACT_PATH" "$BACKUP_DIR/${THEME_NAME}_preupdate" 2>/dev/null || {
-  echo "[WARN] No existing theme to back up." | tee -a "$LOG_FILE"
-}
+# Backup existing theme
+if [ -d "$DEST_PATH" ]; then
+  echo "[INFO] Backing up existing theme..." | tee -a "$LOG_FILE"
+  cp -r "$DEST_PATH" "$BACKUP_DIR/${THEME_NAME}_preupdate"
+fi
 
-# Deploy
-DEPLOY_SRC="/tmp/deployed-theme"
-if [ -d "$DEPLOY_SRC" ]; then
-  rsync -av "$DEPLOY_SRC/" "$ARTIFACT_PATH/" >> "$LOG_FILE" || {
-    echo "[ERROR] Deployment failed. Rsync error." | tee -a "$LOG_FILE"
-    exit 1
-  }
-else
-  echo "[ERROR] Source folder $DEPLOY_SRC does not exist." | tee -a "$LOG_FILE"
+# Deploy new theme files
+mkdir -p "$DEST_PATH"
+rsync -av "$SRC_PATH/" "$DEST_PATH/" >> "$LOG_FILE"
+
+# Post Deployment Validations
+echo "[STEP] Validating theme structure..." | tee -a "$LOG_FILE"
+
+[ ! -f "$DEST_PATH/config/theme.ini" ] && echo "[ERROR] theme.ini missing" | tee -a "$LOG_FILE" && FAIL=1
+[ ! -d "$DEST_PATH/view" ] && echo "[ERROR] view/ missing" | tee -a "$LOG_FILE" && FAIL=1
+find "$DEST_PATH/view" -name "*.phtml" | grep . || { echo "[ERROR] No .phtml templates found" | tee -a "$LOG_FILE"; FAIL=1; }
+[ ! -f "$DEST_PATH/asset/css/style.css" ] && echo "[WARN] style.css missing" | tee -a "$LOG_FILE"
+
+echo "[STEP] Scanning Apache logs for errors..." | tee -a "$LOG_FILE"
+tail -n 200 /var/log/apache2/error.log | grep -i "fatal" >> "$LOG_FILE" || echo "[INFO] No fatal errors in logs" | tee -a "$LOG_FILE"
+
+# Rollback if failed
+if [ "$FAIL" == "1" ]; then
+  echo "[ROLLBACK] Deployment failed due to validation errors." | tee -a "$LOG_FILE"
+  echo "[ROLLBACK] Restoring previous theme from backup..." | tee -a "$LOG_FILE"
+  rm -rf "$DEST_PATH"
+  cp -r "$BACKUP_DIR/${THEME_NAME}_preupdate" "$DEST_PATH"
+  aws s3 cp "$LOG_FILE" "s3://${S3_BUCKET}/${ENV}/logs/${THEME_NAME}_${TAG}_FAILED.log"
+  aws s3 cp --recursive "$BACKUP_DIR/" "s3://${S3_BUCKET}/${ENV}/backups/themes/${THEME_NAME}_${TAG}/"
+  echo "[INFO] Check logs in S3: s3://${S3_BUCKET}/${ENV}/logs/${THEME_NAME}_${TAG}_FAILED.log" | tee -a "$LOG_FILE"
   exit 1
 fi
 
-# Cleanup temp
-echo "[INFO] Cleaning up..." | tee -a "$LOG_FILE"
-rm -rf /tmp/theme-artifact.zip "$DEPLOY_SRC"
+# Cleanup + Uploads
+rm -rf /tmp/theme-artifact.zip /tmp/deployed-theme
+aws s3 cp "$LOG_FILE" "s3://${S3_BUCKET}/${ENV}/logs/${THEME_NAME}_deploy_${TAG}.log"
+aws s3 cp --recursive "$BACKUP_DIR/" "s3://${S3_BUCKET}/${ENV}/backups/themes/${THEME_NAME}_${TAG}/"
 
-# Upload to S3
-echo "[INFO] Uploading to S3: logs + backup" | tee -a "$LOG_FILE"
-aws s3 cp --recursive "$BACKUP_DIR/${THEME_NAME}_preupdate/" \
-  "s3://${S3_BUCKET}/${ENV}/backups/themes/${THEME_NAME}_${TAG}/" || \
-  echo "[WARN] Backup upload to S3 failed" | tee -a "$LOG_FILE"
-
-aws s3 cp "$LOG_FILE" \
-  "s3://${S3_BUCKET}/${ENV}/logs/themes/${THEME_NAME}_${TAG}.log" || \
-  echo "[WARN] Log upload to S3 failed" | tee -a "$LOG_FILE"
-
-echo "[SUCCESS] Deployment complete for $THEME_NAME ($TAG)" | tee -a "$LOG_FILE"
+echo "[COMPLETE] Theme deployment successful ✅" | tee -a "$LOG_FILE"

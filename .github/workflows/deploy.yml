@@ -33,7 +33,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Package theme artifact
+      - name: Package theme artifact  # Zip the theme for deployment
         run: |
           THEME_NAME="Rosenwald-Fund-Collection"
           TAG="${{ needs.parse-env.outputs.tag_name }}"
@@ -41,28 +41,64 @@ jobs:
 
           zip -r "$ZIP_NAME" . -x ".git/*"
 
-          # Export for use in later steps
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
           echo "TAG=$TAG" >> $GITHUB_ENV
 
-      - name: Upload artifact to S3
+      - name: Upload artifact to S3  # Push the zip file to S3
         run: |
           aws s3 cp "$ZIP_NAME" "s3://${{ secrets.S3_BUCKET_NAME }}/${{ needs.parse-env.outputs.env_name }}/artifacts/themes/$ZIP_NAME"
 
-      - name: Trigger deploy via SSM
+      - name: Trigger and Monitor Remote Deployment via SSM
+        id: ssm
         run: |
           ENV="${{ needs.parse-env.outputs.env_name }}"
+          TAG="${{ needs.parse-env.outputs.tag_name }}"
           INSTANCE_ID="${{ secrets.INSTANCE_ID }}"
           S3_BUCKET="${{ secrets.S3_BUCKET_NAME }}"
+          ZIP_NAME="Rosenwald-Fund-Collection_${TAG}.zip"
 
-          aws ssm send-command \
+          # Start remote command on EC2 via SSM
+          CMD_ID=$(aws ssm send-command \
             --document-name "AWS-RunShellScript" \
             --instance-ids "$INSTANCE_ID" \
-            --comment "Deploy Theme: Rosenwald-Fund-Collection $TAG" \
-            --parameters "commands=[
-              \"aws s3 cp s3://$S3_BUCKET/$ENV/artifacts/themes/$ZIP_NAME /tmp/theme-artifact.zip\",
-              \"unzip -o /tmp/theme-artifact.zip -d /tmp/deployed-theme\",
-              \"chmod +x /tmp/deployed-theme/.github/workflows/deploy.sh\",
-              \"/tmp/deployed-theme/.github/workflows/deploy.sh $ENV $TAG\"
-            ]" \
-            --region us-east-1
+            --comment "Deploy Theme: $TAG" \
+            --parameters "commands=[\"aws s3 cp s3://$S3_BUCKET/$ENV/artifacts/themes/$ZIP_NAME /tmp/theme-artifact.zip\",\"unzip -o /tmp/theme-artifact.zip -d /tmp/deployed-theme\",\"chmod +x /tmp/deployed-theme/.github/workflows/deploy.sh\",\"/tmp/deployed-theme/.github/workflows/deploy.sh $ENV $TAG\"]" \
+            --region us-east-1 \
+            --query "Command.CommandId" \
+            --output text)
+
+          echo "SSM Command ID: $CMD_ID"
+          echo "Waiting for execution to complete..."
+          sleep 15
+
+          # Poll until command completes or timeout
+          STATUS="InProgress"
+          TIMEOUT=60
+          ELAPSED=0
+
+          while [[ "$STATUS" == "InProgress" && "$ELAPSED" -lt "$TIMEOUT" ]]; do
+            STATUS=$(aws ssm get-command-invocation \
+              --command-id "$CMD_ID" \
+              --instance-id "$INSTANCE_ID" \
+              --region us-east-1 \
+              --query "Status" \
+              --output text)
+            echo "Current status: $STATUS"
+            sleep 5
+            ELAPSED=$((ELAPSED + 5))
+          done
+
+          # If command failed, mark GitHub Actions job as failed
+          if [[ "$STATUS" != "Success" ]]; then
+            echo "::error ::Deployment failed with status: $STATUS"
+          fi
+
+          # Show command output from EC2 in GitHub logs
+          echo "==== SSM OUTPUT BEGIN ===="
+          aws ssm get-command-invocation \
+            --command-id "$CMD_ID" \
+            --instance-id "$INSTANCE_ID" \
+            --region us-east-1 \
+            --query "StandardOutputContent" \
+            --output text || echo "[ERROR] Failed to fetch output"
+          echo "==== SSM OUTPUT END ===="
