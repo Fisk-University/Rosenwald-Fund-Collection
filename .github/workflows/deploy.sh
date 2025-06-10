@@ -45,7 +45,7 @@ if [ "$FAIL" == "1" ]; then
   echo "[ROLLBACK] Restoring previous theme from backup..." | tee -a "$LOG_FILE"
   rm -rf "$DEST_PATH"
   cp -r "$BACKUP_DIR/${THEME_NAME}_preupdate" "$DEST_PATH"
-  aws s3 cp "$LOG_FILE" "s3://${S3_BUCKET}/${ENV}/logs/${THEME_NAME}_${TAG}_FAILED.log"
+  aws s3 cp "$LOG_FILE" "s3://${S3_BUCKET}/${ENV}/logs/themes/${THEME_NAME}_${TAG}_FAILED.log"
   aws s3 cp --recursive "$BACKUP_DIR/" "s3://${S3_BUCKET}/${ENV}/backups/themes/${THEME_NAME}_${TAG}/"
   echo "[INFO] Check logs in S3: s3://${S3_BUCKET}/${ENV}/logs/${THEME_NAME}_${TAG}_FAILED.log" | tee -a "$LOG_FILE"
   exit 1
@@ -53,7 +53,7 @@ fi
 
 # Cleanup + Uploads
 rm -rf /tmp/theme-artifact.zip /tmp/deployed-theme
-aws s3 cp "$LOG_FILE" "s3://${S3_BUCKET}/${ENV}/logs/${THEME_NAME}_deploy_${TAG}.log"
+aws s3 cp "$LOG_FILE" "s3://${S3_BUCKET}/${ENV}/logs/themes/${THEME_NAME}_deploy_${TAG}.log"
 aws s3 cp --recursive "$BACKUP_DIR/" "s3://${S3_BUCKET}/${ENV}/backups/themes/${THEME_NAME}_${TAG}/"
 
-echo "[COMPLETE] Theme deployment successful ✅" | tee -a "$LOG_FILE"
+echo "[COMPLETE] Theme deployment successful" | tee -a "$LOG_FILE"
