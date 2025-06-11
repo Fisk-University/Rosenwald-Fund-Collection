@@ -137,3 +137,4 @@ jobs:
             echo "- Tag: $TAG" >> $GITHUB_STEP_SUMMARY
             echo "- Env: $ENV" >> $GITHUB_STEP_SUMMARY
             echo "- Investigate logs in S3 or EC2" >> $GITHUB_STEP_SUMMARY
+          fi
