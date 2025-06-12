@@ -8,11 +8,15 @@ THEME_NAME="Rosenwald-Fund-Collection"
 DATE=$(date +"%Y%m%d_%H%M%S")
 S3_BUCKET="rw.rosenwald-ci-cd-logs-backups"
 
-LOG_DIR="$HOME/deploy-logs"
-BACKUP_DIR="$HOME/backups/omeka-themes-${DATE}"
+# === [ Updated folder structure for logs and backups ] ===
+# LOG_DIR is static (shared across all deployments) — must be created per instance
+LOG_DIR="/backup/logs/themes"
+# BACKUP_DIR is dynamic (changes with each deployment tag)
+BACKUP_DIR="/backup/Rosenwald/themes/${THEME_NAME}_${TAG}"
 DEST_PATH="/var/www/html/omeka-s/themes/$THEME_NAME"
 SRC_PATH="/tmp/deployed-theme"
 
+# Create backup and log folder if they don't exist
 mkdir -p "$LOG_DIR" "$BACKUP_DIR"
 LOG_FILE="$LOG_DIR/theme_deploy_${THEME_NAME}_${TAG}.log"
 
