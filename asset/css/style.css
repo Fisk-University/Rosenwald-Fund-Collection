@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 * main.scss --> An SCSS entry point
 *
@@ -6,3 +7,104 @@
 * Output: Compiled into asset/css/style.css by Gulp
 * DO-NOT write styles here directly --> Import everything as a modular particles.
 */
+/*
+ * _variables.scss – Global Design Tokens
+ *
+ * This file defines the shared design tokens used throughout the Rosenwald theme. Includes typography settings, color palette, spacing values, and state colors.
+ *
+ * Source: Figma design spec from Fisk University's digital archive UI (Available in Sharepoint)
+ * Usage: Import into every SCSS file that uses shared design values.
+ */
+/*
+ * _base.scss –> Global Reset and Base Styles
+ *
+ * Establishes foundational styles such as typography, default body styles, heading structures, links, buttons, and overall visual rhythm.
+ *
+ * Built to complement the design tokens defined in _variables.scss and establish a clean baseline across all components and pages.
+ */
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  color: #56352D;
+  background-color: #FFFAFA;
+  line-height: 175%;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  font-family: "Sorts Mill Goudy", serif;
+  color: #442F2A;
+  margin: 0 0 16px;
+}
+
+h1 {
+  font-size: 44px;
+  line-height: 140%;
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 150%;
+  font-weight: 400;
+}
+
+a {
+  color: #93340E;
+  text-decoration: none;
+}
+a:hover {
+  color: #B65934;
+  text-decoration: underline;
+}
+a:active {
+  color: #CA785C;
+}
+
+button {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+button.primary {
+  background-color: #653C2C;
+  color: #FFFFFF;
+}
+button.primary:hover {
+  background-color: #7A5141;
+}
+button.primary:active {
+  background-color: #A17756;
+}
+button.secondary {
+  background-color: transparent;
+  border: 1px solid #F8EEE9;
+  color: #56352D;
+}
+button.secondary:hover {
+  background-color: #F8EEE9;
+}
+button.secondary:active {
+  background-color: #F3E4DE;
+}
+
+input[type=text], select {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  border: 1px solid #947E72;
+  padding: 8px;
+  background-color: #FFFFFF;
+  color: #56352D;
+}
+input[type=text]:hover, select:hover {
+  border-color: #442F2A;
+  background-color: #FCF5F1;
+}
+input[type=text]:focus, select:focus {
+  outline: 1px solid #442F2A;
+  background-color: #FFFFFF;
+}

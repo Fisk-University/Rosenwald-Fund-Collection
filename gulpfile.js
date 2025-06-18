@@ -22,8 +22,10 @@ gulp.task('sass', function() {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
+    .pipe(rename('style.css'))
+    .pipe(gulp.dest('./asset/css'))               // Unminified style.css
     .pipe(cleanCSS())
-    .pipe(rename('style.min.css'))                // Unminified style.css
+    .pipe(rename('style.min.css'))   
     .pipe(sourcemaps.write('.', {
       includeContent: true,
       sourceRoot: '/asset/scss'
