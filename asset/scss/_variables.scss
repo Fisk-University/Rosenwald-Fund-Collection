@@ -6,3 +6,71 @@
  * Source: Figma design spec from Fisk University's digital archive UI (Available in Sharepoint)
  * Usage: Import into every SCSS file that uses shared design values.
  */
+
+ // Typography
+$font-serif: 'Sorts Mill Goudy', serif;
+$font-sans: 'Montserrat', sans-serif;
+
+$font-size-h1: 44px;
+$font-size-h2: 32px;
+$font-size-label-lg: 32px;
+$font-size-label-md: 28px;
+$font-size-label-sm: 20px;
+$font-size-link: 18px;
+$font-size-body: 18px;
+$font-size-body-sm: 16px;
+$font-size-input-label: 16px;
+
+// Line Heights
+$lh-h1: 140%;
+$lh-h2: 150%;
+$lh-body: 175%;
+$lh-button: 100%;
+
+// Font Weights
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+
+// Colors - Primary / Accent
+$color-primary: #653C2C;
+$color-link: #93340E;
+$color-accent: #B65934;
+$color-tape: #F0D4C4;
+
+// Colors - Neutral / Text
+$color-heading: #442F2A;
+$color-body: #56352D;
+$color-breadcrumb: #706E61;
+$color-input-border: #947E72;
+$color-divider: #DCD0C9;
+
+// Backgrounds
+$color-search-bg: #F6F0EB;
+$color-bg-dark: #FCF5F1;
+$color-bg-light: #FFFAFA;
+$color-white: #FFFFFF;
+$color-print: #EAEAEA;
+
+// Button States
+$btn-primary-hover: #7A5141;
+$btn-primary-pressed: #A17756;
+$btn-secondary-hover: #F8EEE9;
+$btn-secondary-pressed: #F3E4DE;
+$btn-link-hover: #B65934;
+$btn-link-pressed: #CA785C;
+$btn-navbar-hover: #B87470;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Spacing (Custom)
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 32px;
+$space-xl: 64px;
+

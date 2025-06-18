@@ -10,7 +10,7 @@
  */
 
 const gulp = require('gulp');
-const sass = require('gulp-sass')(require('sass'));
+const sass = require('gulp-dart-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const sourcemaps = require('gulp-sourcemaps');
@@ -22,10 +22,12 @@ gulp.task('sass', function() {
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
-    .pipe(gulp.dest('./asset/css'))               // Unminified style.css
     .pipe(cleanCSS())
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(sourcemaps.write('./'))
+    .pipe(rename('style.min.css'))                // Unminified style.css
+    .pipe(sourcemaps.write('.', {
+      includeContent: true,
+      sourceRoot: '/asset/scss'
+    }))
     .pipe(gulp.dest('./asset/css'));              // minified + autoprefixed + sourcemapped style.min.css
 });
 

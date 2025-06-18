@@ -6,3 +6,5 @@
 * Output: Compiled into asset/css/style.css by Gulp
 * DO-NOT write styles here directly --> Import everything as a modular particles.
 */
+@import 'variables';
+@import 'base';

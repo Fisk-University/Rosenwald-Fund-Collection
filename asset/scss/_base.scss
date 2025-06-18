@@ -5,3 +5,100 @@
  *
  * Built to complement the design tokens defined in _variables.scss and establish a clean baseline across all components and pages.
  */
+
+ body {
+  font-family: $font-sans;
+  font-size: $font-size-body;
+  color: $color-body;
+  background-color: $color-bg-light;
+  line-height: $lh-body;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  font-family: $font-serif;
+  color: $color-heading;
+  margin: 0 0 $space-md;
+}
+
+h1 {
+  font-size: $font-size-h1;
+  line-height: $lh-h1;
+  font-weight: $weight-regular;
+}
+
+h2 {
+  font-size: $font-size-h2;
+  line-height: $lh-h2;
+  font-weight: $weight-regular;
+}
+
+a {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $btn-link-hover;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $btn-link-pressed;
+  }
+}
+
+button {
+  font-family: $font-sans;
+  font-size: $font-size-label-sm;
+  font-weight: $weight-semibold;
+  padding: $space-sm $space-md;
+  border: none;
+  cursor: pointer;
+
+  &.primary {
+    background-color: $color-primary;
+    color: $color-white;
+
+    &:hover {
+      background-color: $btn-primary-hover;
+    }
+
+    &:active {
+      background-color: $btn-primary-pressed;
+    }
+  }
+
+  &.secondary {
+    background-color: transparent;
+    border: 1px solid $btn-secondary-hover;
+    color: $color-body;
+
+    &:hover {
+      background-color: $btn-secondary-hover;
+    }
+
+    &:active {
+      background-color: $btn-secondary-pressed;
+    }
+  }
+}
+
+input[type="text"], select {
+  font-family: $font-sans;
+  font-size: $font-size-body-sm;
+  border: 1px solid $color-input-border;
+  padding: $space-sm;
+  background-color: $color-white;
+  color: $color-body;
+
+  &:hover {
+    border-color: $color-heading;
+    background-color: $color-bg-dark;
+  }
+
+  &:focus {
+    outline: 1px solid $color-heading;
+    background-color: $color-white;
+  }
+}
