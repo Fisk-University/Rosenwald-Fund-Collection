@@ -1,0 +1,111 @@
+// Texture Background — via ::before for better control
+.static-page {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+
+  .page-content {
+    position: relative;
+    z-index: 1;
+    padding: 1rem 2rem 3rem;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('../img/original paper background texture.jpg');
+      background-repeat: repeat;
+      background-size: cover;
+      opacity: 0.25;
+      z-index: -1;
+    }
+
+    font-family: $font-sans;
+    color: $color-body;
+    line-height: 1.7;
+
+    .page-title {
+      font-family: $font-serif;
+      font-size: $font-size-h1;
+      font-weight: $weight-semibold;
+      margin-bottom: $space-sm;
+      color: $color-heading;
+      text-align: center;
+    }
+
+    .page-blocks {
+      max-width: 750px;
+      margin: 0 auto;
+      text-align: justify;
+
+      // Reduce spacing before first visible block
+    .block:first-child h1,
+    .block:first-child h2,
+    .block:first-child *:first-child {
+        margin-top: 0;
+    }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: $font-serif;
+        font-weight: 600;
+        color: $color-heading;
+        margin-top: $space-xl;
+        margin-bottom: $space-sm;
+        line-height: 1.3;
+      }
+
+      h1 { font-size: $font-size-h1; }
+      h2 { font-size: $font-size-h2; }
+      h3 { font-size: $font-size-label-lg; }
+      h4 { font-size: $font-size-label-md; }
+      h5 { font-size: $font-size-label-sm; }
+      h6 { font-size: $font-size-body; }
+
+      p {
+        margin-bottom: $space-md;
+        font-size: $font-size-body;
+      }
+
+      ul, ol {
+        margin-left: $space-md;
+        padding-left: $space-md;
+        margin-bottom: $space-md;
+
+        li {
+          margin-bottom: $space-xs;
+        }
+      }
+
+      blockquote {
+        border-left: 4px solid $color-accent;
+        padding-left: $space-md;
+        font-style: italic;
+        background-color: $color-bg-light;
+        color: $color-body;
+        margin: $space-lg 0;
+      }
+
+      a {
+        color: $color-primary;
+        text-decoration: underline;
+
+        &:hover {
+          color: darken($color-primary, 10%);
+        }
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: $space-lg auto;
+        border-radius: 4px;
+      }
+    }
+  }
+
+}
+.static-page .page-block .block-title {
+  display: none;
+}
+

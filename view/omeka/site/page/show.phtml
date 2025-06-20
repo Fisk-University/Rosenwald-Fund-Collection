@@ -1,0 +1,43 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$this->headLink()->appendStylesheet($this->assetUrl('css/style.css'));
+$this->htmlElement('body')->appendAttribute('class', 'static-page');
+
+// List of slugs that use the custom "About" layout
+$aboutSlugs = [
+  'about',
+  'about-project',
+  'project-team',
+  'acknowledgments',
+  'accessibility',
+  'use-statement',
+  'how-to',
+];
+
+$currentSlug = $page->slug();
+?>
+
+<?php if (in_array($currentSlug, $aboutSlugs)): ?>
+  <!-- Custom layout for About-related pages -->
+  <main id="content" class="page-content container" role="main">
+    <article class="page-inner">
+      <header class="page-header">
+        <h1 class="page-title"><?php echo $escape($page->title()); ?></h1>
+      </header>
+
+      <section class="page-blocks">
+        <?php foreach ($page->blocks() as $block): ?>
+          <div class="page-block">
+            <?php echo $this->blockLayout()->render($block); ?>
+          </div>
+        <?php endforeach; ?>
+      </section>
+    </article>
+  </main>
+
+<?php else: ?>
+  <!-- Fallback: default Omeka rendering for all other pages -->
+  <?php foreach ($page->blocks() as $block): ?>
+    <?php echo $this->blockLayout()->render($block); ?>
+  <?php endforeach; ?>
+<?php endif; ?>

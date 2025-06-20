@@ -1,7 +1,9 @@
 <?php
-$site = isset($site) ? $site : null;
+$site = $site ?? null;
 $siteTitle = $site ? $site->title() : 'Site';
 $escape = $this->plugin('escapeHtml');
+$navPages = $site->publicNav()->getPages();
+$topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
 ?>
 
 <header class="site-header">
@@ -16,36 +18,45 @@ $escape = $this->plugin('escapeHtml');
       <?php endif; ?>
     </a>
 
-    <!-- Mobile Toggle -->
-    <button class="mobile-nav-toggle" aria-label="<?= $this->translate('Toggle navigation'); ?>">
-      ☰
-    </button>
-
     <!-- Navigation -->
     <nav class="main-nav" aria-label="Main Navigation">
-        <ul class="nav-links">
-            <?php foreach ($site->publicNav()->getPages() as $navItem): 
-                $label = $escape($navItem->getLabel());
-                $isActive = $navItem->isActive() ? 'active' : '';
-                $hasIcon = in_array($label, ['All Funds', 'About']); // Add more if needed
-            ?>
-                <li class="nav-item">
-                    <a href="<?= $escape($navItem->getHref()) ?>" class="<?= $isActive ?>">
-                        <span><?= $label ?></span>
-                        <?php if ($hasIcon): ?>
-                            <span class="nav-dropdown-icon" aria-hidden="true"></span>
-                        <?php endif; ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+      <ul class="nav-links">
+        <?php foreach ($navPages as $page):
+          $label = $escape($page->getLabel());
+          $isActive = $page->isActive() ? 'active' : '';
+
+          if (!in_array($label, $topLevelLabels)) continue;
+
+          if ($label === 'About' && $page->hasPages()):
+        ?>
+          <li class="nav-item nav-dropdown">
+            <a href="<?= $escape($page->getHref()) ?>" class="nav-link <?= $isActive ?>">
+              <?= $label ?>
+            </a>
+            <ul class="sub-menu">
+              <?php foreach ($page->getPages() as $subPage): ?>
+                <li><a href="<?= $escape($subPage->getHref()) ?>"><?= $escape($subPage->getLabel()) ?></a></li>
+              <?php endforeach; ?>
+            </ul>
+          </li>
+        <?php else: ?>
+          <li class="nav-item">
+            <a href="<?= $escape($page->getHref()) ?>" class="<?= $isActive ?>">
+              <?= $label ?>
+            </a>
+          </li>
+        <?php endif; endforeach; ?>
+      </ul>
     </nav>
-
-
     <!-- Search -->
     <div class="site-search">
       <?= $this->partial('common/search-form'); ?>
     </div>
+
+    <!-- Mobile Toggle -->
+    <button class="mobile-nav-toggle" aria-label="<?= $this->translate('Toggle navigation'); ?>">
+      ☰
+    </button>
 
   </div>
 </header>
@@ -54,8 +65,15 @@ $escape = $this->plugin('escapeHtml');
   document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.querySelector(".mobile-nav-toggle");
     const nav = document.querySelector(".main-nav");
-    toggle?.addEventListener("click", function () {
+    toggle?.addEventListener("click", () => {
       nav.classList.toggle("mobile-nav-open");
+    });
+
+    const dropdown = document.querySelector('.nav-dropdown');
+    const dropdownLink = dropdown?.querySelector('.nav-link');
+    dropdownLink?.addEventListener('click', function (e) {
+      e.preventDefault();
+      dropdown.classList.toggle('open');
     });
   });
 </script>
