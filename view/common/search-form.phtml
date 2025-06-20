@@ -12,14 +12,14 @@ $searchValue = isset($searchValue) ? $searchValue : '';
 
 <div class="search-form">
     <form id="search-form" action="<?php echo $searchAction; ?>" method="get">
-        <input type="text" 
-               name="search" 
-               id="search" 
-               value="<?php echo $escape($searchValue); ?>" 
-               placeholder="<?php echo $escape($translate('Enter search')); ?>"
-               aria-label="<?php echo $escape($translate('Search')); ?>">
-        <button type="submit" class="search-submit">
+        <div class="search-field">
+            <input type="text" 
+                   name="search" 
+                   id="search" 
+                   value="<?php echo $escape($searchValue); ?>" 
+                   placeholder="<?php echo $escape($translate('Enter search')); ?>"
+                   aria-label="<?php echo $escape($translate('Search')); ?>">
             <span class="search-icon"></span>
-        </button>
+        </div>
     </form>
 </div>

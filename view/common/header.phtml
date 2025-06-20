@@ -1,0 +1,61 @@
+<?php
+$site = isset($site) ? $site : null;
+$siteTitle = $site ? $site->title() : 'Site';
+$escape = $this->plugin('escapeHtml');
+?>
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <!-- Site Logo -->
+    <a href="<?= $site->url(); ?>" class="site-logo" aria-label="<?= $escape($siteTitle); ?>">
+      <?php if ($this->themeSetting('logo')): ?>
+        <img src="<?= $this->themeSettingAssetUrl('logo'); ?>" alt="<?= $escape($siteTitle); ?>">
+      <?php else: ?>
+        <span class="text-logo"><?= $escape($siteTitle); ?></span>
+      <?php endif; ?>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="mobile-nav-toggle" aria-label="<?= $this->translate('Toggle navigation'); ?>">
+      ☰
+    </button>
+
+    <!-- Navigation -->
+    <nav class="main-nav" aria-label="Main Navigation">
+        <ul class="nav-links">
+            <?php foreach ($site->publicNav()->getPages() as $navItem): 
+                $label = $escape($navItem->getLabel());
+                $isActive = $navItem->isActive() ? 'active' : '';
+                $hasIcon = in_array($label, ['All Funds', 'About']); // Add more if needed
+            ?>
+                <li class="nav-item">
+                    <a href="<?= $escape($navItem->getHref()) ?>" class="<?= $isActive ?>">
+                        <span><?= $label ?></span>
+                        <?php if ($hasIcon): ?>
+                            <span class="nav-dropdown-icon" aria-hidden="true"></span>
+                        <?php endif; ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </nav>
+
+
+    <!-- Search -->
+    <div class="site-search">
+      <?= $this->partial('common/search-form'); ?>
+    </div>
+
+  </div>
+</header>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.querySelector(".mobile-nav-toggle");
+    const nav = document.querySelector(".main-nav");
+    toggle?.addEventListener("click", function () {
+      nav.classList.toggle("mobile-nav-open");
+    });
+  });
+</script>

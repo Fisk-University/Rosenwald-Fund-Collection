@@ -1,0 +1,293 @@
+.site-header {
+  position: relative;
+  z-index: 0;
+  width: 1400;
+  height: 94;
+  background-color: $color-bg-light;
+  border-bottom: 1px solid $color-divider;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('../img/original paper background texture.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    opacity: 0.3; 
+    z-index: -1;
+  }
+
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $space-sm $space-lg;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-lg;
+  }
+
+  .site-logo {
+    display: flex;
+    align-items: center;
+    //flex-shrink: 0; // don't shrink
+    img {
+      height: 42.4px;
+      width: 93px;
+    }
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+
+    .nav-links {
+      display: flex;
+      gap: $space-lg;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      justify-content: space-between;
+    }
+
+    .nav-item a {
+        font-family: $font-sans;
+        font-size: $font-size-body-sm;
+        font-weight: $weight-regular;
+        letter-spacing: 0.3px;
+        color: $color-heading;
+        text-decoration: none;
+        //padding: $space-xs $space-sm; 
+        position: relative;
+        line-height: 1.2;
+        display: inline-block; 
+
+        &:hover {
+            color: $color-link;
+        }
+
+        &.active {
+            color: $color-link;
+            font-weight: $weight-semibold;
+
+            &::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 3px;
+            background-color: $color-link;
+            border-radius: 999px;
+            }
+        }
+    }
+
+
+  }
+
+  .site-search {
+    //flex-shrink: 0;
+    height: 42px;
+    padding: 10px 14px;
+    .search-form {
+        .search-field {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: $color-white;
+            border: 1.2px solid #7A5B46;
+            border-radius: 6px;
+            padding: 0; // we’ll pad the input instead
+            box-shadow: none;
+
+            .search-icon {
+                position: absolute;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 20px;
+                height: 20px;
+                background-image: url('../img/ic_sharp-search.png');
+                background-repeat: no-repeat;
+                background-size: contain;
+                pointer-events: none;
+            }
+
+            input[type="text"],
+            input[type="search"] {
+                padding: 16px 14px 13px 40px; // leaves space for icon on left
+                border: none;
+                outline: none;
+                font-family: $font-sans;
+                font-size: $font-size-input-label;
+                color: $color-body;
+                background: transparent;
+                width: 100%;
+
+                &::placeholder {
+                color: $color-breadcrumb;
+                font-size: 16px;
+                }
+            }
+        }
+
+    }
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: $color-heading;
+  padding: $space-xs;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba($color-primary, 0.1);
+    color: $color-primary;
+  }
+
+  span {
+    font-size: 24px;
+    line-height: 1;
+  }
+}
+@media (min-width: $breakpoint-xl) {
+  .site-header {
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: $space-md $space-lg;
+    }
+
+    .site-search {
+      max-width: 300px;
+    }
+
+    .mobile-nav-toggle {
+      display: none;
+    }
+
+    .main-nav {
+      display: flex;
+    }
+  }
+}
+@media (min-width: $breakpoint-md + 1) and (max-width: $breakpoint-xl - 1) {
+  .site-header {
+    .header-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: $space-md $space-lg;
+    }
+
+    .site-search {
+      max-width: 240px;
+    }
+
+    .mobile-nav-toggle {
+      display: none;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+@media (min-width: $breakpoint-sm + 1) and (max-width: $breakpoint-md) {
+  .site-header {
+    .header-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: $space-md;
+      gap: $space-sm;
+    }
+
+    .site-search {
+      flex: 1;
+      max-width: 220px;
+    }
+
+    .mobile-nav-toggle {
+      display: block;
+    }
+
+    .main-nav {
+      display: none;
+
+      &.mobile-nav-open {
+        display: flex;
+      }
+    }
+  }
+}
+@media (max-width: $breakpoint-sm) {
+  .site-header {
+    padding: $space-md 0;
+
+    .header-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: $space-md;
+      gap: $space-sm;
+    }
+
+    .site-logo {
+      order: 1;
+      margin-right: auto;
+    }
+
+    .site-search {
+      order: 2;
+      flex: 1;
+      max-width: 180px;
+
+      form {
+        width: 100%;
+      }
+
+      .search-field {
+        width: 100%;
+      }
+    }
+
+    .mobile-nav-toggle {
+      order: 3;
+      display: block !important;
+      margin-left: $space-sm;
+    }
+
+    .main-nav {
+      display: none;
+
+      &.mobile-nav-open {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        padding: $space-md 0;
+        border-top: 1px solid $color-divider;
+
+        .nav-links {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .nav-item a {
+          width: 100%;
+          padding: $space-sm $space-md;
+        }
+      }
+    }
+  }
+}
+}
