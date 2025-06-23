@@ -36,7 +36,7 @@
 
   // Page header
   .page-header {
-    margin-bottom: $space-xl;
+    margin-bottom: $space-md;
     text-align: center;
     
     .page-title {
@@ -51,12 +51,39 @@
 
   // Container for all Omeka blocks
   .page-blocks {
-    max-width: 750px;
+    max-width: 900px;
     margin: 0 auto;
 
     // Hide Omeka's default block titles
     .block-title {
       display: none;
+    }
+
+    // Thank You section styling
+    .thank-you-title {
+      text-align: center;
+      font-size: 2rem;
+      margin: 3rem 0 2rem;
+      font-weight: bold;
+      font-family: $font-serif;
+      color: $color-heading;
+    }
+
+    // Team grid layout
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin: 2rem 0;
+
+      .team-column {
+        p {
+          margin: 0.5rem 0;
+          line-height: 1.8;
+          font-size: $font-size-body;
+          color: $color-body;
+        }
+      }
     }
 
     // HTML Block Styles
@@ -75,7 +102,7 @@
 
       h1 { 
         font-size: $font-size-h1; 
-        margin-top: $space-xxl;
+        margin-top: $space-xl;
       }
       h2 { 
         font-size: $font-size-h2; 
@@ -92,7 +119,7 @@
       }
       h6 { 
         font-size: $font-size-body; 
-        font-weight: $weight-bold;
+        font-weight: $weight-semibold;
       }
 
       // First heading in block needs less top margin
@@ -231,7 +258,7 @@
 
       // Code blocks
       pre, code {
-        font-family: $font-mono;
+        font-family: $font-sans;
         background-color: $color-bg-light;
         border-radius: 3px;
       }
@@ -359,6 +386,15 @@
             padding-left: $space-md;
           }
         }
+
+        .team-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.5rem;
+        }
+        
+        .thank-you-title {
+          font-size: 1.75rem;
+        }
       }
     }
 
@@ -413,9 +449,24 @@
           margin: $space-md 0;
         }
       }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        
+        .team-column p {
+          margin: 0.4rem 0;
+          text-align: center; // Center names on mobile
+        }
+      }
+      
+      .thank-you-title {
+        font-size: 1.5rem;
+        margin: 2rem 0 1.5rem;
+      }
     }
   }
-}
+} // CLOSING .static-page
 
 // Accessibility: Screen reader only text
 .sr-only {

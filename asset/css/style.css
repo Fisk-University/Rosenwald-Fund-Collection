@@ -917,7 +917,9 @@ input[type=text]:focus, select:focus {
 .static-page .page-content {
   position: relative;
   z-index: 1;
-  padding: 1rem 2rem 3rem;
+  padding: 2rem 2rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
   font-family: "Montserrat", sans-serif;
   color: #56352D;
   line-height: 1.7;
@@ -931,139 +933,353 @@ input[type=text]:focus, select:focus {
   background-size: cover;
   opacity: 0.25;
   z-index: -1;
+  pointer-events: none;
 }
-.static-page .page-content .page-title {
+.static-page .page-header {
+  margin-bottom: 16px;
+  text-align: center;
+}
+.static-page .page-header .page-title {
   font-family: "Sorts Mill Goudy", serif;
   font-size: 44px;
   font-weight: 600;
-  margin-bottom: 8px;
   color: #442F2A;
-  text-align: center;
+  margin: 0;
+  line-height: 1.2;
 }
-.static-page .page-content .page-blocks {
-  max-width: 750px;
+.static-page .page-blocks {
+  max-width: 900px;
   margin: 0 auto;
+}
+.static-page .page-blocks .block-title {
+  display: none;
+}
+.static-page .page-blocks .thank-you-title {
+  text-align: center;
+  font-size: 2rem;
+  margin: 3rem 0 2rem;
+  font-weight: bold;
+  font-family: "Sorts Mill Goudy", serif;
+  color: #442F2A;
+}
+.static-page .page-blocks .team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+.static-page .page-blocks .team-grid .team-column p {
+  margin: 0.5rem 0;
+  line-height: 1.8;
+  font-size: 18px;
+  color: #56352D;
+}
+.static-page .page-blocks .block.html {
+  margin-bottom: 32px;
+}
+.static-page .page-blocks .block.html h1, .static-page .page-blocks .block.html h2, .static-page .page-blocks .block.html h3, .static-page .page-blocks .block.html h4, .static-page .page-blocks .block.html h5, .static-page .page-blocks .block.html h6 {
+  font-family: "Sorts Mill Goudy", serif;
+  font-weight: 600;
+  color: #442F2A;
+  margin-top: 64px;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.static-page .page-blocks .block.html h1 {
+  font-size: 44px;
+  margin-top: 64px;
+}
+.static-page .page-blocks .block.html h2 {
+  font-size: 32px;
+  margin-top: 64px;
+}
+.static-page .page-blocks .block.html h3 {
+  font-size: 32px;
+}
+.static-page .page-blocks .block.html h4 {
+  font-size: 28px;
+}
+.static-page .page-blocks .block.html h5 {
+  font-size: 20px;
+}
+.static-page .page-blocks .block.html h6 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.static-page .page-blocks .block.html > :first-child {
+  margin-top: 0;
+}
+.static-page .page-blocks .block.html p {
+  margin-bottom: 16px;
+  font-size: 18px;
   text-align: justify;
-  text-justify: inter-word;
   hyphens: auto;
   -webkit-hyphens: auto;
   -moz-hyphens: auto;
   -ms-hyphens: auto;
 }
-.static-page .page-content .page-blocks .block:first-child h1,
-.static-page .page-content .page-blocks .block:first-child h2,
-.static-page .page-content .page-blocks .block:first-child *:first-child {
-  margin-top: 0;
+.static-page .page-blocks .block.html a {
+  color: #93340E;
+  text-decoration: underline;
+  transition: color 0.2s ease;
 }
-.static-page .page-content .page-blocks h1, .static-page .page-content .page-blocks h2, .static-page .page-content .page-blocks h3, .static-page .page-content .page-blocks h4, .static-page .page-content .page-blocks h5, .static-page .page-content .page-blocks h6 {
-  font-family: "Sorts Mill Goudy", serif;
-  font-weight: 600;
-  color: #442F2A;
-  margin-top: 64px;
-  margin-bottom: 8px;
-  line-height: 1.3;
-  text-align: left;
-  hyphens: none;
+.static-page .page-blocks .block.html a:hover, .static-page .page-blocks .block.html a:focus {
+  color: rgb(77.152173913, 27.2919254658, 7.347826087);
+  text-decoration-thickness: 2px;
 }
-.static-page .page-content .page-blocks h1 {
-  font-size: 44px;
+.static-page .page-blocks .block.html a:focus {
+  outline: 2px solid #93340E;
+  outline-offset: 2px;
 }
-.static-page .page-content .page-blocks h2 {
-  font-size: 32px;
-}
-.static-page .page-content .page-blocks h3 {
-  font-size: 32px;
-}
-.static-page .page-content .page-blocks h4 {
-  font-size: 28px;
-}
-.static-page .page-content .page-blocks h5 {
-  font-size: 20px;
-}
-.static-page .page-content .page-blocks h6 {
-  font-size: 18px;
-}
-.static-page .page-content .page-blocks p {
+.static-page .page-blocks .block.html ul, .static-page .page-blocks .block.html ol {
+  margin-left: 0;
+  padding-left: 32px;
   margin-bottom: 16px;
-  font-size: 18px;
 }
-.static-page .page-content .page-blocks ul, .static-page .page-content .page-blocks ol {
-  margin-left: 16px;
-  padding-left: 16px;
-  margin-bottom: 16px;
-  text-align: left;
+.static-page .page-blocks .block.html ul li, .static-page .page-blocks .block.html ol li {
+  margin-bottom: 4px;
+  line-height: 1.6;
 }
-.static-page .page-content .page-blocks ul li, .static-page .page-content .page-blocks ol li {
+.static-page .page-blocks .block.html ul li ul, .static-page .page-blocks .block.html ul li ol, .static-page .page-blocks .block.html ol li ul, .static-page .page-blocks .block.html ol li ol {
+  margin-top: 4px;
   margin-bottom: 4px;
 }
-.static-page .page-content .page-blocks blockquote {
+.static-page .page-blocks .block.html ul {
+  list-style-type: disc;
+}
+.static-page .page-blocks .block.html ul ul {
+  list-style-type: circle;
+}
+.static-page .page-blocks .block.html ul ul ul {
+  list-style-type: square;
+}
+.static-page .page-blocks .block.html ol {
+  list-style-type: decimal;
+}
+.static-page .page-blocks .block.html ol ol {
+  list-style-type: lower-alpha;
+}
+.static-page .page-blocks .block.html ol ol ol {
+  list-style-type: lower-roman;
+}
+.static-page .page-blocks .block.html blockquote {
   border-left: 4px solid #B65934;
-  padding-left: 16px;
-  font-style: italic;
-  background-color: #FFFAFA;
-  color: #56352D;
+  padding: 16px;
+  padding-right: 32px;
   margin: 32px 0;
+  background-color: rgba(255, 250, 250, 0.5);
+  font-style: italic;
+  position: relative;
+}
+.static-page .page-blocks .block.html blockquote p:last-child {
+  margin-bottom: 0;
+}
+.static-page .page-blocks .block.html blockquote cite {
+  display: block;
+  margin-top: 8px;
+  font-style: normal;
+  font-size: 16px;
+  color: rgb(152.9618320611, 94.2671755725, 80.0381679389);
+}
+.static-page .page-blocks .block.html blockquote cite::before {
+  content: "— ";
+}
+.static-page .page-blocks .block.html table {
+  width: 100%;
+  margin: 32px 0;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.static-page .page-blocks .block.html table th, .static-page .page-blocks .block.html table td {
+  padding: 8px;
   text-align: left;
+  border-bottom: 1px solid #DCD0C9;
 }
-.static-page .page-content .page-blocks a {
-  color: #653C2C;
-  text-decoration: underline;
+.static-page .page-blocks .block.html table th {
+  font-weight: 600;
+  background-color: #FFFAFA;
 }
-.static-page .page-content .page-blocks a:hover {
-  color: rgb(65.475862069, 38.8965517241, 28.524137931);
+.static-page .page-blocks .block.html table tr:hover {
+  background-color: rgba(255, 250, 250, 0.5);
 }
-.static-page .page-content .page-blocks img {
+.static-page .page-blocks .block.html hr {
+  border: none;
+  border-top: 1px solid #DCD0C9;
+  margin: 64px 0;
+}
+.static-page .page-blocks .block.html pre, .static-page .page-blocks .block.html code {
+  font-family: "Montserrat", sans-serif;
+  background-color: #FFFAFA;
+  border-radius: 3px;
+}
+.static-page .page-blocks .block.html code {
+  padding: 2px 6px;
+  font-size: 0.875em;
+}
+.static-page .page-blocks .block.html pre {
+  padding: 16px;
+  overflow-x: auto;
+  line-height: 1.4;
+}
+.static-page .page-blocks .block.html pre code {
+  padding: 0;
+  background: none;
+}
+.static-page .page-blocks .block.media {
+  margin: 64px 0;
+}
+.static-page .page-blocks .block.media img {
   max-width: 100%;
   height: auto;
   display: block;
-  margin: 32px auto;
+  margin: 0 auto;
   border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.static-page .page-blocks .block.media .media-caption,
+.static-page .page-blocks .block.media figcaption {
+  text-align: center;
+  font-size: 16px;
+  color: rgb(152.9618320611, 94.2671755725, 80.0381679389);
+  margin-top: 8px;
+  font-style: italic;
+}
+.static-page .page-blocks .block.asset {
+  margin: 64px 0;
+}
+.static-page .page-blocks .block.asset .asset-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.static-page .page-navigation {
+  max-width: 750px;
+  margin: 64px auto;
+  padding: 32px;
+  background-color: #FFFAFA;
+  border-radius: 8px;
+}
+.static-page .page-navigation .sibling-pages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.static-page .page-navigation .sibling-pages li.current span {
+  font-weight: 600;
+  color: #442F2A;
+  padding: 4px 8px;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  display: inline-block;
+}
+.static-page .page-navigation .sibling-pages li a {
+  color: #93340E;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+.static-page .page-navigation .sibling-pages li a:hover {
+  background-color: #FFFFFF;
+  text-decoration: underline;
+}
+@media (max-width: 992px) {
+  .static-page .page-content {
+    padding: 1.5rem 1.5rem 2.5rem;
+  }
 }
 @media (max-width: 768px) {
   .static-page .page-content {
     padding: 1rem 1rem 2rem;
   }
-  .static-page .page-content .page-blocks {
+  .static-page .page-content .page-blocks .block.html p {
     text-align: left;
     hyphens: none;
     -webkit-hyphens: none;
     -moz-hyphens: none;
     -ms-hyphens: none;
   }
-  .static-page .page-content .page-blocks p {
-    text-align: left;
-    word-spacing: normal;
+  .static-page .page-content .page-blocks .block.html ul, .static-page .page-content .page-blocks .block.html ol {
+    padding-left: 16px;
+  }
+  .static-page .page-content .page-blocks .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .static-page .page-content .page-blocks .thank-you-title {
+    font-size: 1.75rem;
+  }
+  .static-page .page-navigation {
+    margin: 32px 1rem;
+  }
+  .static-page .page-navigation .sibling-pages {
+    flex-direction: column;
+  }
+  .static-page .page-navigation .sibling-pages li {
+    width: 100%;
+  }
+  .static-page .page-navigation .sibling-pages li a, .static-page .page-navigation .sibling-pages li span {
+    display: block;
+    width: 100%;
   }
 }
 @media (max-width: 576px) {
   .static-page .page-content {
     padding: 0.75rem 0.75rem 1.5rem;
   }
-  .static-page .page-content .page-title {
+  .static-page .page-header {
+    margin-bottom: 32px;
+  }
+  .static-page .page-header .page-title {
     font-size: calc(44px * 0.85);
-    margin-bottom: 4px;
   }
-  .static-page .page-content .page-blocks h1 {
-    font-size: calc(44px * 0.9);
+  .static-page .page-blocks .block.html h1 {
+    font-size: calc(44px * 0.85);
   }
-  .static-page .page-content .page-blocks h2 {
+  .static-page .page-blocks .block.html h2 {
+    font-size: calc(32px * 0.85);
+  }
+  .static-page .page-blocks .block.html h3 {
     font-size: calc(32px * 0.9);
   }
-  .static-page .page-content .page-blocks h3 {
-    font-size: calc(32px * 0.95);
-  }
-  .static-page .page-content .page-blocks p {
-    font-size: calc(18px * 0.95);
+  .static-page .page-blocks .block.html p {
+    font-size: 18px;
     line-height: 1.6;
   }
-  .static-page .page-content .page-blocks ul, .static-page .page-content .page-blocks ol {
-    margin-left: 8px;
+  .static-page .page-blocks .block.html ul, .static-page .page-blocks .block.html ol {
     padding-left: 8px;
+  }
+  .static-page .page-blocks .block.html blockquote {
+    padding: 8px;
+    margin: 16px 0;
+  }
+  .static-page .page-blocks .team-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .static-page .page-blocks .team-grid .team-column p {
+    margin: 0.4rem 0;
+    text-align: center;
+  }
+  .static-page .page-blocks .thank-you-title {
+    font-size: 1.5rem;
+    margin: 2rem 0 1.5rem;
   }
 }
 
-.static-page .page-block .block-title {
-  display: none;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 html,
