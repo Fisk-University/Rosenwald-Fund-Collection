@@ -1,6 +1,6 @@
 .site-header {
   position: relative;
-  z-index: 0;
+  z-index: 100;
   width: 100%;
   height: 88px;
   background-color: $color-bg-light;
@@ -21,14 +21,12 @@
     max-width: 1200px;
     margin: 0 auto;
     height: 100%;
-    padding: 0 $space-lg; //--
+    padding: 0 $space-lg;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: $space-lg;
     box-sizing: border-box;
-
-    //helps pixel alignment on high DPI screens
     backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -48,8 +46,9 @@
     flex: 1;
     display: flex;
     margin-top: 33px;
-    //height: 42px;
     justify-content: center;
+    position: relative;
+    z-index: 200;
 
     .nav-links {
       display: flex;
@@ -57,10 +56,13 @@
       list-style: none;
       margin: 0 auto;
       padding: 0;
+      position: relative;
+      align-items: center; // Added for better alignment
     }
 
     .nav-item {
       position: relative;
+      z-index: 300;
 
       a {
         font-family: $font-sans;
@@ -70,16 +72,9 @@
         color: $color-heading;
         text-decoration: none;
         position: relative;
-        //height: 42px;
-        line-height: 1.2;
-        display: flex;
-        align-items: baseline;
+        display: inline-flex; // Changed to inline-flex
+        align-items: center; // Changed to center for better alignment
         gap: 0.25rem;
-
-        .nav-dropdown-icon {
-          width: 16px;
-          height: 16px;
-        }
 
         &:hover {
           color: $color-link;
@@ -87,20 +82,48 @@
 
         &.active {
           color: $color-link;
-          font-weight: $weight-semibold;
-
-          &::after {
+          font-weight: $weight-medium;
+          
+          // Only add the underline if it's NOT a parent with submenu
+          &:not(.has-submenu .nav-link)::after {
             content: '';
             position: absolute;
-            bottom: -3px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 100%;
-            height: 3px;
+            width: 90%;
+            height: 2px;
             background-color: $color-link;
             border-radius: 999px;
           }
         }
+      }
+
+      // Add dropdown arrow for submenu items with proper alignment
+      &.has-submenu .nav-link::after {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-left: 6px;
+        background-image: url('../img/mingcute_down-line.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        vertical-align: middle;
+        position: relative;
+        top: -1px; // Fine-tune vertical alignment
+        transition: transform 0.3s ease;
+      }
+
+      // Keep arrow visible on active pages
+      &.has-submenu .nav-link.active::after {
+        opacity: 1;
+      }
+
+      // Optional: Rotate arrow on hover
+      &.has-submenu:hover .nav-link::after {
+        transform: rotate(180deg);
       }
 
       .sub-menu {
@@ -111,10 +134,21 @@
         background-color: $color-white;
         border: 1px solid $color-divider;
         min-width: 180px;
-        z-index: 999;
+        z-index: 9999;
         padding: 0;
         list-style: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-top: -1px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: -10px;
+          left: 0;
+          right: 0;
+          height: 10px;
+          background: transparent;
+        }
 
         li a {
           display: block;
@@ -122,6 +156,7 @@
           font-size: $font-size-body-sm;
           color: $color-body;
           text-decoration: none;
+          background-color: $color-white;
 
           &:hover {
             background-color: $color-bg-light;
@@ -130,10 +165,34 @@
         }
       }
 
-      &:hover > .sub-menu {
+      // Fix: Ensure hover works even on active items
+      &.has-submenu:hover > .sub-menu,
+      &.has-submenu:focus-within > .sub-menu,
+      &.has-submenu .nav-link:focus + .sub-menu,
+      &.has-submenu .nav-link:hover + .sub-menu {
         display: block;
       }
+      
+      // Additional fix for active parent items
+      &.has-submenu {
+        > .nav-link {
+          position: relative;
+          z-index: 1;
+        }
+        
+        &:hover .sub-menu {
+          display: block !important;
+        }
+      }
     }
+  }
+
+  // Ensure page content doesn't overlap navigation dropdowns
+  .page-content,
+  main,
+  .main-content {
+    position: relative;
+    z-index: 1;
   }
 
   .site-search {
@@ -156,7 +215,7 @@
         border: 1.2px solid #7A5B46;
         border-radius: 6px;
         padding: 0;
-        box-shadow: none !important; // ensure no shadow interferes
+        box-shadow: none !important;
 
         .search-icon {
           position: absolute;
@@ -173,7 +232,7 @@
 
         input[type="text"],
         input[type="search"] {
-          padding: 10px 14px 10px 40px; // fits in 42px height
+          padding: 10px 14px 10px 40px;
           border: none;
           height: 100%;
           outline: none;
@@ -191,8 +250,6 @@
       }
     }
   }
-}
-
 
   .mobile-nav-toggle {
     display: none;
@@ -215,9 +272,9 @@
       line-height: 1;
     }
   }
+}
 
-
-// XL
+// XL - Extra Large Desktops (1200px and up)
 @media (min-width: $breakpoint-xl) {
   .site-header {
     .header-inner {
@@ -239,14 +296,11 @@
   }
 }
 
-// LG
-@media (min-width: #{$breakpoint-md + 1}) and (max-width: #{$breakpoint-xl - 1}) {
+// LG - Desktops (992px to 1199px)
+@media (min-width: $breakpoint-lg) and (max-width: #{$breakpoint-xl - 1px}) {
   .site-header {
     .header-inner {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 $space-lg;
+      padding: 0 $space-md;
     }
 
     .site-search {
@@ -259,163 +313,244 @@
 
     .main-nav {
       display: flex;
+      
+      .nav-links {
+        gap: $space-md; // Slightly smaller gap
+      }
     }
   }
 }
 
-// SM–MD
-@media (min-width: #{$breakpoint-sm + 1}) and (max-width: $breakpoint-md) {
+// MD - Tablets (768px to 991px)
+@media (min-width: $breakpoint-md) and (max-width: #{$breakpoint-lg - 1px}) {
   .site-header {
+    height: auto;
+    
     .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       flex-wrap: wrap;
-      gap: $space-sm;
-      padding: $space-md $space-md 0;
+      padding: $space-sm $space-md;
     }
 
     .site-logo {
-      flex: 1 1 30%;
+      margin-top: 16px;
     }
 
     .site-search {
-      flex: 1 1 40%;
       max-width: 200px;
+      margin-top: 16px;
+    }
 
-      .search-form .search-field input[type="text"],
-      .search-form .search-field input[type="search"] {
-        font-size: 14px;
-        padding: 12px 10px 10px 36px;
+    .mobile-nav-toggle {
+      display: none; // Still show desktop nav at this size
+    }
+
+    .main-nav {
+      display: flex;
+      width: 100%;
+      margin-top: 16px;
+      
+      .nav-links {
+        gap: $space-sm;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+// Mobile styles (applies to both SM and XS breakpoints)
+@media (max-width: #{$breakpoint-md - 1px}) {
+  .site-header {
+    height: auto;
+    background-color: $color-white;
+    
+    .header-inner {
+      flex-direction: column;
+      padding: $space-md;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .site-logo {
+      margin-top: 0;
+      margin-bottom: $space-md;
+      
+      img {
+        height: 48px;
+        width: auto;
       }
     }
 
     .mobile-nav-toggle {
-      flex: 1 1 20%;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
+      display: block;
+      position: absolute;
+      top: $space-md;
+      right: $space-md;
+      font-size: 2rem;
+      padding: $space-xs;
+      
+      span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: $color-heading;
+        margin: 6px 0;
+        transition: 0.3s;
+      }
     }
 
     .main-nav {
       display: none;
       width: 100%;
-      padding: $space-md 0;
-      border-top: 1px solid $color-divider;
-
+      margin-top: 0;
+      
       &.mobile-nav-open {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-
+        display: block;
+        
         .nav-links {
           flex-direction: column;
-          gap: $space-md;
-          width: 100%;
-
+          gap: 0;
+          padding: 0;
+          
           .nav-item {
             width: 100%;
-
+            text-align: center;
+            
             a {
-              display: inline-block;
-              padding: $space-xs 0;
-              width: auto;
-
-              &.active::after {
-                content: '';
-                display: block;
-                height: 2px;
-                background-color: $color-link;
+              padding: $space-lg 0;
+              display: block;
+              font-size: 1.25rem;
+              font-weight: $weight-regular;
+              color: $color-heading;
+              border-bottom: 2px solid $color-divider;
+              
+              &:hover {
+                background-color: $color-bg-light;
+              }
+              
+              &.active {
+                color: $color-link;
+                background-color: $color-bg-light;
+              }
+            }
+            
+            // Mobile dropdown handling
+            &.has-submenu {
+              .nav-link {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                
+                &::after {
+                  position: absolute;
+                  right: $space-md;
+                  transform: rotate(0deg);
+                  width: 24px;
+                  height: 24px;
+                }
+              }
+              
+              &.open .nav-link::after {
+                transform: rotate(180deg);
+              }
+              
+              .sub-menu {
+                position: static;
                 width: 100%;
-                margin-top: 2px;
+                box-shadow: none;
+                border: none;
+                background-color: $color-bg-light;
+                padding: 0;
+                display: none;
+                margin-top: 0;
+                
+                li {
+                  border-bottom: 1px solid lighten($color-divider, 10%);
+                  
+                  &:last-child {
+                    border-bottom: none;
+                  }
+                  
+                  a {
+                    padding: $space-md;
+                    font-size: 1rem;
+                    border-bottom: none;
+                    color: $color-body;
+                    
+                    &:hover {
+                      background-color: darken($color-bg-light, 5%);
+                      color: $color-link;
+                    }
+                  }
+                }
+              }
+              
+              &.open .sub-menu {
+                display: block;
               }
             }
           }
         }
       }
     }
+
+    // Search bar for mobile - shown when nav is open
+    .site-search {
+      display: none;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: $space-md 0;
+      
+      .search-form {
+        .search-field {
+          background-color: $color-bg-light;
+          border-color: $color-divider;
+          
+          input {
+            font-size: 1rem;
+            padding: $space-md $space-md $space-md 48px;
+          }
+          
+          .search-icon {
+            width: 24px;
+            height: 24px;
+            left: 16px;
+          }
+        }
+      }
+    }
+    
+    // Show search when nav is open
+    .main-nav.mobile-nav-open + .site-search {
+      display: block;
+    }
   }
 }
 
-// Applies to XS and SM screens
-@media (max-width: $breakpoint-md) {
+// Specific adjustments for very small screens
+@media (max-width: #{$breakpoint-sm - 1px}) {
   .site-header {
     .header-inner {
-      display: flex;
-      align-items: flex-start; // Align items at top edge
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: $space-sm;
-      padding: $space-sm $space-md;
-      height: auto; // Let content grow naturally
+      padding: $space-sm;
     }
-
-    .site-logo {
-      flex: 1 1 auto;
-      display: flex;
-      align-items: center;
-      height: 42px;
-
-      img {
-        height: 36px;
-        width: auto;
-        display: block;
-      }
+    
+    .site-logo img {
+      height: 40px;
     }
-
-    .site-search {
-      flex: 1 1 40%;
-      max-width: 200px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-    }
-
+    
     .mobile-nav-toggle {
-      flex: 0 0 auto;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      top: $space-sm;
+      right: $space-sm;
     }
-
+    
     .main-nav {
-      display: none;
-      width: 100%;
-      padding: $space-md 0;
-      margin-top: $space-sm; // ensure it appears below header
-      border-top: 1px solid $color-divider;
-
       &.mobile-nav-open {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        background-color: $color-bg-light;
-
         .nav-links {
-          flex-direction: column;
-          width: 100%;
-          gap: $space-md;
-          padding: 0 $space-md;
-
           .nav-item {
-            width: 100%;
-            text-align: left;
-
             a {
-              display: block;
-              padding: $space-xs 0;
-              font-size: 1rem;
-
-              &.active::after {
-                content: '';
-                display: block;
-                height: 2px;
-                background-color: $color-link;
-                width: 100%;
-                margin-top: 2px;
-              }
+              padding: $space-md 0;
+              font-size: 1.1rem;
             }
           }
         }

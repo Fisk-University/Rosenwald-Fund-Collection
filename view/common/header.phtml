@@ -18,45 +18,43 @@ $topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
       <?php endif; ?>
     </a>
 
+    <!-- Mobile Toggle -->
+    <button class="mobile-nav-toggle" aria-label="<?= $this->translate('Toggle navigation'); ?>">
+      ☰
+    </button>
+
     <!-- Navigation -->
     <nav class="main-nav" aria-label="Main Navigation">
       <ul class="nav-links">
         <?php foreach ($navPages as $page):
           $label = $escape($page->getLabel());
           $isActive = $page->isActive() ? 'active' : '';
-
           if (!in_array($label, $topLevelLabels)) continue;
 
-          if ($label === 'About' && $page->hasPages()):
+          $hasSubmenu = $page->hasPages();
+          $class = 'nav-item' . ($hasSubmenu ? ' has-submenu' : '');
         ?>
-          <li class="nav-item nav-dropdown">
+          <li class="<?= $class ?>">
             <a href="<?= $escape($page->getHref()) ?>" class="nav-link <?= $isActive ?>">
               <?= $label ?>
             </a>
-            <ul class="sub-menu">
-              <?php foreach ($page->getPages() as $subPage): ?>
-                <li><a href="<?= $escape($subPage->getHref()) ?>"><?= $escape($subPage->getLabel()) ?></a></li>
-              <?php endforeach; ?>
-            </ul>
+
+            <?php if ($hasSubmenu): ?>
+              <ul class="sub-menu">
+                <?php foreach ($page->getPages() as $subPage): ?>
+                  <li><a href="<?= $escape($subPage->getHref()) ?>"><?= $escape($subPage->getLabel()) ?></a></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
           </li>
-        <?php else: ?>
-          <li class="nav-item">
-            <a href="<?= $escape($page->getHref()) ?>" class="<?= $isActive ?>">
-              <?= $label ?>
-            </a>
-          </li>
-        <?php endif; endforeach; ?>
+        <?php endforeach; ?>
       </ul>
     </nav>
-    <!-- Search -->
+
+    <!-- Search - moved after nav for mobile layout -->
     <div class="site-search">
       <?= $this->partial('common/search-form'); ?>
     </div>
-
-    <!-- Mobile Toggle -->
-    <button class="mobile-nav-toggle" aria-label="<?= $this->translate('Toggle navigation'); ?>">
-      ☰
-    </button>
 
   </div>
 </header>
@@ -65,15 +63,50 @@ $topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
   document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.querySelector(".mobile-nav-toggle");
     const nav = document.querySelector(".main-nav");
+    const search = document.querySelector(".site-search");
+
+    // Toggle mobile menu
     toggle?.addEventListener("click", () => {
       nav.classList.toggle("mobile-nav-open");
+      // Also toggle search visibility on mobile
+      if (window.innerWidth <= 768) {
+        search.style.display = nav.classList.contains("mobile-nav-open") ? "block" : "none";
+      }
     });
 
-    const dropdown = document.querySelector('.nav-dropdown');
-    const dropdownLink = dropdown?.querySelector('.nav-link');
-    dropdownLink?.addEventListener('click', function (e) {
-      e.preventDefault();
-      dropdown.classList.toggle('open');
+    // Handle dropdown toggles on mobile
+    document.querySelectorAll(".has-submenu > .nav-link").forEach(link => {
+      link.addEventListener("click", function(e) {
+        const parent = this.closest(".has-submenu");
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+          e.preventDefault();
+          parent.classList.toggle("open");
+          
+          // Close other open dropdowns
+          document.querySelectorAll(".has-submenu").forEach(item => {
+            if (item !== parent) {
+              item.classList.remove("open");
+            }
+          });
+        }
+      });
+    });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth > 768) {
+          nav.classList.remove("mobile-nav-open");
+          search.style.display = "";
+          document.querySelectorAll(".has-submenu").forEach(item => {
+            item.classList.remove("open");
+          });
+        }
+      }, 250);
     });
   });
 </script>
