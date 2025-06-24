@@ -1,0 +1,94 @@
+.map-section {
+  position: relative;
+  z-index: 1;
+  max-width: 965.5px;
+  margin: 0 auto;
+  padding: 0 20px 60px; // bottom gap below map
+
+  // Background texture for entire section
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('../img/original paper background texture.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .collection-header {
+    max-width: 962px;
+    min-height: 216px;
+    margin: 0 auto 40px;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+
+    h2 {
+      font-family: $font-serif;
+      font-size: $font-size-label-lg;
+      font-weight: normal;
+      color: $color-heading;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 0 0 20px 0;
+      max-width: 496px;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 290px;
+        height: 2px;
+        background-color: $color-accent;
+      }
+    }
+
+    .collection-description {
+      max-width: 700px;
+      margin-top: 36px;
+
+      p {
+        font-family: $font-sans;
+        font-size: 18px;
+        line-height: 1.75;
+        color: $color-body;
+        margin: 0;
+        text-align: left;
+      }
+    }
+  }
+
+  // Map block (from plugin)
+  .mapping-block,
+  #leaflet-map {
+    width: 100%;
+    max-width: 1000px;
+    height: 468px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    background-color: #fff; // fallback if tiles don't load
+  }
+
+  .leaflet-control-container {
+    z-index: 999;
+  }
+
+  // Optional styling for map instructions block
+  .map-instructions {
+    margin-top: 24px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: $color-body;
+    max-width: 760px;
+  }
+}

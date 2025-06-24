@@ -1,7 +1,6 @@
 <?php
 $escape = $this->plugin('escapeHtml');
 $this->headLink()->appendStylesheet($this->assetUrl('css/style.css'));
-$this->htmlElement('body')->appendAttribute('class', 'static-page');
 
 // List of slugs that use the custom "About" layout
 $aboutSlugs = [
@@ -16,6 +15,15 @@ $aboutSlugs = [
 ];
 
 $currentSlug = $page->slug();
+
+// Set body class based on page type
+if (in_array($currentSlug, $aboutSlugs)) {
+    $this->htmlElement('body')->appendAttribute('class', 'static-page');
+} elseif ($currentSlug === 'home' || $currentSlug === 'homepage') {
+    $this->htmlElement('body')->appendAttribute('class', 'homepage');
+} else {
+    $this->htmlElement('body')->appendAttribute('class', 'page');
+}
 ?>
 
 <?php if (in_array($currentSlug, $aboutSlugs)): ?>
@@ -37,8 +45,12 @@ $currentSlug = $page->slug();
   </main>
 
 <?php else: ?>
-  <!-- Fallback: default Omeka rendering for all other pages -->
-  <?php foreach ($page->blocks() as $block): ?>
-    <?php echo $this->blockLayout()->render($block); ?>
-  <?php endforeach; ?>
+  <!-- Default rendering for homepage and other pages -->
+  <main id="content" role="main">
+    <div class="blocks">
+      <?php foreach ($page->blocks() as $block): ?>
+        <?php echo $this->blockLayout()->render($block); ?>
+      <?php endforeach; ?>
+    </div>
+  </main>
 <?php endif; ?>

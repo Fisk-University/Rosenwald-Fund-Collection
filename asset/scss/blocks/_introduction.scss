@@ -1,0 +1,310 @@
+// Homepage introduction section
+.homepage {
+  // Override any default styles from Omeka
+  #content {
+    padding: 0;
+    max-width: none;
+    margin: 0;
+  }
+  
+  .blocks {
+    padding: 0;
+    margin: 0;
+  }
+  
+  // The introduction block
+  div.block-introduction {
+    position: relative;
+    width: 100%;
+    max-width: 1442px;
+    min-height: 662px;
+    //min-height: auto;
+    margin: 0 auto;
+    padding: 220px 120px;
+    background-color: $color-bg-light; // #FFFAFA
+    box-sizing: border-box;
+    
+    // Paper texture background overlay
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('../img/original paper background texture.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.3;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    // All content above background
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+    
+    // Content wrapper
+    .intro-content {
+      display: flex;
+      align-items: center;
+      gap: 50px; // Exact gap
+      max-width: 1000px;
+      width: 100%;
+      min-height: 422px;
+      margin: 0 auto;
+    }
+    
+    // Left side: Text content - 490 x 422px
+    .intro-text-wrapper {
+      flex: 0 0 490px;
+      width: 490px;
+      min-height: 422px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    
+    // Heading styling with decorative line
+    .intro-heading {
+      width: 100%;
+      margin: 0 0 36px 0;
+      position: relative;
+      
+      h2 {
+        font-family: $font-serif;
+        font-size: $font-size-label-lg;
+        font-weight: $weight-regular;
+        line-height: $lh-h2; // 140% of 44px
+        color: $color-heading; // #442F2A
+        margin: 0;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+      }
+      
+      // Decorative line under heading
+      &::after {
+        content: '';
+        display: block;
+        width: 290px;
+        height: 1px;
+        background-color: $color-accent; // #B65934
+        margin-top: 16px;
+      }
+    }
+    
+    // Body text
+    .intro-text {
+      margin: 0 0 36px 0;
+      
+      p {
+        font-family: $font-sans;
+        font-size: $font-size-body;
+        font-weight: 400;
+        line-height: 31.5px;
+        color: $color-body; // #56352D
+        margin: 0;
+        text-align: left;
+        
+        & + p {
+          margin-top: 16px;
+        }
+      }
+    }
+    
+    // Button with border 
+    .intro-button {
+      margin-top: auto;
+      
+      a, .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: auto;
+        height: 50px;
+        padding: 0 32px;
+        background-color: transparent; // Transparent background
+        color: $color-primary;
+        font-family: $font-sans;
+        font-size: $font-size-label-sm;
+        font-weight: $weight-semibold;
+        line-height: 1;
+        text-decoration: none;
+        text-align: center;
+        border: 1px solid $color-primary;
+        border-radius: 2px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        
+        &:hover {
+          background-color: $color-primary;
+          color: $color-white;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(101, 60, 44, 0.25);
+        }
+        
+        &:active {
+          background-color: darken($color-primary, 10%);
+          border-color: darken($color-primary, 10%);
+          transform: translateY(0);
+          box-shadow: none;
+        }
+        
+        &:focus {
+          outline: 2px solid $color-accent;
+          outline-offset: 2px;
+        }
+      }
+    }
+    
+    // Right side: Image container - 459.82 x 381.07px
+    .intro-image {
+      flex: 0 0 459.82px;
+      width: 459.82px;
+      height: 381.07px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      img {
+        width: 408.52px;
+        height: 343.44px;
+        object-fit: cover;
+        border-radius: 0;
+        display: block;
+        //border: 20px solid #E8E0D9; // Light gray matte
+        //box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        //background-color: #E8E0D9;
+      }
+    }
+  }
+}
+
+// Responsive - Tablet (iPad)
+@media (max-width: $breakpoint-lg) {
+  .homepage div.block-introduction {
+    padding: 120px 60px;
+    min-height: auto;
+    
+    .intro-content {
+      flex-direction: column;
+      gap: 60px;
+      text-align: center;
+    }
+    
+    .intro-text-wrapper {
+      width: 100%;
+      max-width: 600px;
+      min-height: auto;
+      align-items: center;
+    }
+    
+    .intro-heading {
+      text-align: center;
+      
+      h2 {
+        font-size: 36px;
+        line-height: 50px;
+      }
+      
+      &::after {
+        margin: 16px auto 0; // Center the line
+      }
+    }
+    
+    .intro-text {
+      text-align: center;
+      
+      p {
+        text-align: center;
+      }
+    }
+    
+    .intro-button {
+      margin: 0 auto;
+    }
+    
+    .intro-image {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      
+      img {
+        width: 100%;
+        height: auto;
+        max-width: 350px;
+        border-width: 16px;
+      }
+    }
+  }
+}
+
+// Responsive - Mobile
+@media (max-width: $breakpoint-md) {
+  .homepage div.block-introduction {
+    padding: 60px 20px;
+    
+    .intro-heading {
+      h2 {
+        font-size: 32px;
+        line-height: 44px;
+      }
+      
+      &::after {
+        width: 80px;
+      }
+    }
+    
+    .intro-text p {
+      font-size: 16px;
+      line-height: 28px;
+    }
+    
+    .intro-button {
+      width: 100%;
+      
+      a, .btn {
+        min-width: 100%;
+        width: 100%;
+      }
+    }
+    
+    .intro-image {
+      img {
+        border-width: 12px;
+      }
+      
+      &::after {
+        display: none; // Hide tape on mobile
+      }
+    }
+  }
+}
+
+// Very small screens
+@media (max-width: $breakpoint-sm) {
+  .homepage div.block-introduction {
+    padding: 40px 16px;
+    
+    .intro-heading h2 {
+      font-size: 28px;
+      line-height: 38px;
+    }
+    
+    .intro-text p {
+      font-size: 14px;
+      line-height: 24px;
+    }
+    
+    .intro-button a {
+      font-size: 16px;
+      height: 44px;
+    }
+    
+    .intro-image img {
+      border-width: 8px;
+    }
+  }
+}

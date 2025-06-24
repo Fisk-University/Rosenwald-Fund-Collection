@@ -15,6 +15,9 @@ $this->headScript()->prependFile($this->assetUrl('js/theme.js'));
 $this->headScript()->prependFile($this->assetUrl('js/global.js', 'Omeka'));
 $this->headScript()->prependFile($this->assetUrl('vendor/jquery/jquery.min.js', 'Omeka'));
 $this->jsTranslate();
+$this->headScript()->prependFile($this->assetUrl('vendor/leaflet/leaflet.js', 'Omeka'));
+$this->headLink()->prependStylesheet($this->assetUrl('vendor/leaflet/leaflet.css', 'Omeka'));
+
 
 $this->trigger('view.layout');
 $userBar = $this->userBar();
@@ -33,17 +36,22 @@ $userBar = $this->userBar();
     <a id="skipnav" href="#content"><?php echo $this->translate('Skip to main content'); ?></a>
     <?php echo $userBar; ?>
 
-     <div class="site-header">
-      <?php echo $this->partial('common/header'); ?>
+    <!-- Flex wrapper to allow footer to stick to bottom -->
+    <div class="site-layout">
+      <header class="site-header">
+        <?php echo $this->partial('common/header'); ?>
+      </header>
+
+      <!-- Site main grows to push footer down -->
+      <main id="content" class="site-main" role="main">
+        <div class="container">
+          <?php echo $this->content; ?>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <?php echo $this->partial('common/footer'); ?>
+      </footer>
     </div>
-
-    <div id="content" role="main">
-      <div class="container">
-        <?php echo $this->content; ?>
-      </div>
-    </div>
-
-    <?php echo $this->partial('common/footer'); ?>
-
   </body>
 </html>

@@ -1,0 +1,19 @@
+.site-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; // full viewport height
+}
+
+.site-main {
+  flex: 1 0 auto; // grows to fill remaining space
+}
+
+.site-footer {
+  position: relative;
+  z-index: 0;
+  //background-image: url('../img/footer-texture.jpg'); // or use same paper texture
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  padding: 60px 40px 40px;
+}
