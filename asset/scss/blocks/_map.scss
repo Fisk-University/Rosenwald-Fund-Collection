@@ -6,7 +6,7 @@
   padding: 0 20px 60px; // bottom gap below map
 
   // Background texture for entire section
-  &::before {
+  /*&::before {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -17,7 +17,7 @@
     opacity: 0.3;
     z-index: 0;
     pointer-events: none;
-  }
+  }*/
 
   .collection-header {
     max-width: 962px;
@@ -76,7 +76,7 @@
     overflow: hidden;
     position: relative;
     z-index: 1;
-    background-color: #fff; // fallback if tiles don't load
+    //background-color: #fff; // fallback if tiles don't load
   }
 
   .leaflet-control-container {

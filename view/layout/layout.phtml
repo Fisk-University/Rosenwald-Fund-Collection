@@ -36,22 +36,22 @@ $userBar = $this->userBar();
     <a id="skipnav" href="#content"><?php echo $this->translate('Skip to main content'); ?></a>
     <?php echo $userBar; ?>
 
-    <!-- Flex wrapper to allow footer to stick to bottom -->
-    <div class="site-layout">
-      <header class="site-header">
-        <?php echo $this->partial('common/header'); ?>
-      </header>
+    <div class="sandpaper-bg">
+      <div class="site-layout">
+        <header class="site-header">
+          <?php echo $this->partial('common/header'); ?>
+        </header>
 
-      <!-- Site main grows to push footer down -->
-      <main id="content" class="site-main" role="main">
-        <div class="container">
-          <?php echo $this->content; ?>
-        </div>
-      </main>
+        <main id="content" class="site-main" role="main">
+          <div class="container">
+            <?php echo $this->content; ?>
+          </div>
+        </main>
 
-      <footer class="site-footer">
-        <?php echo $this->partial('common/footer'); ?>
-      </footer>
+        <footer class="site-footer">
+          <?php echo $this->partial('common/footer'); ?>
+        </footer>
+      </div>
     </div>
   </body>
 </html>

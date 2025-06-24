@@ -501,6 +501,30 @@ input[type=text]:focus, select:focus {
   padding: 60px 40px 40px;
 }
 
+.sandpaper-bg {
+  position: relative;
+  min-height: 100vh;
+  background-image: url("../img/background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.sandpaper-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
+.sandpaper-bg .site-layout {
+  position: relative;
+  z-index: 1;
+}
+
 .site-header {
   position: relative;
   z-index: 100;
@@ -956,7 +980,6 @@ input[type=text]:focus, select:focus {
   border-top: 1px solid #DCD0C9;
   margin: 0 auto;
   width: 100%;
-  margin-top: 600px;
   height: auto;
 }
 .footer::before {
@@ -1125,20 +1148,20 @@ input[type=text]:focus, select:focus {
   min-height: 662px;
   margin: 0 auto;
   padding: 220px 120px;
-  background-color: #FFFAFA;
   box-sizing: border-box;
-}
-.homepage div.block-introduction::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("../img/original paper background texture.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
+  /*&::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    min-height: 100vh;
+    background-image: url('../img/original paper background texture.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+  }*/
 }
 .homepage div.block-introduction > * {
   position: relative;
@@ -1357,25 +1380,25 @@ input[type=text]:focus, select:focus {
   position: relative;
   width: 100%;
   max-width: 1240px;
-  max-height: 500px;
+  max-height: auto;
   margin: 0 auto;
   padding: 120px 0 60px;
-  background-color: #FFFAFA;
-}
-.homepage .block.block-html::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../img/original paper background texture.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
+  /*&::before {
+    content: "";
+    position: absolute;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../img/original paper background texture.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    opacity: 0.3;
+    z-index: -1;
+    pointer-events: none;
+  } */
 }
 .homepage .block.block-html > div {
   position: relative;
@@ -1434,63 +1457,49 @@ input[type=text]:focus, select:focus {
   max-width: 1440px;
   margin: -60px auto 0;
   padding: 0 0 120px;
-  background-color: #FFFAFA;
   overflow: hidden;
 }
-.block-carousel.collection-carousel::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../img/original paper background texture.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
-}
-.block-carousel.collection-carousel .carousel-43 {
+.block-carousel.collection-carousel [class*=carousel-] {
   position: relative;
   z-index: 1;
   max-width: 962px;
   min-height: 644px;
   margin: 0 auto;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-list {
+.block-carousel.collection-carousel .slick-slider .slick-list {
   margin: 0 auto;
   padding: 0 60px;
   overflow: visible;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-track {
+.block-carousel.collection-carousel .slick-slider .slick-track {
   display: flex;
   align-items: center;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-track .slick-slide {
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide {
   text-align: center;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-track .slick-slide > div {
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide > div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-track .slick-slide img {
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide img {
   width: 697px;
   height: 450px;
   -o-object-fit: cover;
      object-fit: cover;
-  background-color: transparent !important;
-  padding: 0 !important;
+  background-color: transparent;
+  padding: 0;
   box-sizing: border-box;
-  border: none !important;
-  border-radius: 0 !important;
+  border: none;
+  border-radius: 0;
   margin: 0 auto 24px;
   display: block;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-track .slick-slide .title {
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide .title,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h3, .block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h4, .block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h5,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide [class*=title] {
   font-family: "Sorts Mill Goudy", serif;
   font-size: 28px;
   font-weight: normal;
@@ -1501,7 +1510,21 @@ input[type=text]:focus, select:focus {
   max-width: 640px;
   text-align: center;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-track .slick-slide .description {
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide .title a,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h3 a, .block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h4 a, .block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h5 a,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide [class*=title] a {
+  color: inherit;
+  text-decoration: none;
+}
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide .title a:hover,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h3 a:hover, .block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h4 a:hover, .block-carousel.collection-carousel .slick-slider .slick-track .slick-slide h5 a:hover,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide [class*=title] a:hover {
+  color: #B65934;
+}
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide .description,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide p,
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide [class*=description],
+.block-carousel.collection-carousel .slick-slider .slick-track .slick-slide [class*=caption] {
   font-family: "Montserrat", sans-serif;
   font-size: 16px;
   font-weight: normal;
@@ -1511,18 +1534,18 @@ input[type=text]:focus, select:focus {
   max-width: 700px;
   text-align: center;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-prev-icon,
-.block-carousel.collection-carousel .carousel-43 .slick-next-icon,
-.block-carousel.collection-carousel .carousel-43 .slick-prev::before,
-.block-carousel.collection-carousel .carousel-43 .slick-next::before {
+.block-carousel.collection-carousel .slick-slider .slick-prev-icon,
+.block-carousel.collection-carousel .slick-slider .slick-next-icon,
+.block-carousel.collection-carousel .slick-slider .slick-prev::before,
+.block-carousel.collection-carousel .slick-slider .slick-next::before {
   display: none !important;
   content: none !important;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-arrow {
+.block-carousel.collection-carousel .slick-slider .slick-arrow {
   color: transparent !important;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-prev,
-.block-carousel.collection-carousel .carousel-43 .slick-next {
+.block-carousel.collection-carousel .slick-slider .slick-prev,
+.block-carousel.collection-carousel .slick-slider .slick-next {
   position: absolute;
   top: 30%;
   transform: translateY(-50%);
@@ -1536,8 +1559,13 @@ input[type=text]:focus, select:focus {
   font-size: 0;
   transition: all 0.3s ease;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-prev::after,
-.block-carousel.collection-carousel .carousel-43 .slick-next::after {
+.block-carousel.collection-carousel .slick-slider .slick-prev::before,
+.block-carousel.collection-carousel .slick-slider .slick-next::before {
+  display: none;
+  content: none;
+}
+.block-carousel.collection-carousel .slick-slider .slick-prev::after,
+.block-carousel.collection-carousel .slick-slider .slick-next::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -1547,26 +1575,26 @@ input[type=text]:focus, select:focus {
   border-top: 2px solid white;
   border-right: 2px solid white;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-prev:hover,
-.block-carousel.collection-carousel .carousel-43 .slick-next:hover {
+.block-carousel.collection-carousel .slick-slider .slick-prev:hover,
+.block-carousel.collection-carousel .slick-slider .slick-next:hover {
   background-color: #653C2C;
   transform: translateY(-50%) scale(1.1);
 }
-.block-carousel.collection-carousel .carousel-43 .slick-prev {
+.block-carousel.collection-carousel .slick-slider .slick-prev {
   left: 20px;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-prev::after {
+.block-carousel.collection-carousel .slick-slider .slick-prev::after {
   transform: translate(-50%, -50%) rotate(-135deg);
   margin-left: 2px;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-next {
+.block-carousel.collection-carousel .slick-slider .slick-next {
   right: 20px;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-next::after {
+.block-carousel.collection-carousel .slick-slider .slick-next::after {
   transform: translate(-50%, -50%) rotate(45deg);
   margin-left: -2px;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-dots {
+.block-carousel.collection-carousel .slick-slider .slick-dots {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1575,10 +1603,10 @@ input[type=text]:focus, select:focus {
   padding: 0;
   gap: 8px;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-dots li {
+.block-carousel.collection-carousel .slick-slider .slick-dots li {
   margin: 0;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-dots li button {
+.block-carousel.collection-carousel .slick-slider .slick-dots li button {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -1589,32 +1617,32 @@ input[type=text]:focus, select:focus {
   padding: 0;
   transition: all 0.3s ease;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-dots li button::before {
-  display: none !important;
-  content: none !important;
+.block-carousel.collection-carousel .slick-slider .slick-dots li button::before {
+  display: none;
+  content: none;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-dots li button .slick-dot-icon {
+.block-carousel.collection-carousel .slick-slider .slick-dots li button .slick-dot-icon {
   display: none !important;
 }
-.block-carousel.collection-carousel .carousel-43 .slick-dots li button:hover {
+.block-carousel.collection-carousel .slick-slider .slick-dots li button:hover {
   background-color: #B8A68C;
   transform: scale(1.15);
 }
-.block-carousel.collection-carousel .carousel-43 .slick-dots li.slick-active button {
+.block-carousel.collection-carousel .slick-slider .slick-dots li.slick-active button {
   background-color: #653C2C;
   transform: scale(1.2);
 }
 @media screen and (max-width: 768px) {
-  .block-carousel.collection-carousel .carousel-43 .slick-list {
+  .block-carousel.collection-carousel .slick-slider .slick-list {
     padding: 0 12px;
   }
-  .block-carousel.collection-carousel .carousel-43 .slick-list .slick-slide img {
-    width: 100% !important;
-    height: auto !important;
+  .block-carousel.collection-carousel .slick-slider .slick-slide img {
+    width: 100%;
+    height: auto;
   }
-  .block-carousel.collection-carousel .carousel-43 .slick-prev,
-  .block-carousel.collection-carousel .carousel-43 .slick-next {
-    display: none !important;
+  .block-carousel.collection-carousel .slick-slider .slick-prev,
+  .block-carousel.collection-carousel .slick-slider .slick-next {
+    display: none;
   }
 }
 
@@ -1624,21 +1652,18 @@ input[type=text]:focus, select:focus {
   max-width: 965.5px;
   margin: 0 auto;
   padding: 0 20px 60px;
-}
-.map-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../img/original paper background texture.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
+  /*&::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('../img/original paper background texture.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+  }*/
 }
 .map-section .collection-header {
   max-width: 962px;
@@ -1691,7 +1716,6 @@ input[type=text]:focus, select:focus {
   overflow: hidden;
   position: relative;
   z-index: 1;
-  background-color: #fff;
 }
 .map-section .leaflet-control-container {
   z-index: 999;
@@ -1712,6 +1736,18 @@ input[type=text]:focus, select:focus {
   margin: 80px auto;
   padding: 60px 40px;
   max-height: auto;
+  /*&::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('../img/original paper background texture.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    opacity: 0.3;
+    z-index: 0;
+    pointer-events: none;
+  }*/
 }
 .explore-funds-section .page-wrapper {
   display: flex;
@@ -1720,21 +1756,6 @@ input[type=text]:focus, select:focus {
 }
 .explore-funds-section .main-content {
   flex: 1;
-}
-.explore-funds-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../img/original paper background texture.jpg");
-  background-size: cover;
-  background-repeat: repeat;
-  background-position: center;
-  opacity: 0.3;
-  z-index: 0;
-  pointer-events: none;
 }
 .explore-funds-section .section-header {
   position: relative;

@@ -2,119 +2,105 @@
   position: relative;
   width: 100%;
   max-width: 1240px;
-  max-height: 500px;
+  max-height: auto;
   margin: 0 auto;
   padding: 120px 0 60px;
-  background-color: $color-bg-light;
   
   // Sandpaper texture background
-  &::before {
+  /*&::before {
     content: "";
     position: absolute;
+    min-height: 100vh;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background-image: url('../img/original paper background texture.jpg');
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: center;
     opacity: 0.3;
-    z-index: 0;
+    z-index: -1;
     pointer-events: none;
-  }
+  } */
   
-  // Inside body: 965.5 x 901px
-// Inside body: 965.5 x 901px
-> div {
-  position: relative;
-  z-index: 1;
-  max-width: 965.5px;
-  margin: 0 auto;
-  padding: 0 20px;
-  
-  // Header section: 962 x 216px
-  .collection-header {
-    max-width: 962px;
-    min-height: 216px;
+  > div {
+    position: relative;
+    z-index: 1;
+    max-width: 965.5px;
     margin: 0 auto;
-    text-align: left; 
+    padding: 0 20px;
     
-    // Title: 496 x 56px
-    h2 {
-      font-family: $font-serif;
-      font-size: $font-size-label-lg;
-      font-weight: normal;
-      color: $color-heading;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin: 0 0 20px 0; // Left-aligned, margin only bottom
-      max-width: 496px;
-      min-height: 56px;
-      position: relative;
-      text-align: left; // LEFT-ALIGNED
+    .collection-header {
+      max-width: 962px;
+      min-height: 216px;
+      margin: 0 auto;
+      text-align: left; 
       
-      // Decorative line: appears below title - LEFT-ALIGNED
-      &::after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 0; // LEFT-ALIGNED, not centered
-        width: 290px;
-        height: 2px;
-        background-color: $color-accent;
-        margin-top: 0;
-      }
-    }
-    
-    // Description: 766 x 124px with exact 36px gap - LEFT-ALIGNED
-    .collection-description {
-      max-width: 700px;
-      min-height: 124px;
-      margin: 36px 0 0 0; // LEFT-ALIGNED, no auto centering
-      
-      p {
-        font-family: $font-sans;
-        font-size: 18px;
+      h2 {
+        font-family: $font-serif;
+        font-size: $font-size-label-lg;
         font-weight: normal;
-        line-height: 1.75;
-        color: $color-body;
-        margin: 0;
+        color: $color-heading;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 0 20px 0;
+        max-width: 496px;
+        min-height: 56px;
+        position: relative;
         text-align: left;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 290px;
+          height: 2px;
+          background-color: $color-accent;
+          margin-top: 0;
+        }
+      }
+      
+      .collection-description {
+        max-width: 700px;
+        min-height: 124px;
+        margin: 36px 0 0 0;
+        
+        p {
+          font-family: $font-sans;
+          font-size: 18px;
+          font-weight: normal;
+          line-height: 1.75;
+          color: $color-body;
+          margin: 0;
+          text-align: left;
+        }
       }
     }
   }
 }
-  }
+
+// Target carousels by their stable parent classes, not dynamic IDs
 .block-carousel.collection-carousel {
   position: relative;
   width: 100%;
   max-width: 1440px;
   margin: -60px auto 0;
   padding: 0 0 120px;
-  background-color: $color-bg-light;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: url('../img/original paper background texture.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    opacity: 0.3;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .carousel-43 {
+  
+  // Target ANY div that has "carousel" in its class name
+  [class*="carousel-"] {
     position: relative;
     z-index: 1;
     max-width: 962px;
     min-height: 644px;
     margin: 0 auto;
+  }
 
+  // These slick classes are stable - they don't change
+  .slick-slider {
     .slick-list {
       margin: 0 auto;
       padding: 0 60px;
@@ -125,54 +111,68 @@
       display: flex;
       align-items: center;
 
-      .slick-slide {
+    .slick-slide {
+      text-align: center;
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      img {
+        width: 697px;
+        height: 450px;
+        object-fit: cover;
+        background-color: transparent;
+        padding: 0;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 0;
+        margin: 0 auto 24px;
+        display: block;
+      }
+
+      .title,
+      h3, h4, h5,
+      [class*="title"] {
+        font-family: $font-serif;
+        font-size: 28px;
+        font-weight: normal;
+        color: #973F19;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 auto 12px;
+        max-width: 640px;
         text-align: center;
-
-        > div {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-start;
-        }
-
-        img {
-          width: 697px;
-          height: 450px;
-          object-fit: cover;
-          background-color: transparent !important; // remove beige box
-          padding: 0 !important;
-          box-sizing: border-box;
-          border: none !important;
-          border-radius: 0 !important;
-          margin: 0 auto 24px;
-          display: block;
-        }
-
-        .title {
-          font-family: $font-serif;
-          font-size: 28px;
-          font-weight: normal;
-          color: #973F19;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-          margin: 0 auto 12px;
-          max-width: 640px;
-          text-align: center;
-        }
-        // 👇 Caption style 
-        .description {
-          font-family: $font-sans;
-          font-size: 16px;
-          font-weight: normal;
-          line-height: 1.75;
-          color: #3B2D1F;
-          margin: 0 auto;
-          max-width: 700px;
-          text-align: center;
+        
+        a {
+          color: inherit;
+          text-decoration: none;
+          &:hover {
+            color: $color-accent;
+          }
         }
       }
+      
+      .description,
+      p,
+      [class*="description"],
+      [class*="caption"] {
+        font-family: $font-sans;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1.75;
+        color: #3B2D1F;
+        margin: 0 auto;
+        max-width: 700px;
+        text-align: center;
+      }
     }
+  }
 
+  
     // Remove slick's internal arrow content
     .slick-prev-icon,
     .slick-next-icon,
@@ -185,120 +185,122 @@
     .slick-arrow {
       color: transparent !important;
     }
+  // Arrow styles
+  .slick-prev,
+  .slick-next {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background-color: $color-primary;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 0;
+    transition: all 0.3s ease;
+    
+    &::before {
+      display: none;
+      content: none;
+    }
 
-    // Custom-style arrows
-    .slick-prev,
-    .slick-next {
+    &::after {
+      content: '';
       position: absolute;
-      top: 30%;
-      transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
+      top: 50%;
+      left: 50%;
+      width: 12px;
+      height: 12px;
+      border-top: 2px solid white;
+      border-right: 2px solid white;
+    }
+
+    &:hover {
       background-color: $color-primary;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      z-index: 10;
-      font-size: 0;
-      transition: all 0.3s ease;
+      transform: translateY(-50%) scale(1.1);
+    }
+  }
 
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 12px;
-        height: 12px;
-        border-top: 2px solid white;
-        border-right: 2px solid white;
+  .slick-prev {
+    left: 20px;
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(-135deg);
+      margin-left: 2px;
+    }
+  }
+
+  .slick-next {
+    right: 20px;
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+      margin-left: -2px;
+    }
+  }
+
+  // Dot styles
+  .slick-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+    list-style: none;
+    padding: 0;
+    gap: 8px;
+
+    li {
+      margin: 0;
+
+      button {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #D4C4B0;
+        border: none;
+        cursor: pointer;
+        font-size: 0;
+        padding: 0;
+        transition: all 0.3s ease;
+
+        &::before {
+          display: none;
+          content: none;
+        }
+          
+        .slick-dot-icon {
+            display: none !important;
+          }
+
+        &:hover {
+          background-color: #B8A68C;
+          transform: scale(1.15);
+        }
       }
 
-      &:hover {
+      &.slick-active button {
         background-color: $color-primary;
-        transform: translateY(-50%) scale(1.1);
-      }
-    }
-
-    .slick-prev {
-      left: 20px;
-
-      &::after {
-        transform: translate(-50%, -50%) rotate(-135deg);
-        margin-left: 2px;
-      }
-    }
-
-    .slick-next {
-      right: 20px;
-
-      &::after {
-        transform: translate(-50%, -50%) rotate(45deg);
-        margin-left: -2px;
-      }
-    }
-
-    // style dots
-    .slick-dots {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 8px;
-      //margin: 40px auto 0;
-      list-style: none;
-      padding: 0;
-      gap: 8px;
-
-      li {
-        margin: 0;
-
-        button {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background-color: #D4C4B0;
-          border: none;
-          cursor: pointer;
-          font-size: 0;
-          padding: 0;
-          transition: all 0.3s ease;
-
-          &::before {
-            display: none !important;
-            content: none !important;
-          }
-
-          .slick-dot-icon {
-            display: none !important;
-          }
-
-          &:hover {
-            background-color: #B8A68C;
-            transform: scale(1.15);
-          }
-        }
-
-        &.slick-active button {
-          background-color: $color-primary;
-          transform: scale(1.2);
-        }
-      }
-    }
-
-    // Mobile: scale image, hide arrows
-    @media screen and (max-width: 768px) {
-      .slick-list {
-        padding: 0 12px;
-
-        .slick-slide img {
-          width: 100% !important;
-          height: auto !important;
-        }
-      }
-
-      .slick-prev,
-      .slick-next {
-        display: none !important;
+        transform: scale(1.2);
       }
     }
   }
+
+  @media screen and (max-width: 768px) {
+    .slick-list {
+      padding: 0 12px;
+    }
+
+    .slick-slide img {
+      width: 100%;
+      height: auto;
+    }
+
+    .slick-prev,
+    .slick-next {
+      display: none;
+    }
+  }
+}
 }
