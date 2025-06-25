@@ -110,3 +110,14 @@ $topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
     });
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.main-nav .nav-link');
+    navLinks.forEach(link => {
+      if (link.textContent.trim() === 'Contact') {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener');
+      }
+    });
+  });
+</script>
