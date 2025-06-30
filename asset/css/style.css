@@ -1176,6 +1176,565 @@ input[type=text]:focus, select:focus {
   }
 }
 
+.hero-section {
+  position: relative;
+  width: 100%;
+}
+.hero-section .hero-image {
+  width: 100%;
+  height: 916px;
+  background: url("../img/homepage-hero.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-section .hero-search-container {
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  padding: 48px 56px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+.hero-section .hero-search-container .hero-heading {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 36px;
+  line-height: 1.2;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.hero-section .hero-search-container .hero-subtext {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #666666;
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-section .hero-search-container .search-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.hero-section .hero-search-container .search-forms h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper {
+  margin-bottom: 24px;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element label,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group label,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field label,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element label,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group label,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field label {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #333333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element label abbr,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group label abbr,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field label abbr,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element label abbr,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group label abbr,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field label abbr {
+  display: none;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element label:after,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group label:after,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field label:after,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element label:after,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group label:after,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field label:after {
+  content: " *";
+  color: #c53030;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=text],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=search],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input.query-text,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=text],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=search],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input.query-text,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=text],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=search],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input.query-text,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=text],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=search],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input.query-text,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=text],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=search],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input.query-text,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=text],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=search],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input.query-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  width: 100%;
+  background-color: #ffffff;
+  transition: border-color 0.2s;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=text]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=search]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input.query-text::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=text]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=search]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input.query-text::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=text]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=search]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input.query-text::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=text]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=search]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input.query-text::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=text]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=search]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input.query-text::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=text]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=search]::-moz-placeholder, .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input.query-text::-moz-placeholder {
+  color: #9ca3af;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=text]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=search]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input.query-text::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=text]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=search]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input.query-text::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=text]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=search]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input.query-text::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=text]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=search]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input.query-text::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=text]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=search]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input.query-text::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=text]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=search]::placeholder,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input.query-text::placeholder {
+  color: #9ca3af;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=text]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input[type=search]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element input.query-text:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=text]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input[type=search]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group input.query-text:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=text]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input[type=search]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field input.query-text:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=text]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input[type=search]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element input.query-text:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=text]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input[type=search]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group input.query-text:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=text]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input[type=search]:focus,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field input.query-text:focus {
+  outline: none;
+  border-color: #6b7280;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search button,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search input[type=submit],
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form button,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form input[type=submit] {
+  background-color: #8b4513;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  height: 42px;
+  align-self: flex-end;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search button:hover,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search input[type=submit]:hover,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form button:hover,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form input[type=submit]:hover {
+  background-color: #7a3d11;
+}
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search button:active,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search input[type=submit]:active,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form button:active,
+.hero-section .hero-search-container .search-forms .search-by-name-wrapper form input[type=submit]:active {
+  background-color: #693510;
+}
+.hero-section .hero-search-container .search-forms .divider {
+  position: relative;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-section .hero-search-container .search-forms .divider::before, .hero-section .hero-search-container .search-forms .divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #e5e7eb;
+}
+.hero-section .hero-search-container .search-forms .divider::before {
+  margin-right: 16px;
+}
+.hero-section .hero-search-container .search-forms .divider::after {
+  margin-left: 16px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element:nth-child(1),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group:nth-child(1),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field:nth-child(1),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element:nth-child(1),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group:nth-child(1),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field:nth-child(1) {
+  flex: 0 0 calc(40% - 6px);
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element:nth-child(2),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group:nth-child(2),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field:nth-child(2),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element:nth-child(2),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group:nth-child(2),
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field:nth-child(2) {
+  flex: 0 0 calc(40% - 6px);
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element label,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group label,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field label,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element label,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group label,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field label {
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #333333;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element label abbr,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group label abbr,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field label abbr,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element label abbr,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group label abbr,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field label abbr {
+  display: none;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element label[for*=property-1]:after, .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element label[for*=state]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group label[for*=property-1]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group label[for*=state]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field label[for*=property-1]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field label[for*=state]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element label[for*=property-1]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element label[for*=state]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group label[for*=property-1]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group label[for*=state]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field label[for*=property-1]:after,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field label[for*=state]:after {
+  content: " *";
+  color: #c53030;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element select,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element .chosen-container,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group select,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group .chosen-container,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field select,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field .chosen-container,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element select,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element .chosen-container,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group select,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group .chosen-container,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field select,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field .chosen-container {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  padding: 10px 12px;
+  padding-right: 32px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  width: 100% !important;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236b7280' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element select:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element .chosen-container:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group select:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group .chosen-container:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field select:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field .chosen-container:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element select:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element .chosen-container:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group select:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group .chosen-container:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field select:focus,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field .chosen-container:focus {
+  outline: none;
+  border-color: #6b7280;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element .chosen-container .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group .chosen-container .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field .chosen-container .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element .chosen-container .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group .chosen-container .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field .chosen-container .chosen-single {
+  height: auto;
+  line-height: normal;
+  padding: 10px 32px 10px 12px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  box-shadow: none;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element .chosen-container .chosen-single span,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group .chosen-container .chosen-single span,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field .chosen-container .chosen-single span,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element .chosen-container .chosen-single span,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group .chosen-container .chosen-single span,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field .chosen-container .chosen-single span {
+  margin-right: 20px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element .chosen-container .chosen-single div b,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group .chosen-container .chosen-single div b,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field .chosen-container .chosen-single div b,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element .chosen-container .chosen-single div b,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group .chosen-container .chosen-single div b,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field .chosen-container .chosen-single div b {
+  background-position: 0 7px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element .chosen-container.chosen-container-active .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group .chosen-container.chosen-container-active .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field .chosen-container.chosen-container-active .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element .chosen-container.chosen-container-active .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group .chosen-container.chosen-container-active .chosen-single,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field .chosen-container.chosen-container-active .chosen-single {
+  border-color: #6b7280;
+  box-shadow: none;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search button,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search input[type=submit],
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form button,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form input[type=submit] {
+  background-color: #8b4513;
+  color: #ffffff;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex: 0 0 auto;
+  height: 42px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search button:hover,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search input[type=submit]:hover,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form button:hover,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form input[type=submit]:hover {
+  background-color: #7a3d11;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search button:active,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search input[type=submit]:active,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form button:active,
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper form input[type=submit]:active {
+  background-color: #693510;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container {
+  width: 100%;
+  margin-top: 16px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox input[type=checkbox] {
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  accent-color: #8b4513;
+  cursor: pointer;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #333333;
+  cursor: pointer;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox label:after {
+  display: none;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox .tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox .tooltip .help-icon {
+  color: #c53030;
+  font-size: 14px;
+  cursor: help;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #c53030;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin-left: 4px;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox .tooltip .help-icon::before {
+  content: "?";
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox .tooltip .tooltip-text {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333333;
+  color: #ffffff;
+  padding: 8px 12px;
+  width: 240px;
+  font-size: 13px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  white-space: normal;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox .tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #333333;
+}
+.hero-section .hero-search-container .search-forms .search-by-location-wrapper .checkbox-container .checkbox .tooltip:hover .tooltip-text {
+  display: block;
+}
+@media (max-width: 992px) {
+  .hero-section .hero-search-container {
+    padding: 40px 32px;
+    max-width: 700px;
+  }
+}
+@media (max-width: 768px) {
+  .hero-section .hero-image {
+    height: auto;
+    min-height: 600px;
+    padding: 40px 0;
+  }
+  .hero-section .hero-search-container {
+    width: 95%;
+    padding: 32px 24px;
+  }
+  .hero-section .hero-search-container .hero-heading {
+    font-size: 28px;
+  }
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search,
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form,
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search,
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element:nth-child(1), .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .query-form-element:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .form-group:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search .field:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .query-form-element:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .form-group:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form .field:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .query-form-element:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .form-group:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search .field:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form .query-form-element:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form .form-group:nth-child(2),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field:nth-child(1),
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form .field:nth-child(2) {
+    flex: 1 1 100%;
+  }
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search button,
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper .property-search input[type=submit],
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form button,
+  .hero-section .hero-search-container .search-forms .search-by-name-wrapper form input[type=submit],
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search button,
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper .property-search input[type=submit],
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form button,
+  .hero-section .hero-search-container .search-forms .search-by-location-wrapper form input[type=submit] {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .hero-section .hero-search-container {
+    padding: 24px 16px;
+  }
+  .hero-section .hero-search-container .hero-heading {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  .hero-section .hero-search-container .hero-subtext {
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .hero-section .hero-search-container .search-forms h3 {
+    font-size: 12px;
+  }
+}
+
 .homepage #content {
   padding: 0;
   max-width: none;
@@ -1906,4 +2465,314 @@ input[type=text]:focus, select:focus {
   .explore-funds-section .section-header h2 {
     text-align: center;
   }
+}
+
+/*
+ * School Fund Page Styles
+ * Following exact Figma specifications with centered layout
+ */
+/*
+ * _variables.scss – Global Design Tokens
+ *
+ * This file defines the shared design tokens used throughout the Rosenwald theme. Includes typography settings, color palette, spacing values, and state colors.
+ *
+ * Source: Figma design spec from Fisk University's digital archive UI (Available in Sharepoint)
+ * Usage: Import into every SCSS file that uses shared design values.
+ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  line-height: 175%;
+  font-weight: 400;
+  background-color: #FFFAFA;
+  color: #56352D;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.hero-image-container {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+.hero-image-container .hero-image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  width: 831px;
+  height: 206px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .hero-overlay {
+    width: 90%;
+    max-width: 831px;
+    height: auto;
+    padding: 32px;
+  }
+}
+
+.overlay-content {
+  text-align: center;
+  padding: 32px;
+}
+
+.breadcrumb {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+.breadcrumb a {
+  color: #93340E;
+  text-decoration: none;
+}
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+.breadcrumb .separator {
+  margin: 0 8px;
+  color: #706E61;
+}
+.breadcrumb .current {
+  color: #706E61;
+}
+
+.hero-title {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 44px;
+  line-height: 140%;
+  color: #442F2A;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.item-count {
+  font-size: 16px;
+  color: #56352D;
+}
+
+.page-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-content {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-section {
+  width: 100%;
+  margin-bottom: 64px;
+}
+.about-section .section-title {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 32px;
+  line-height: 150%;
+  color: #442F2A;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+.about-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 64px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .about-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.about-text p {
+  color: #56352D;
+  font-size: 16px;
+  line-height: 175%;
+  margin-bottom: 16px;
+}
+.about-text p:last-child {
+  margin-bottom: 0;
+}
+
+.about-image-frame {
+  background-color: #B5A9A3;
+  padding: 16px;
+}
+.about-image-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.search-section {
+  width: 100%;
+  background-color: #F6F0EB;
+  padding: 32px;
+  margin-bottom: 64px;
+  border-radius: 4px;
+}
+
+.search-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #442F2A;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-label {
+  font-size: 16px;
+  color: #56352D;
+}
+
+.search-inputs {
+  display: flex;
+  gap: 16px;
+}
+
+.search-field {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #947E72;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #FFFFFF;
+}
+.search-field:focus {
+  outline: none;
+  border-color: #93340E;
+}
+
+.search-submit {
+  padding: 10px 32px;
+  background-color: #653C2C;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.search-submit:hover {
+  background-color: #7A5141;
+}
+
+.highlights-section {
+  width: 100%;
+  margin-bottom: 64px;
+}
+
+.school-grid {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 64px;
+}
+
+.school-card {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+@media (max-width: 576px) {
+  .school-card {
+    flex-direction: column;
+  }
+}
+
+.school-image {
+  flex: 0 0 200px;
+  height: 150px;
+  overflow: hidden;
+}
+.school-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media (max-width: 576px) {
+  .school-image {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+.school-info {
+  flex: 1;
+}
+.school-info .school-name {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #93340E;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+.school-info .school-description {
+  color: #56352D;
+  font-size: 16px;
+  line-height: 175%;
+}
+
+.browse-button-container {
+  text-align: center;
+  padding: 32px 0;
+}
+
+.browse-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #653C2C;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+.browse-button:hover {
+  background-color: #7A5141;
+}
+.browse-button .arrow {
+  font-size: 1.2em;
 }
