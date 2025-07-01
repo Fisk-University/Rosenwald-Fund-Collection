@@ -1,278 +1,319 @@
 .homepage .block.block-html {
   position: relative;
   width: 100%;
-  max-width: 1240px;
-  max-height: auto;
   margin: 0 auto;
-  padding: 120px 0 60px;
-  
-  // Sandpaper texture background
-  /*&::before {
-    content: "";
-    position: absolute;
-    min-height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('../img/original paper background texture.jpg');
-    background-size: cover;
-    background-repeat: repeat;
-    background-position: center;
-    opacity: 0.3;
-    z-index: -1;
-    pointer-events: none;
-  } */
-  
+  padding: 40px 0 20px;           // XS default
+  max-width: none;
+  margin-bottom: 20px;
+
   > div {
     position: relative;
     z-index: 1;
-    max-width: 965.5px;
     margin: 0 auto;
     padding: 0 20px;
-    
+    max-width: none;
+  }
+
+  .collection-header {
+    margin: 0 auto;
+    text-align: left;
+    max-width: none;
+    min-height: auto;
+
+    h2 {
+      position: relative;
+      display: inline-block;
+      font-family: $font-serif;
+      font-weight: normal;
+      color: $color-heading;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 20px;            // XS
+      margin: 0 0 14px;
+      max-width: 90%;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 100%; left: 0;
+        width: 75%;
+        height: 1px;
+        background-color: $color-accent;
+      }
+    }
+
+    .collection-description {
+      margin: 20px 0 0;
+      min-height: auto;
+
+      p {
+        font-family: $font-sans;
+        font-weight: normal;
+        color: $color-body;
+        font-size: 14px;           // XS
+        line-height: 1.5;
+        margin: 0;
+        text-align: left;
+      }
+    }
+  }
+
+  @media screen and (min-width: #{$breakpoint-sm}) {
+    padding: 60px 0 30px;  
+    margin-bottom: 20px;
+
+    > div {
+      padding: 0 30px;
+    }
+
+    .collection-header {
+      h2 {
+        font-size: $font-size-label-sm;
+        margin-bottom: $space-md;
+      }
+      .collection-description {
+        margin: 24px 0 0;
+        p {
+          font-size: 15px;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: #{$breakpoint-md}) {
+    padding: 80px 0 40px;   
+    margin-bottom: 30px;
+
+    > div {
+      max-width: 720px;
+      padding: 0;
+    }
+
+    .collection-header {
+      h2 {
+        font-size: $font-size-label-md;
+        min-height: auto;
+      }
+      .collection-description {
+        margin: 28px 0 0;
+        p {
+          font-size: $font-size-body-sm;
+          line-height: 1.65;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: #{$breakpoint-lg}) {
+    padding: 100px 0 50px;
+    margin-bottom: 40px;
+
+    > div {
+      max-width: 900px;
+    }
+
+    .collection-header {
+      h2 {
+        font-size: $font-size-label-lg;
+      }
+      .collection-description {
+        p {
+          font-size: 17px;
+          line-height: $lh-body;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: #{$breakpoint-xl}) {
+    max-width: 1240px;
+    padding: 120px 0 60px;
+
+    > div {
+      max-width: 965.5px;
+      padding: 0 20px;
+    }
+
     .collection-header {
       max-width: 962px;
       min-height: 216px;
-      margin: 0 auto;
-      text-align: left; 
-      
+
       h2 {
-        font-family: $font-serif;
-        font-size: $font-size-label-lg;
-        font-weight: normal;
-        color: $color-heading;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin: 0 0 20px 0;
-        max-width: 496px;
-        min-height: 56px;
-        position: relative;
-        text-align: left;
-        
-        &::after {
-          content: '';
-          position: absolute;
-          top: 100%;
-          left: 0;
-          width: 290px;
-          height: 2px;
-          background-color: $color-accent;
-          margin-top: 0;
-        }
+        font-size: 36px;
+        margin: 0 0 20px;
       }
-      
       .collection-description {
-        max-width: 700px;
-        min-height: 124px;
-        margin: 36px 0 0 0;
-        
+        margin: 36px 0 0;
         p {
-          font-family: $font-sans;
-          font-size: 18px;
-          font-weight: normal;
-          line-height: 1.75;
-          color: $color-body;
-          margin: 0;
-          text-align: left;
+          font-size: $font-size-body;
+          line-height: $lh-body;
         }
       }
     }
   }
 }
 
-// Target carousels by their stable parent classes, not dynamic IDs
-.block-carousel.collection-carousel {
+
+// Mobile-first: Extra-small (XS) defaults
+.block.block-carousel.collection-carousel {
   position: relative;
   width: 100%;
-  max-width: 1440px;
-  margin: -60px auto 0;
-  padding: 0 0 120px;
+  margin: 10 auto;
+  padding: 0 12px 40px;
   overflow: hidden;
-  
-  // Target ANY div that has "carousel" in its class name
-  [class*="carousel-"] {
+
+  .carousel-block {
     position: relative;
     z-index: 1;
-    max-width: 962px;
-    min-height: 644px;
+    max-width: 100%;
     margin: 0 auto;
+    min-height: auto;
   }
 
-  // These slick classes are stable - they don't change
-  .slick-slider {
-    .slick-list {
-      margin: 0 auto;
-      padding: 0 60px;
-      overflow: visible;
-    }
+  .slick-list {
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-    .slick-track {
+  .slick-track {
+    display: flex;
+    align-items: center;
+  }
+
+  .slick-slide {
+    text-align: center;
+
+    > div {
       display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+    }
 
-    .slick-slide {
+    img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 14px;
+      aspect-ratio: 697 / 450;
+      object-fit: cover;
+    }
+
+    .title {
+      font-family: $font-serif;
+      font-size: $font-size-body-sm;
+      text-transform: uppercase;
+      margin: 0 auto 6px;
+      max-width: 90%;
       text-align: center;
+    }
 
-      > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-      }
+    .description {
+      font-family: $font-sans;
+      font-size: 13px;
+      line-height: 1.4;
+      margin: 0 auto 14px;
+      max-width: 90%;
+      text-align: center;
+    }
 
-      img {
-        width: 697px;
-        height: 450px;
-        object-fit: cover;
-        background-color: transparent;
-        padding: 0;
-        box-sizing: border-box;
-        border: none;
-        border-radius: 0;
-        margin: 0 auto 24px;
-        display: block;
-      }
+    .slide-text {
+      padding: 0;
+      width: 100%;
+      margin-bottom: 24px;
 
-      .title,
-      h3, h4, h5,
-      [class*="title"] {
-        font-family: $font-serif;
-        font-size: 28px;
-        font-weight: normal;
-        color: #973F19;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin: 0 auto 12px;
-        max-width: 640px;
-        text-align: center;
-        
-        a {
-          color: inherit;
-          text-decoration: none;
-          &:hover {
-            color: $color-accent;
-          }
-        }
-      }
-      
-      .description,
-      p,
-      [class*="description"],
-      [class*="caption"] {
+      .caption {
         font-family: $font-sans;
-        font-size: 16px;
-        font-weight: normal;
-        line-height: 1.75;
-        color: #3B2D1F;
-        margin: 0 auto;
-        max-width: 700px;
+        font-size: 12px;
+        line-height: 1.4;
+        margin: 6px auto 0;
+        max-width: 100%;
         text-align: center;
+        margin-bottom: 24px;
+
+        &:empty { display: none; }
       }
     }
   }
 
-  
-    // Remove slick's internal arrow content
-    .slick-prev-icon,
-    .slick-next-icon,
-    .slick-prev::before,
-    .slick-next::before {
-      display: none !important;
-      content: none !important;
-    }
+  .slick-prev-icon,
+  .slick-next-icon {
+    display: none !important;
+    content: none !important;
+  }
 
-    .slick-arrow {
-      color: transparent !important;
-    }
-  // Arrow styles
+  .slick-arrow {
+    color: transparent !important;
+  }
+
   .slick-prev,
   .slick-next {
     position: absolute;
-    top: 30%;
-    transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
+    top: 35%;
+    width: 36px;
+    height: 36px;
     background-color: $color-primary;
     border-radius: 50%;
     border: none;
     cursor: pointer;
     z-index: 10;
-    font-size: 0;
-    transition: all 0.3s ease;
-    
+    transition: transform 0.3s ease;
+
     &::before {
-      display: none;
-      content: none;
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 12px;
+      height: 2px;
+      background-color: $color-white;
+      transform: translate(-50%, -50%);
     }
 
     &::after {
       content: '';
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 12px;
-      height: 12px;
-      border-top: 2px solid white;
-      border-right: 2px solid white;
+      top: 50%; left: 50%;
+      width: 6px;
+      height: 6px;
+      border: solid $color-white;
+      border-width: 0 0 2px 2px;
     }
 
-    &:hover {
-      background-color: $color-primary;
-      transform: translateY(-50%) scale(1.1);
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 
   .slick-prev {
-    left: 20px;
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(-135deg);
-      margin-left: 2px;
-    }
+    left: 5px;
+    &::after { transform: translate(-65%, -50%) rotate(45deg); }
   }
 
   .slick-next {
-    right: 20px;
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(45deg);
-      margin-left: -2px;
-    }
+    right: 5px;
+    &::after { transform: translate(-35%, -50%) rotate(-135deg); }
   }
 
-  // Dot styles
   .slick-dots {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin-top: 8px;
-    list-style: none;
-    padding: 0;
-    gap: 8px;
+    gap: $space-xs;
+    margin-top: 25px;
 
     li {
-      margin: 0;
-
       button {
-        width: 10px;
-        height: 10px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background-color: #D4C4B0;
         border: none;
-        cursor: pointer;
-        font-size: 0;
-        padding: 0;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, background-color 0.3s ease;
 
-        &::before {
-          display: none;
-          content: none;
-        }
-          
         .slick-dot-icon {
-            display: none !important;
-          }
+          display: none !important;
+        }
 
         &:hover {
           background-color: #B8A68C;
@@ -280,27 +321,107 @@
         }
       }
 
-      &.slick-active button {
-        background-color: $color-primary;
-        transform: scale(1.2);
+      &.slick-active {
+        button {
+          background-color: $color-primary;
+          transform: scale(1.3);
+        }
       }
     }
   }
 
-  @media screen and (max-width: 768px) {
-    .slick-list {
-      padding: 0 12px;
-    }
+  @media screen and (min-width: #{$breakpoint-sm}) {
+    padding: 0 16px 60px;
 
-    .slick-slide img {
-      width: 100%;
-      height: auto;
+    .slick-list { padding: 0 30px; }
+
+    .slick-slide {
+      img { margin-bottom: 16px; }
+      .title { font-size: 20px; margin-bottom: 10px; }
+      .description { font-size: 14px; line-height: 1.6; }
+      .slide-text .caption { font-size: 13px; }
     }
 
     .slick-prev,
     .slick-next {
-      display: none;
+      width: 40px; height: 40px; top: 40%;
+    }
+    .slick-prev { left: 8px; }
+    .slick-next { right: 8px; }
+
+    .slick-dots {
+      gap: 6px;
+      margin-top: 12px;
+      li button { width: 8px; height: 8px; }
     }
   }
-}
+
+  @media screen and (min-width: #{$breakpoint-md}) {
+    margin: -20px auto 0;
+    padding: 0 0 80px;
+    max-width: 960px;
+
+    .carousel-block { max-width: 720px; min-height: 500px; }
+    .slick-list { padding: 0 50px; }
+
+    .slick-slide {
+      img { max-width: 500px; }
+      .title { font-size: 24px; font-weight: $weight-regular; }
+      .description { font-size: 15px; }
+      .slide-text .caption { font-size: 14px; }
+    }
+
+    .slick-prev,
+    .slick-next {
+      width: 48px; height: 48px; top: 45%;
+      &::before { width: 18px; height: 2px; border-width: 0 0 2px 2px; }
+      &::after  { width: 10px; height: 10px; border-width: 0 0 2px 2px; }
+    }
+  }
+
+  @media screen and (min-width: #{$breakpoint-lg}) {
+    margin: -40px auto 0;
+    padding: 0 0 120px;
+    max-width: 1140px;
+
+    .carousel-block { max-width: 900px; min-height: 644px; }
+    .slick-list { padding: 0 60px; }
+
+    .slick-slide {
+      img { max-width: 600px; }
+      .title { font-size: 26px; font-weight: $weight-regular; }
+      .description { font-size: 16px; }
+      .slide-text .caption { font-size: $font-size-body-sm; }
+    }
+
+    .slick-prev,
+    .slick-next {
+      width: 55px; height: 55px;
+      &::before { width: 18px; height: 2px; border-width: 0 0 2px 2px; }
+      &::after  { width: 10px; height: 10px; border-width: 0 0 2px 2px; }
+    }
+  }
+
+  @media screen and (min-width: #{$breakpoint-xl}) {
+    max-width: 1440px;
+    margin-top: -60px;
+
+    .carousel-block { max-width: 962px; min-height: 644px; }
+    .slick-list { padding: 0 60px; }
+
+    .slick-slide {
+      img { max-width: 697px; }
+      .title { font-size: 28px; font-weight: $weight-regular; }
+      .slide-text .caption { font-size: $font-size-body; }
+    }
+
+    .slick-prev,
+    .slick-next {
+      width: 55px; height: 55px;
+      &::before { width: 14px; height: 2px; }
+      &::after  { width: 9px; height: 9px; border-width: 0 0 2px 2px; }
+    }
+
+    .slick-dots { margin-top: 25px; }
+  }
 }
