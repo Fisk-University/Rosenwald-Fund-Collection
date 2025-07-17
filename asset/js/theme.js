@@ -8,6 +8,7 @@
     $(document).ready(function() {
         setupMobileMenu();
         initSearchForm();
+        injectMapTooltips();
     });
 
     /**
@@ -49,6 +50,50 @@
                 e.preventDefault();
                 $input.focus();
             }
+        });
+    }
+
+    /**
+     * Inject map tooltips into Omeka map blocks (Homepage only)
+     */
+    function injectMapTooltips() {
+        // Only run on homepage
+        if (!$('body').hasClass('home') && !$('.homepage').length) {
+            return;
+        }
+        
+        // Find all map blocks
+        $('.block-mappingMapQuery .mapping-block').each(function() {
+            var $mapBlock = $(this);
+            
+            // Check if tooltip already exists
+            if (!$mapBlock.find('.map-tooltip-trigger').length) {
+                // Add the trigger link with tooltip
+                var tooltipHTML = 
+                    '<div class="map-tooltip-wrapper">' +
+                        '<a href="#" class="map-tooltip-trigger"><i class="fa fa-info-circle"></i> How do I use this map?</a>' +
+                        '<div class="map-tooltip-content">' +
+                            '<div class="tooltip-header">' +
+                                '<h3>Map Instruction Tooltips</h3>' +
+                                '<span class="close-visual">Close X</span>' +
+                            '</div>' +
+                            '<div class="tooltip-body">' +
+                                '<p>In order to identify a school:</p>' +
+                                '<ol>' +
+                                    '<li>Zoom into the region of interest by pressing the plus button on the top left. If you are using a mouse, scroll up. Touchpad users can zoom in by pushing 2 fingers away from eachother.</li>' +
+                                    '<li>Continue to zoom in to a region until a blue location pin appears. Click into the blue location pin, which will take you to a school located in the area</li>' +
+                                    '<li>Press and drag to move the map to the desired area</li>' +
+                                '</ol>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>';
+                $mapBlock.find('.mapping-map').after(tooltipHTML);
+            }
+        });
+        
+        // Prevent default click behavior
+        $(document).on('click', '.map-tooltip-trigger', function(e) {
+            e.preventDefault();
         });
     }
 
