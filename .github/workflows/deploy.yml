@@ -96,14 +96,22 @@ jobs:
           fi
 
           # Show command output from EC2 in GitHub logs
-          echo "==== SSM OUTPUT BEGIN ===="
+          echo "==== SSM STDOUT ===="
           aws ssm get-command-invocation \
             --command-id "$CMD_ID" \
             --instance-id "$INSTANCE_ID" \
             --region us-east-1 \
             --query "StandardOutputContent" \
-            --output text || echo "[ERROR] Failed to fetch output"
-          echo "==== SSM OUTPUT END ===="
+            --output text || true
+
+          echo "==== SSM STDERR ===="
+          aws ssm get-command-invocation \
+            --command-id "$CMD_ID" \
+            --instance-id "$INSTANCE_ID" \
+            --region us-east-1 \
+            --query "StandardErrorContent" \
+            --output text || true
+          echo "==== END ERRORS ===="
 
       - name: Deployment Summary Output
         if: always()
