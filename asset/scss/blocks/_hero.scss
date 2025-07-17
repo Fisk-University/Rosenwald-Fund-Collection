@@ -1,0 +1,688 @@
+.blocks {
+  position: relative;
+
+  // Hero marker – background + card
+  .block-blockGroup.section-find-schools {
+    position: relative;
+    height: 90px;
+    overflow: visible;
+    grid-column: 1 / -1;
+
+    // Background
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100vw; 
+      height: 950px; // Increased for mobile to cover taller card
+      z-index: -2;
+      background: url('../img/homepage-hero.png') center/cover no-repeat;
+      
+      @media (min-width: $breakpoint-sm) {
+        height: 850px;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        height: 800px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        height: 900px;
+      }
+    }
+    
+    // White card
+    &::after {
+      content: '';
+      position: absolute;
+      top: 45px; // Moved up for mobile
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95%; // Mobile width
+      max-width: 380px; // Slightly wider for mobile
+      height: 850px; // Increased significantly for mobile
+      background: $color-white;
+      border-radius: 4px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      z-index: -1;
+      
+      @media (min-width: $breakpoint-sm) {
+        top: 65px;
+        width: 90%;
+        max-width: 540px;
+        height: 750px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        top: 70px;
+        width: 88%;
+        max-width: 720px;
+        height: 750px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        top: 75px; 
+        width: 85%; 
+        max-width: 1000px;
+        height: 750px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      }
+    }
+
+    // All hero blocks
+    & + .block,                           
+    & + .block + .block,                  
+    & + .block + .block + .block,         
+    & + .block + .block + .block + .block,
+    & + .block + .block + .block + .block + .block
+    {
+      position: relative;
+      z-index: 1;
+      max-width: 350px; // Slightly wider for mobile
+      margin: 0 auto;
+      padding: 0 20px; // Mobile padding
+      
+      @media (min-width: $breakpoint-sm) {
+        max-width: 500px;
+        padding: 0 30px;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        max-width: 680px;
+        padding: 0 40px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        max-width: 880px; 
+        padding: 0 60px;
+      }
+    }
+
+    // Block-2: Title block
+    & + .block {
+      margin-top: 30px; // Reduced for mobile to save space
+      
+      @media (min-width: $breakpoint-sm) {
+        margin-top: 50px;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        margin-top: 60px; // original
+      }
+
+      .search-card__title {
+        font-family: $font-serif;
+        font-size: 22px; // Slightly smaller for mobile
+        text-transform: uppercase;
+        color: $color-heading;
+        
+        @media (min-width: $breakpoint-sm) {
+          font-size: 28px;
+        }
+        
+        @media (min-width: $breakpoint-md) {
+          font-size: 32px;
+        }
+        
+        @media (min-width: $breakpoint-lg) {
+          font-size: $font-size-h1; // original
+        }
+      }
+      
+      .search-card__intro {
+        font-family: $font-sans;
+        font-size: 14px; // Mobile font size
+        line-height: 1.5;
+        color: $color-body;
+        margin-bottom: 10px; // Add space on mobile
+        
+        @media (min-width: $breakpoint-sm) {
+          font-size: 15px;
+        }
+        
+        @media (min-width: $breakpoint-md) {
+          font-size: $font-size-body; // original
+          line-height: $lh-body; // original
+        }
+      }
+      
+      .search-card__heading {
+        font-family: $font-sans;
+        font-size: 12px; // Mobile font size
+        text-transform: uppercase;
+        color: $color-heading;
+        font-weight: $weight-semibold;
+        
+        @media (min-width: $breakpoint-sm) {
+          font-size: 13px;
+        }
+        
+        @media (min-width: $breakpoint-md) {
+          font-size: $font-size-label-sm; // original
+        }
+      }
+    }
+
+    // Block-3: Name search
+// Fix for Block-3: School name search - proper desktop layout
+& + .block + .block {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  
+  @media (min-width: $breakpoint-sm) {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+  
+  @media (min-width: $breakpoint-md) {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+  }
+  
+  @media (min-width: $breakpoint-lg) {
+    padding-left: 100px !important;
+    padding-right: 60px !important;
+  }
+  
+  .search-form {
+    margin-left: 0 !important; // Remove negative margin on mobile
+    
+    @media (min-width: $breakpoint-sm) {
+      margin-left: -10px; // Restore your original negative margin on desktop
+    }
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column; // Stack on mobile
+    gap: 10px;
+    width: 100%;
+    
+    @media (min-width: $breakpoint-sm) {
+      flex-direction: row; // Side by side on desktop
+      flex-wrap: wrap;
+      gap: $space-sm;
+      align-items: flex-start;
+    }
+
+    // Label stays full width
+    > label,
+    label[for="search-input"] {
+      flex-basis: 100%; // Full width on all screens
+      margin-bottom: 5px;
+      font-family: $font-sans;
+      font-size: 14px;
+      font-weight: $weight-medium;
+      color: $color-heading;
+      
+      @media (min-width: $breakpoint-md) {
+        font-size: $font-size-body-sm;
+        margin-bottom: $space-xs;
+      }
+      
+      &:after {
+        content: '*';
+        color: red;
+        margin-left: 2px;
+      }
+    }
+
+    // Input and button container
+    @media (min-width: $breakpoint-sm) {
+      // Make input take available space, button auto width
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    // Input styling
+    input[type="text"],
+    input#search-input {
+      width: 100%; // Full width on mobile
+      height: 44px;
+      padding: 0 12px;
+      font-family: $font-sans;
+      font-size: 14px;
+      color: $color-body;
+      font-weight: $weight-regular;
+      background: $color-white;
+      border: 1px solid $color-input-border;
+      border-radius: 4px;
+      box-sizing: border-box;
+      
+      @media (min-width: $breakpoint-sm) {
+        flex: 0 0 300px; // Fixed width on desktop
+        width: 300px; // Fixed width
+        height: 50px;
+        font-size: $font-size-body-sm;
+        padding: 0 $space-sm;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        flex: 0 0 350px; // Slightly wider on larger screens
+        width: 350px;
+      }
+    }
+
+    // Button styling
+    button[type="submit"] {
+      width: 100%; // Full width on mobile
+      height: 44px;
+      padding: 0 20px;
+      background: $color-primary;
+      color: $color-white;
+      font-size: 14px;
+      font-weight: $weight-medium;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      box-sizing: border-box;
+      
+      @media (min-width: $breakpoint-xl) {
+        flex: 0 0 auto; // Auto width on desktop
+        width: auto; // Auto width
+        height: 50px;
+        padding: 0 $space-lg;
+        font-size: $font-size-input-label;
+        border-radius: 1px; // Your original
+        margin-left: $space-sm; // Add space between input and button
+      }
+
+      &:hover {
+        background: darken($color-primary, 10%);
+      }
+    }
+  }
+  
+  // If the form has its own wrapper
+  form {
+    @media (min-width: $breakpoint-sm) {
+      .input-group {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+        input[type="text"] {
+          flex: 1 1 auto; // Take available space
+          max-width: 400px; // But not too wide
+        }
+        
+        button[type="submit"] {
+          flex: 0 0 auto; // Fixed width button
+        }
+      }
+    }
+  }
+}
+
+    // Block-4: "OR" divider
+    & + .block + .block + .block {
+      .search-card__divider {
+        display: flex;
+        align-items: center;
+        margin: 15px 0; // Smaller margin on mobile
+        
+        @media (min-width: $breakpoint-md) {
+          margin: $space-lg 0; // original
+        }
+
+        &::before, &::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: $color-divider;
+        }
+        &::before { margin-right: $space-sm; }
+        &::after  { margin-left: $space-sm; }
+
+        span {
+          font-size: 14px; // Mobile font size
+          color: $color-primary;
+          padding: 0 $space-sm;
+          
+          @media (min-width: $breakpoint-md) {
+            font-size: $font-size-body-sm; // original
+          }
+        }
+      }
+    }
+
+    // Block-5: Dual property (location) form - MOBILE FIRST
+    & + .block + .block + .block + .block {
+      padding-left: 20px; // Mobile padding
+      
+      @media (min-width: $breakpoint-sm) {
+        padding-left: 30px;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        padding-left: 40px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        padding-left: 100px; // original
+      }
+      
+      .dual-property-search {
+        h4 {
+          font-family: $font-sans;
+          font-size: 0;
+          text-transform: uppercase;
+          color: $color-heading;
+          font-weight: $weight-semibold;
+          margin-bottom: 10px; // Smaller margin on mobile
+          
+          @media (min-width: $breakpoint-md) {
+            margin-bottom: $space-md; // original
+          }
+          
+          &:after {
+            content: 'Search by Location';
+            font-size: 12px; // Mobile font size
+            
+            @media (min-width: $breakpoint-sm) {
+              font-size: 13px;
+            }
+            
+            @media (min-width: $breakpoint-md) {
+              font-size: $font-size-label-sm; // original
+            }
+          }
+        }
+
+        form {
+          display: grid;
+          grid-template-columns: 1fr; // Single column on mobile
+          gap: 10px; // Smaller gap on mobile
+          align-items: end;
+          
+          @media (min-width: $breakpoint-sm) {
+            grid-template-columns: 1fr 1fr;
+            gap: $space-sm;
+          }
+          
+          @media (min-width: $breakpoint-md) {
+            grid-template-columns: 1fr 1fr auto; // original
+            gap: $space-md; // original
+          }
+
+          .form-group {
+            margin-bottom: 0;
+
+            label {
+              display: block;
+              margin-bottom: 5px; // Smaller margin on mobile
+              font-family: $font-sans;
+              font-size: 14px; // Mobile font size
+              color: $color-body;
+              font-weight: $weight-medium;
+              
+              @media (min-width: $breakpoint-md) {
+                font-size: $font-size-input-label; // original
+                margin-bottom: $space-xs;
+              }
+            }
+            
+            label[for="property-one-select"] {
+              &:after {
+                content: '*';
+                color: red;
+                margin-left: 2px;
+              }
+            }
+            
+            label[for="property-two-select"] {
+              font-size: 0;
+              &:after {
+                content: 'County (optional)';
+                font-size: 14px; // Mobile font size
+                
+                @media (min-width: $breakpoint-md) {
+                  font-size: $font-size-input-label; // original
+                }
+              }
+            }
+            
+            select {
+              width: 100%;
+              height: 40px; // Consistent mobile height
+              padding: 0 35px 0 $space-sm; // Smaller padding on mobile
+              font-family: $font-sans;
+              font-size: 14px; // Mobile font size
+              border: 1px solid $color-input-border;
+              border-radius: 4px;
+              background: $color-white;
+              color: $color-body;
+              appearance: none;
+              cursor: pointer;
+              background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2714%27%20height%3D%278%27%20viewBox%3D%270%200%2014%208%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M1%201l6%206%206-6%27%20stroke%3D%27%23666%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20fill-rule%3D%27evenodd%27/%3E%3C/svg%3E');
+              background-repeat: no-repeat;
+              background-position: right $space-sm center;
+              background-size: 12px;
+              
+              @media (min-width: $breakpoint-sm) {
+                height: 50px; // original
+                padding: 0 40px 0 $space-sm; // original
+                font-size: $font-size-body-sm; // original
+              }
+
+              &:focus {
+                outline: none;
+                border-color: $color-primary;
+              }
+            }
+          }
+
+          button[type="submit"] {
+            grid-column: 1 / -1; // Full width on mobile
+            height: 40px; // Consistent mobile height
+            padding: 0 $space-md;
+            background: $color-primary;
+            color: $color-white;
+            font-family: $font-sans;
+            font-size: 14px; // Mobile font size
+            font-weight: $weight-medium;
+            border: none;
+            border-radius: 1px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s ease;
+            
+            @media (min-width: $breakpoint-sm) {
+              grid-column: 2; // Second column on small
+              padding: 0 $space-lg;
+              height: 50px;
+            }
+            
+            @media (min-width: $breakpoint-md) {
+              grid-column: auto; // original
+              height: 50px; // original
+              font-size: $font-size-input-label; // original
+            }
+
+            &:hover {
+              background: darken($color-primary, 10%);
+            }
+          }
+        }
+      }
+    }
+
+    // Block-6: Last block (checkbox + tooltip) - MOBILE FIRST
+    & + .block + .block + .block + .block + .block {
+      padding-bottom: 30px !important; // Extra padding at bottom on mobile
+      
+      @media (min-width: $breakpoint-sm) {
+        padding-bottom: 30px !important;
+      }
+      
+      @media (min-width: $breakpoint-xl) {
+        padding-bottom: 50 !important;
+      }
+      
+      .search-card__checkbox {
+        align-items: center;
+        font-family: $font-sans;
+        font-size: 14px; // Mobile font size
+        color: $color-body;
+        margin-bottom: 20px; // Space for help text on mobile
+        
+        @media (min-width: $breakpoint-md) {
+          font-size: $font-size-body; // original
+          margin-bottom: 0;
+        }
+        
+        // Create the checkbox appearance
+        .checkbox-box {
+          display: inline-block;
+          width: 16px; // Smaller on mobile
+          height: 16px;
+          border: 2px solid #666;
+          border-radius: 2px;
+          background: white;
+          margin-right: 6px; // Smaller margin on mobile
+          flex-shrink: 0;
+          cursor: pointer;
+          position: relative;
+          
+          @media (min-width: $breakpoint-sm) {
+            width: 18px; // original
+            height: 18px;
+            margin-right: 8px; // original
+          }
+          
+          // Checkmark (hidden by default)
+          &::after {
+            content: '';
+            position: absolute;
+            display: none;
+            left: 4px; // Adjusted for smaller checkbox
+            top: 1px;
+            width: 4px; // Smaller checkmark
+            height: 8px;
+            border: solid #666;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            
+            @media (min-width: $breakpoint-sm) {
+              left: 5px; // original
+              width: 5px; // original
+              height: 10px; // original
+            }
+          }
+        }
+        
+        // Style the label text
+        .checkbox-label {
+          cursor: pointer;
+          user-select: none;
+          font-family: $font-sans;
+          font-size: 14px; // Mobile font size
+          
+          @media (min-width: $breakpoint-sm) {
+            font-size: 16px; // original
+          }
+        }
+        
+        // Help icon and tooltip
+        .help-icon {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          margin-left: 8px; // Smaller margin on mobile
+          cursor: help;
+          
+          @media (min-width: $breakpoint-sm) {
+            margin-left: 12px; // original
+          }
+          
+          // The (i) icon
+          &::before {
+            content: 'i';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 12px;
+            height: 12px;
+            border: 1px solid $color-link;
+            border-radius: 50%;
+            font-size: 10px; // Smaller on mobile
+            font-weight: bold;
+            color: $color-link;
+            margin-right: 4px; // Smaller margin
+            
+            @media (min-width: $breakpoint-sm) {
+              font-size: 11px; // original
+              margin-right: 6px; // original
+            }
+          }
+          
+          .help-text {
+            font-size: 12px; // Mobile font size
+            color: $color-link;
+            text-decoration: underline;
+            
+            @media (min-width: $breakpoint-md) {
+              font-size: $font-size-body-sm; // original
+            }
+          }
+          
+          .tooltip-text {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: -50px; // Adjust for mobile
+            width: 250px; // Smaller on mobile
+            padding: 10px 12px; // Smaller padding
+            background: white;
+            color: $color-body;
+            font-size: 12px; // Mobile font size
+            line-height: 1.5;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            z-index: 1000;
+            
+            @media (min-width: $breakpoint-sm) {
+              left: 0; // original
+              width: 300px; // original
+              padding: 12px 16px; // original
+              font-size: $font-size-body-sm; // original
+            }
+            
+            // Arrow pointing down
+            &::after {
+              content: '';
+              position: absolute;
+              top: 100%;
+              left: 60px; // Adjusted for mobile position
+              width: 0;
+              height: 0;
+              border-left: 6px solid transparent;
+              border-right: 6px solid transparent;
+              border-top: 6px solid white;
+              
+              @media (min-width: $breakpoint-sm) {
+                left: 20px; // original
+              }
+            }
+          }
+          
+          // Show tooltip on hover
+          &:hover .tooltip-text {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+        
+        // Optional: Add click functionality with JavaScript
+        &.checked .checkbox-box::after {
+          display: block;
+        }
+      }
+    }
+  }
+}
