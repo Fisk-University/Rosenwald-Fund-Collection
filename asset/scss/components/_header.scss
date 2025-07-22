@@ -10,7 +10,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url('../img/original paper background texture.jpg');
+    background-image: url('../img/background.jpg');
     background-size: cover;
     background-repeat: repeat;
     opacity: 0.3;
@@ -84,14 +84,14 @@
           color: $color-link;
           font-weight: $weight-medium;
           
-          // Only add the underline if it's NOT a parent with submenu
-          &:not(.has-submenu .nav-link)::after {
+          // Add underline to ALL active items, including those with submenus
+          &::before {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -1px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
+            width: 100%;
             height: 2px;
             background-color: $color-link;
             border-radius: 999px;
@@ -161,6 +161,14 @@
           &:hover {
             background-color: $color-bg-light;
             color: $color-link;
+          }
+
+          // THIS BLOCK FOR ACTIVE SUBMENU ITEMS
+          &.active {
+            color: $color-link;
+            font-weight: $weight-semibold;
+            background-color: $color-bg-light;
+            border-bottom: none;
           }
         }
       }
@@ -419,8 +427,8 @@
               padding: $space-lg 0;
               display: block;
               font-size: 1.25rem;
-              font-weight: $weight-regular;
-              color: $color-heading;
+              font-weight: $weight-medium;
+              color: $color-primary;
               border-bottom: 2px solid $color-divider;
               
               &:hover {

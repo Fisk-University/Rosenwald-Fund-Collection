@@ -28,21 +28,41 @@ $topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
       <ul class="nav-links">
         <?php foreach ($navPages as $page):
           $label = $escape($page->getLabel());
-          $isActive = $page->isActive() ? 'active' : '';
           if (!in_array($label, $topLevelLabels)) continue;
 
           $hasSubmenu = $page->hasPages();
-          $class = 'nav-item' . ($hasSubmenu ? ' has-submenu' : '');
+          $isActive = $page->isActive();
+          $hasActiveChild = false;
+          
+          // Check if any child is active
+          if ($hasSubmenu) {
+            foreach ($page->getPages() as $subPage) {
+              if ($subPage->isActive()) {
+                $hasActiveChild = true;
+                break;
+              }
+            }
+          }
+          
+          // Set classes
+          $linkClass = 'nav-link';
+          if ($isActive || $hasActiveChild) {
+            $linkClass .= ' active';
+          }
+          
+          $itemClass = 'nav-item' . ($hasSubmenu ? ' has-submenu' : '');
         ?>
-          <li class="<?= $class ?>">
-            <a href="<?= $escape($page->getHref()) ?>" class="nav-link <?= $isActive ?>">
+          <li class="<?= $itemClass ?>">
+            <a href="<?= $escape($page->getHref()) ?>" class="<?= $linkClass ?>">
               <?= $label ?>
             </a>
 
             <?php if ($hasSubmenu): ?>
               <ul class="sub-menu">
-                <?php foreach ($page->getPages() as $subPage): ?>
-                  <li><a href="<?= $escape($subPage->getHref()) ?>"><?= $escape($subPage->getLabel()) ?></a></li>
+                <?php foreach ($page->getPages() as $subPage): 
+                  $subIsActive = $subPage->isActive() ? 'active' : '';
+                ?>
+                  <li><a href="<?= $escape($subPage->getHref()) ?>" class="<?= $subIsActive ?>"><?= $escape($subPage->getLabel()) ?></a></li>
                 <?php endforeach; ?>
               </ul>
             <?php endif; ?>
