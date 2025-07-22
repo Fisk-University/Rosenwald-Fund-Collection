@@ -607,7 +607,6 @@ input[type=text]:focus, select:focus {
   margin-top: 26px;
 }
 .site-header .site-logo img {
-  height: 42.4px;
   width: 93px;
 }
 .site-header .main-nav {
@@ -650,13 +649,13 @@ input[type=text]:focus, select:focus {
   color: #93340E;
   font-weight: 500;
 }
-.site-header .main-nav .nav-item a.active:not(.has-submenu .nav-link)::after {
+.site-header .main-nav .nav-item a.active::before {
   content: "";
   position: absolute;
-  bottom: -8px;
+  bottom: -1px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
+  width: 100%;
   height: 2px;
   background-color: #93340E;
   border-radius: 999px;
@@ -924,8 +923,8 @@ input[type=text]:focus, select:focus {
     padding: 32px 0;
     display: block;
     font-size: 1.25rem;
-    font-weight: 400;
-    color: #442F2A;
+    font-weight: 500;
+    color: #653C2C;
     border-bottom: 2px solid #DCD0C9;
   }
   .site-header .main-nav.mobile-nav-open .nav-links .nav-item a:hover {
@@ -3221,5 +3220,343 @@ input[type=text]:focus, select:focus {
   }
   .explore-funds-section .fund-item .fund-content p {
     font-size: 18px;
+  }
+}
+
+section article > header {
+  position: relative;
+  width: 100%;
+  margin-bottom: 100px;
+}
+section article > header > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+section article > header > div {
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #FFFFFF;
+  border: 1px solid #DCD0C9;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 8px;
+  width: 50%;
+  max-width: 280px;
+  z-index: 2;
+}
+section article > header > div h1 {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 16px;
+  color: #442F2A;
+  font-weight: 400;
+  margin-bottom: 4px;
+  display: inline-block;
+  position: relative;
+}
+section article > header > div h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 75%;
+  height: 1px;
+  background-color: #93340E;
+}
+section article > header > div p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 8px;
+  color: #56352D;
+  line-height: 1.4;
+  margin: 0;
+}
+
+@media screen and (min-width: 576px) {
+  section article > header {
+    margin-bottom: 200px;
+  }
+  section article > header > div {
+    bottom: -50%;
+    padding: 20px;
+    width: 75%;
+    max-width: 400px;
+  }
+  section article > header > div h1 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  section article > header > div p {
+    font-size: 12px;
+  }
+}
+@media screen and (min-width: 768px) {
+  section article > header {
+    margin-bottom: 250px;
+  }
+  section article > header > div {
+    bottom: -50%;
+    padding: 28px;
+    width: 75%;
+    max-width: 500px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  section article > header > div h1 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  section article > header > div h1::after {
+    height: 1px;
+  }
+  section article > header > div p {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 992px) {
+  section article > header {
+    margin-bottom: 320px;
+  }
+  section article > header > div {
+    bottom: -50%;
+    padding: 32px;
+    width: 75%;
+    max-width: 650px;
+  }
+  section article > header > div h1 {
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
+  section article > header > div p {
+    font-size: 17px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  section article > header {
+    margin-bottom: 160px;
+  }
+  section article > header > div {
+    bottom: -25%;
+    padding: 32px;
+    max-width: 800px;
+    width: 80%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+  section article > header > div h1 {
+    font-size: 44px;
+    margin-bottom: 16px;
+  }
+  section article > header > div h1::after {
+    height: 1px;
+  }
+  section article > header > div p {
+    font-size: 18px;
+    line-height: 175%;
+  }
+}
+.block.block-itemSetShowcase {
+  align-items: center;
+}
+.block.block-itemSetShowcase .block.item-set-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 100%;
+  padding: 0 16px;
+}
+@media (min-width: 576px) {
+  .block.block-itemSetShowcase .block.item-set-showcase {
+    gap: 24px;
+    padding: 0 20px;
+  }
+}
+@media (min-width: 768px) {
+  .block.block-itemSetShowcase .block.item-set-showcase {
+    gap: 32px;
+    padding: 0 24px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 992px) {
+  .block.block-itemSetShowcase {
+    margin-left: 155px;
+  }
+  .block.block-itemSetShowcase .block.item-set-showcase {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .block.block-itemSetShowcase {
+    margin-left: 125px;
+  }
+  .block.block-itemSetShowcase .block.item-set-showcase {
+    max-width: 1000px;
+  }
+}
+
+.item-set.resource {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+  position: relative;
+  align-items: center;
+}
+.item-set.resource > a:first-child {
+  width: 400px;
+}
+.item-set.resource > a:first-child img {
+  width: 90%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+.item-set.resource > a:nth-child(2) {
+  position: relative;
+  visibility: visible;
+  pointer-events: none;
+  padding: 8px 8px 0;
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #442F2A;
+  display: block;
+}
+.item-set.resource .caption {
+  align-items: center;
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #56352D;
+  line-height: 1.5;
+}
+.item-set.resource .caption::after {
+  display: none;
+}
+.item-set.resource .caption .view-fund-link {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #93340E;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 12px;
+  transition: color 0.3s ease;
+}
+.item-set.resource .caption .view-fund-link span {
+  border-bottom: 1px solid #93340E;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+}
+.item-set.resource .caption .view-fund-link:hover {
+  color: #B65934;
+}
+.item-set.resource .caption .view-fund-link:hover span {
+  border-color: #B65934;
+}
+.item-set.resource .caption .view-fund-link:focus {
+  outline: 2px solid #93340E;
+  outline-offset: 4px;
+}
+@media (min-width: 576px) {
+  .item-set.resource {
+    align-items: center;
+  }
+  .item-set.resource > a:first-child img {
+    height: auto;
+    width: 90%;
+  }
+  .item-set.resource > a:nth-child(2) {
+    padding: 20px 20px 0;
+    font-size: 28px;
+  }
+  .item-set.resource .caption {
+    align-items: center;
+    padding: 0 20px 20px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .item-set.resource .caption .view-fund-link {
+    font-size: 16px;
+    margin-top: 12px;
+  }
+}
+@media (min-width: 768px) {
+  .item-set.resource {
+    flex-direction: row;
+    align-items: stretch;
+  }
+  .item-set.resource > a:first-child {
+    flex-shrink: 0;
+    width: 300px;
+  }
+  .item-set.resource > a:first-child img {
+    height: 240px;
+    width: 100%;
+  }
+  .item-set.resource > a:nth-child(2) {
+    position: absolute;
+    left: 330px;
+    top: 32px;
+    padding: 0;
+    font-size: 32px;
+    z-index: 10;
+  }
+  .item-set.resource .caption {
+    padding: 32px;
+    padding-top: 80px;
+    flex: 1;
+    min-height: 240px;
+    align-items: flex-start;
+    text-align: left;
+    font-size: 16px;
+    line-height: 175%;
+  }
+  .item-set.resource .caption .view-fund-link {
+    font-size: 18px;
+    margin-bottom: 0;
+  }
+}
+@media (min-width: 992px) {
+  .item-set.resource > a:first-child {
+    width: 350px;
+  }
+  .item-set.resource > a:first-child img {
+    height: auto;
+  }
+  .item-set.resource > a:nth-child(2) {
+    left: 385px;
+    margin-top: -30px;
+    top: 36px;
+    font-size: 34px;
+  }
+  .item-set.resource .caption {
+    padding-top: 50px;
+  }
+}
+@media (min-width: 1200px) {
+  .item-set.resource > a:first-child {
+    width: 450px;
+  }
+  .item-set.resource > a:first-child img {
+    height: auto;
+  }
+  .item-set.resource > a:nth-child(2) {
+    left: 482px;
+    margin-top: -40px;
+    top: 40px;
+    font-size: 32px;
+  }
+  .item-set.resource .caption {
+    padding-top: 40px;
+    font-size: 18px;
+    justify-content: flex-start;
   }
 }
