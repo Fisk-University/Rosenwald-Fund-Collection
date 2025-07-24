@@ -11,6 +11,7 @@ $this->headLink()->prependStylesheet($this->assetUrl('css/style.css'));
 $this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka'));
 $this->headLink()->prependStylesheet('https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&family=Montserrat:wght@400;500;600&display=swap');
 
+$this->headScript()->prependFile($this->assetUrl('js/update-dual-property-placeholders.js'));
 $this->headScript()->prependFile($this->assetUrl('js/fund-links.js'));
 $this->headScript()->prependFile($this->assetUrl('js/theme.js'));
 $this->headScript()->prependFile($this->assetUrl('js/global.js', 'Omeka'));
@@ -135,33 +136,6 @@ $userBar = $this->userBar();
         childList: true,
         subtree: true
       });
-    });
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Change "---" to "Select state"
-      const stateOption = document.querySelector('#property-one-select option[value="---"]');
-      if (stateOption) {
-        stateOption.textContent = 'Select state';
-      }
-      
-      // Change "---" to "Select county"  
-      const countyOption = document.querySelector('#property-two-select option[value="---"]');
-      if (countyOption) {
-        countyOption.textContent = 'Select county';
-      }
-      
-      // Handle when county is populated dynamically
-      const countySelect = document.querySelector('#property-two-select');
-      if (countySelect) {
-        const observer = new MutationObserver(() => {
-          const option = countySelect.querySelector('option[value="---"]');
-          if (option && option.textContent === '---') {
-            option.textContent = 'Select county';
-          }
-        });
-        observer.observe(countySelect, { childList: true });
-      }
     });
     </script>
   </body>
