@@ -1,0 +1,760 @@
+// School Fund Page Styles
+.school-fund-wrapper {
+  // Mobile First - Base styles (below 576px)
+  .school-fund-section {
+    .school-fund-header {
+      position: relative;
+      width: 100%;
+      margin-bottom: 40px; // Increased for 50% overlap
+
+      // Hero image
+      > img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      // Hero box (white card) - smaller on mobile
+      .school-fund-card {
+        position: absolute;
+        bottom: -30%; // Changed to 50/50
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        padding: 10px;
+        width: 100%;
+        max-width: 250px;
+        z-index: 2;
+
+        // Breadcrumb styles
+        .breadcrumb {
+          font-family: $font-sans;
+          font-size: 10px;
+          margin-bottom: -10px;
+          margin-top: 2px;
+          
+          .breadcrumb-link {
+            color: #666;
+          }
+          
+          .breadcrumb-separator {
+            color: #999;
+          }
+          
+          .breadcrumb-current {
+            color: $color-link;
+            font-family: $weight-semibold;
+          }
+        }
+
+        h1 {
+          font-family: serif;
+          font-size: 16px;
+          color: $color-heading;
+          font-weight: $weight-regular;
+          margin-bottom: 4px;
+          display: inline-block;
+          position: relative;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 75%;
+            height: 1px;
+            background-color: $color-link;
+          }
+        }
+      }
+    }
+  }
+
+  // Small devices (576px and up)
+  @media screen and (min-width: 576px) {
+    .school-fund-section {
+      .school-fund-header {
+        margin-bottom: 40px;
+
+        .school-fund-card {
+          bottom: -30%;
+          padding: 16px;
+          width: 100%;
+          max-width: 350px;
+
+          .breadcrumb {
+            font-size: 12px;
+            margin-bottom: 4px;
+            margin-top: 4px;
+          }
+
+          h1 {
+            font-size: 28px;
+            margin-bottom: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  // Medium devices (768px and up)
+  @media screen and (min-width: 768px) {
+    .school-fund-section {
+      .school-fund-header {
+        margin-bottom: 60px;
+
+        .school-fund-card {
+          bottom: -25%;
+          padding: 16px;
+          width: 100%;
+          max-width: 500px;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+
+          .breadcrumb {
+            font-size: 14px;
+            margin-bottom: 6px;
+            margin-top: 6px;
+          }
+
+          h1 {
+            font-size: 32px;
+            margin-bottom: 16px;
+          }
+        }
+      }
+    }
+  }
+
+  // Large devices (992px and up)
+  @media screen and (min-width: 992px) {
+    .school-fund-section {
+      .school-fund-header {
+        margin-bottom: 80px;
+
+        .school-fund-card {
+          bottom: -20%;
+          padding: 20px;
+          width: 100%;
+          max-width: 650px;
+
+          .breadcrumb {
+            font-size: 16px;
+            margin-bottom: 8px;
+          }
+
+          h1 {
+            font-size: 42px;
+            margin-bottom: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  // Extra large devices (1200px and up)
+  @media screen and (min-width: 1200px) {
+    .school-fund-section {
+      .school-fund-header {
+        margin-bottom: 100px;
+
+        .school-fund-card {
+          bottom: -15%;
+          padding: 25px;
+          max-width: 800px;
+          width: 100%;
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+          .breadcrumb {
+            font-size: 18px;
+            margin-bottom: 10px;
+          }
+
+          h1 {
+            font-size: 48px;
+            margin-bottom: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// School Fund About Section
+.school-fund-about {
+  padding: 40px 20px; // Simplified base padding
+  
+  .about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    
+    .about-content {
+      .about-title {
+        font-family: $font-serif;
+        font-size: 36px;
+        color: $color-heading;
+        margin-bottom: 20px; 
+        font-weight: $weight-regular;
+      }
+      
+      .about-text {
+        font-family: $font-sans;
+        font-size: 16px;
+        color: $color-body;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    
+    .about-image {
+      text-align: center;
+      
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+  
+  // Tablet and up
+  @media screen and (min-width: $breakpoint-md) {
+    padding: 60px 40px; 
+    
+    .about-container {
+      .about-content {
+        .about-title {
+          font-size: 42px;
+        }
+        
+        .about-text {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  
+  // Desktop - 2 columns (992px and up)
+  @media screen and (min-width: $breakpoint-lg) {
+    padding: 80px 60px; 
+    
+    .about-container {
+      flex-direction: row;
+      align-items: center;
+      gap: 40px;
+      
+      .about-content {
+        flex: 1;
+        
+        .about-title {
+          font-size: 48px;
+        }
+      }
+      
+      .about-image {
+        flex: 1;
+        text-align: right;
+        
+        img {
+          max-width: 400px; // Reasonable max size
+        }
+      }
+    }
+  }
+  
+  // Extra large screens
+  @media screen and (min-width: $breakpoint-xl) {
+    padding: 80px 80px;
+    max-width: 1200px; // Add max-width
+    margin-left: auto; // Center it
+    margin-right: auto;
+    .about-container {
+      gap: 30px;
+      
+      .about-content {
+        .about-title {
+          font-size: 56px;
+        }
+        
+        .about-text {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+/* Global box-sizing fix */
+* {
+  box-sizing: border-box;
+}
+
+// School Fund Search Section - Final version
+.block-ItemSetSearch.school-fund-search-section {
+  padding: 30px 20px;
+  
+  // Add the heading
+  &::before {
+    content: "SEARCH FOR A ROSENWALD SCHOOL:";
+    display: block;
+    font-family: $font-serif;
+    font-size: 14px; // Mobile size
+    font-weight: $weight-semibold;
+    text-transform: uppercase;
+    color: $color-primary;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  // Search form Container
+  .search-form {
+    background-color: #f7f0ea;
+    max-width: 1000px;
+    width: 100%;
+    min-height: 130px;
+    height: auto;
+    border: 1px solid #f3d4bb;
+    margin-left: 0px !important;
+    
+    form {
+      margin-left: 20px;
+      max-width: 320px;
+      width: 100%;
+      .input-group {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        
+        // Hide the original label
+        label[for="search-input"] {
+          display: none !important;
+        }
+        
+        // Add new "Search term" label
+        &::before {
+          content: "Search term";
+          display: block;
+          width: 100%;
+          font-family: $font-sans;
+          font-size: 14px; // Mobile size
+          font-weight: $weight-medium;
+          color: $color-primary;
+          margin-top: 20px;
+        }
+        
+        // Input field
+        input[type="text"]#search-input {
+          flex: 1;
+          height: 45px; // Mobile size
+          padding: 0 20px;
+          font-family: $font-sans;
+          font-size: 14px; // Mobile size
+          background-color: white;
+          border: 1px solid #999;
+          border-radius: 4px;
+          margin-right: 10px;
+          
+          &::placeholder {
+            color: $color-primary;
+            font-weight: $weight-semibold;
+          }
+          
+          &:focus {
+            outline: none;
+            border-color: #666;
+          }
+        }
+        
+        // Search button
+        button[type="submit"] {
+          height: 45px; // Mobile size
+          padding: 0 30px; // Mobile padding
+          font-family: $font-sans;
+          font-size: 14px; // Mobile size
+          font-weight: 500;
+          color: white;
+          background-color: $color-primary;
+          border: none;
+          border-radius: 2px;
+          width: auto;
+          cursor: pointer;
+          
+          &:hover {
+            background-color: $btn-primary-hover;
+          }
+        }
+      }
+    }
+  }
+// Mobile - 576px
+@media screen and (min-width: $breakpoint-sm) {
+    padding: 30px 30px;
+    
+    &::before {
+      font-size: 16px;
+    }
+    
+    .search-form {
+        margin-left: 0px !important;
+        form {
+            max-width: 450px;
+            width: 100%;
+            .input-group {
+                &::before {
+                    font-size: 16px;
+                }
+                
+                input[type="text"]#search-input {
+                    font-size: 16px;
+                    height: 50px;
+                }
+                
+                button[type="submit"] {
+                    font-size: 16px;
+                    height: 50px;
+                    padding: 0 40px;
+                }
+            }
+        }
+    }
+  }
+  
+  // Tablet - 768px
+  @media screen and (min-width: $breakpoint-md) {
+    padding: 30px 30px;
+    
+    &::before {
+      font-size: 16px;
+    }
+    
+    .search-form form .input-group {
+      &::before {
+        font-size: 16px;
+      }
+      
+      input[type="text"]#search-input {
+        font-size: 16px;
+        height: 50px;
+      }
+      
+      button[type="submit"] {
+        font-size: 16px;
+        height: 50px;
+        padding: 0 40px;
+      }
+    }
+  }
+  
+  // Desktop - 992px
+  @media screen and (min-width: $breakpoint-lg) {
+    padding: 30px 60px;
+    
+    &::before {
+      font-size: 18px;
+    }
+    
+    .search-form {
+        form{
+            max-width: 500px;
+            width: 100%;
+            .input-group {
+                &::before {
+                    font-size: 18px;
+                }
+                
+                input[type="text"]#search-input {
+                    font-size: 18px;
+                    height: 55px;
+                }
+                
+                button[type="submit"] {
+                    font-size: 18px;
+                    height: 55px;
+                    padding: 0 50px;
+                }
+            }
+        }
+    }
+}
+  
+  // Extra Large - 1200px
+  @media screen and (min-width: $breakpoint-xl) {
+    padding: 20px 80px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    &::before {
+      font-size: 20px;
+    }
+    
+    .search-form form .input-group {
+      &::before {
+        font-size: 20px;
+      }
+      
+      input[type="text"]#search-input {
+        font-size: 16px;
+        height: 50px;
+      }
+      
+      button[type="submit"] {
+        font-size: 16px;
+        height: 50px;
+        padding: 0 40px;
+      }
+    }
+  }
+}
+
+
+// Section 4 - School Fund Highlights (Browse Preview Block)
+.block-browsePreview {
+  padding: 40px 20px; // Match About section base padding
+  
+  // Container wrapper
+  .preview-block {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: block;
+    
+    // Remove list styling
+    .resource-list.preview {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    // Each school item
+    li.item.resource {
+      display: flex;
+      flex-direction: column; // Mobile first - vertical stack
+      padding: 30px 0;
+      border-bottom: 1px solid #e0e0e0;
+      width: 100%; // Full width rows
+      
+      &:first-child {
+        padding-top: 0;
+      }
+      
+      &:last-child {
+        padding-bottom: 30px;
+      }
+      
+      // Link container (image + title)
+      .resource-link {
+        display: block;
+        text-decoration: none;
+        margin-bottom: 10px; // Space before description
+        
+        img {
+          width: auto;
+          height: 180px;
+          object-fit: cover;
+          display: block;
+          margin-bottom: 20px; // Space between image and title
+        }
+        
+        // Title
+        .resource-name {
+          font-family: $font-serif;
+          font-size: 20px;
+          color: $color-link;
+          font-weight: $weight-regular;
+          display: inline-block;
+          
+          &:hover {
+            color: $color-primary;
+          }
+        }
+      }
+      
+      // Description
+      .description {
+        font-family: $font-sans;
+        font-size: 14px;
+        color: $color-body;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+  }
+  
+  // Small devices - 576px and up (still vertical)
+    @media screen and (min-width: $breakpoint-sm) {
+        .preview-block {
+        li.item.resource {
+            // Still vertical stack
+            .resource-link {
+            img {
+                height: 220px;
+                width: auto;
+                margin-bottom: 20px;
+            }
+            
+            .resource-name {
+                font-size: 22px;
+            }
+            }
+            
+            .description {
+            font-size: 16px;
+            }
+        }
+        }
+    }
+  
+    // Tablet and up - 768px (2 column layout starts here)
+    @media screen and (min-width: $breakpoint-md) {
+    padding: 60px 40px;
+    
+    .preview-block {
+        li.item.resource {
+        display: grid; // Use grid instead of flex
+        grid-template-columns: 300px 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 20px;
+        row-gap: 0;
+        align-items: start;
+        
+        .resource-link {
+            display: contents; // This makes children participate in parent grid
+            
+            img {
+            grid-column: 1;
+            grid-row: 1 / 3; // Span both rows
+            width: 300px;
+            height: 180px;
+            object-fit: cover;
+            }
+            
+            .resource-name {
+            grid-column: 2;
+            grid-row: 1;
+            font-size: 26px;
+            margin: 0;
+            }
+        }
+        
+        .description {
+            grid-column: 2;
+            grid-row: 2;
+            font-size: 16px;
+            margin: 0; // Remove all margins
+            padding: 0; // Remove all padding
+        }
+        }
+    }
+    }
+
+    // Desktop - 992px
+    @media screen and (min-width: $breakpoint-lg) {
+    padding: 80px 60px;
+    
+    .preview-block {
+        li.item.resource {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        grid-template-rows: auto auto; // Two rows
+        column-gap: 10px;
+        row-gap: 0; // No row gap
+        align-items: start;
+        
+        .resource-link {
+            display: contents; // Keep this
+            
+            img {
+            grid-column: 1;
+            grid-row: 1 / 3; // Span both rows
+            height: 180px;
+            width: auto;
+            }
+            
+            .resource-name {
+            grid-column: 2;
+            grid-row: 1;
+            font-size: 24px;
+            margin: 0;
+            margin-bottom: 10px; // Small gap to description
+            }
+        }
+        
+        .description {
+            grid-column: 2;
+            grid-row: 2;
+            font-size: 18px;
+            margin: 0;
+            width: 100%;
+        }
+        }
+    }
+    }
+
+    // Extra large screens - 1200px
+    @media screen and (min-width: $breakpoint-xl) {
+        padding: 60px 80px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    
+    .preview-block {
+        li.item.resource {
+        column-gap: 10px; // Adjust gap
+        
+        .resource-link {
+            .resource-name {
+            font-size: 28px;
+            }
+        }
+        
+        .description {
+            margin-top: -30px!important;
+            font-size: 18px;
+        }
+        }
+    }
+    }
+  
+    // Style the "Browse all" link
+      // Browse all link - it's inside .preview-block
+  .preview-block > a[href*="item"] {
+    display: block;
+    width: fit-content;
+    margin: 40px auto;
+    padding: 12px 30px;
+    background-color: $color-primary;
+    color: white;
+    font-family: $font-sans;
+    font-size: 20px;
+    font-weight: $weight-semibold;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+    text-align: center;
+    
+    // Add arrow
+    &::after {
+      content: "→";
+      font-size: 20px;
+      margin-left: 4px;
+    }
+    
+    &:hover {
+      background-color: $btn-primary-hover;
+      text-decoration: none;
+    }
+    
+    &:active {
+      background-color: $btn-primary-pressed;
+    }
+  }
+}

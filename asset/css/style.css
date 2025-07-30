@@ -545,28 +545,106 @@ input[type=text]:focus, select:focus {
   padding: 60px 40px 40px;
 }
 
-.sandpaper-bg {
+body.homepage .blocks > .block:nth-child(n+8):nth-child(-n+15) {
+  border: 5px solid red !important;
+  outline: 5px solid blue !important;
   position: relative;
-  min-height: 100vh;
-  background-image: url("../img/background.jpg");
-  background-size: cover;
-  background-attachment: scroll;
-  background-position: center center;
-  background-repeat: no-repeat;
+  padding: 60px 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
-.sandpaper-bg::before {
+@media (min-width: 1200px) {
+  body.homepage .blocks > .block:nth-child(n+8):nth-child(-n+15) {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    max-width: calc(100vw - 17px);
+    margin-left: calc(-50vw + 8.5px);
+    margin-right: calc(-50vw + 8.5px);
+  }
+}
+body.homepage .blocks > .block:nth-child(n+8):nth-child(-n+15)::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-image: url("../img/original paper background texture.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+body.homepage .blocks > .block:nth-child(n+8):nth-child(-n+15)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: #FCF5F1;
+  opacity: 0.7;
   pointer-events: none;
 }
-.sandpaper-bg .site-layout {
+body.homepage .blocks > .block:nth-child(n+8):nth-child(-n+15) > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+@media (min-width: 1200px) {
+  body.homepage .blocks > .block:nth-child(n+8):nth-child(-n+15) > * {
+    max-width: 1140px;
+  }
+}
+body.homepage .blocks > .block:nth-child(11)::before,
+body.homepage .blocks > .block:nth-child(13)::before,
+body.homepage .blocks > .block:nth-child(15)::before {
+  background-color: #FCF5F1;
+}
+body.homepage .blocks > .block:nth-child(12)::before,
+body.homepage .blocks > .block:nth-child(14)::before {
+  background-color: #FFFAFA;
+}
+
+.site-header,
+.site-footer,
+body:not(.homepage) {
+  position: relative;
+}
+.site-header::before,
+.site-footer::before,
+body:not(.homepage)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 100%;
+  background-image: url("../img/original paper background texture.jpg");
+  background-size: cover;
+  background-position: top center;
+  background-repeat: repeat-y;
+  z-index: -2;
+}
+.site-header::after,
+.site-footer::after,
+body:not(.homepage)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FCF5F1;
+  opacity: 0.7;
+  z-index: -1;
 }
 
 .site-header {
@@ -574,18 +652,17 @@ input[type=text]:focus, select:focus {
   z-index: 100;
   width: 100%;
   height: 88px;
-  background-color: #FFFAFA;
   border-bottom: 1px solid #DCD0C9;
-}
-.site-header::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("../img/background.jpg");
-  background-size: cover;
-  background-repeat: repeat;
-  opacity: 0.3;
-  z-index: -1;
+  /*&::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('../img/background.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    opacity: 0.3;
+    z-index: -1;
+  }*/
 }
 .site-header .header-inner {
   max-width: 1200px;
@@ -1423,7 +1500,7 @@ input[type=text]:focus, select:focus {
 }
 @media (min-width: 1200px) {
   .blocks .block-blockGroup.section-find-schools + .block + .block {
-    padding-left: 100px !important;
+    padding-left: 50px !important;
     padding-right: 60px !important;
   }
 }
@@ -1609,7 +1686,7 @@ input[type=text]:focus, select:focus {
 }
 @media (min-width: 1200px) {
   .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block {
-    padding-left: 100px !important;
+    padding-left: 50px !important;
     padding-right: 60px !important;
   }
 }
@@ -3645,4 +3722,610 @@ section article > header > div p {
     font-size: 18px;
     justify-content: flex-start;
   }
+}
+
+.school-fund-wrapper .school-fund-section .school-fund-header {
+  position: relative;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header > img {
+  width: 100%;
+  height: auto;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card {
+  position: absolute;
+  bottom: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 10px;
+  width: 100%;
+  max-width: 250px;
+  z-index: 2;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  margin-bottom: -10px;
+  margin-top: 2px;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb .breadcrumb-link {
+  color: #666;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb .breadcrumb-separator {
+  color: #999;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb .breadcrumb-current {
+  color: #93340E;
+  font-family: 600;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card h1 {
+  font-family: serif;
+  font-size: 16px;
+  color: #442F2A;
+  font-weight: 400;
+  margin-bottom: 4px;
+  display: inline-block;
+  position: relative;
+}
+.school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 75%;
+  height: 1px;
+  background-color: #93340E;
+}
+@media screen and (min-width: 576px) {
+  .school-fund-wrapper .school-fund-section .school-fund-header {
+    margin-bottom: 40px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card {
+    bottom: -30%;
+    padding: 16px;
+    width: 100%;
+    max-width: 350px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb {
+    font-size: 12px;
+    margin-bottom: 4px;
+    margin-top: 4px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .school-fund-wrapper .school-fund-section .school-fund-header {
+    margin-bottom: 60px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card {
+    bottom: -25%;
+    padding: 16px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb {
+    font-size: 14px;
+    margin-bottom: 6px;
+    margin-top: 6px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card h1 {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .school-fund-wrapper .school-fund-section .school-fund-header {
+    margin-bottom: 80px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card {
+    bottom: -20%;
+    padding: 20px;
+    width: 100%;
+    max-width: 650px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card h1 {
+    font-size: 42px;
+    margin-bottom: 18px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .school-fund-wrapper .school-fund-section .school-fund-header {
+    margin-bottom: 100px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card {
+    bottom: -15%;
+    padding: 25px;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card h1 {
+    font-size: 48px;
+    margin-bottom: 24px;
+  }
+}
+
+.school-fund-about {
+  padding: 40px 20px;
+}
+.school-fund-about .about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+.school-fund-about .about-container .about-content .about-title {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 36px;
+  color: #442F2A;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.school-fund-about .about-container .about-content .about-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  color: #56352D;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.school-fund-about .about-container .about-content .about-text:last-child {
+  margin-bottom: 0;
+}
+.school-fund-about .about-container .about-image {
+  text-align: center;
+}
+.school-fund-about .about-container .about-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+@media screen and (min-width: 768px) {
+  .school-fund-about {
+    padding: 60px 40px;
+  }
+  .school-fund-about .about-container .about-content .about-title {
+    font-size: 42px;
+  }
+  .school-fund-about .about-container .about-content .about-text {
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .school-fund-about {
+    padding: 80px 60px;
+  }
+  .school-fund-about .about-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+  }
+  .school-fund-about .about-container .about-content {
+    flex: 1;
+  }
+  .school-fund-about .about-container .about-content .about-title {
+    font-size: 48px;
+  }
+  .school-fund-about .about-container .about-image {
+    flex: 1;
+    text-align: right;
+  }
+  .school-fund-about .about-container .about-image img {
+    max-width: 400px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .school-fund-about {
+    padding: 80px 80px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .school-fund-about .about-container {
+    gap: 30px;
+  }
+  .school-fund-about .about-container .about-content .about-title {
+    font-size: 56px;
+  }
+  .school-fund-about .about-container .about-content .about-text {
+    font-size: 20px;
+  }
+}
+
+/* Global box-sizing fix */
+* {
+  box-sizing: border-box;
+}
+
+.block-ItemSetSearch.school-fund-search-section {
+  padding: 30px 20px;
+}
+.block-ItemSetSearch.school-fund-search-section::before {
+  content: "SEARCH FOR A ROSENWALD SCHOOL:";
+  display: block;
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #653C2C;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form {
+  background-color: #f7f0ea;
+  max-width: 1000px;
+  width: 100%;
+  min-height: 130px;
+  height: auto;
+  border: 1px solid #f3d4bb;
+  margin-left: 0px !important;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form {
+  margin-left: 20px;
+  max-width: 320px;
+  width: 100%;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group label[for=search-input] {
+  display: none !important;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group::before {
+  content: "Search term";
+  display: block;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #653C2C;
+  margin-top: 20px;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input {
+  flex: 1;
+  height: 45px;
+  padding: 0 20px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #999;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input::-moz-placeholder {
+  color: #653C2C;
+  font-weight: 600;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input::placeholder {
+  color: #653C2C;
+  font-weight: 600;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input:focus {
+  outline: none;
+  border-color: #666;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group button[type=submit] {
+  height: 45px;
+  padding: 0 30px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: #653C2C;
+  border: none;
+  border-radius: 2px;
+  width: auto;
+  cursor: pointer;
+}
+.block-ItemSetSearch.school-fund-search-section .search-form form .input-group button[type=submit]:hover {
+  background-color: #7A5141;
+}
+@media screen and (min-width: 576px) {
+  .block-ItemSetSearch.school-fund-search-section {
+    padding: 30px 30px;
+  }
+  .block-ItemSetSearch.school-fund-search-section::before {
+    font-size: 16px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form {
+    margin-left: 0px !important;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form {
+    max-width: 450px;
+    width: 100%;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group::before {
+    font-size: 16px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input {
+    font-size: 16px;
+    height: 50px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group button[type=submit] {
+    font-size: 16px;
+    height: 50px;
+    padding: 0 40px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .block-ItemSetSearch.school-fund-search-section {
+    padding: 30px 30px;
+  }
+  .block-ItemSetSearch.school-fund-search-section::before {
+    font-size: 16px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group::before {
+    font-size: 16px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input {
+    font-size: 16px;
+    height: 50px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group button[type=submit] {
+    font-size: 16px;
+    height: 50px;
+    padding: 0 40px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .block-ItemSetSearch.school-fund-search-section {
+    padding: 30px 60px;
+  }
+  .block-ItemSetSearch.school-fund-search-section::before {
+    font-size: 18px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form {
+    max-width: 500px;
+    width: 100%;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group::before {
+    font-size: 18px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input {
+    font-size: 18px;
+    height: 55px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group button[type=submit] {
+    font-size: 18px;
+    height: 55px;
+    padding: 0 50px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .block-ItemSetSearch.school-fund-search-section {
+    padding: 20px 80px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .block-ItemSetSearch.school-fund-search-section::before {
+    font-size: 20px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group::before {
+    font-size: 20px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input {
+    font-size: 16px;
+    height: 50px;
+  }
+  .block-ItemSetSearch.school-fund-search-section .search-form form .input-group button[type=submit] {
+    font-size: 16px;
+    height: 50px;
+    padding: 0 40px;
+  }
+}
+
+.block-browsePreview {
+  padding: 40px 20px;
+}
+.block-browsePreview .preview-block {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: block;
+}
+.block-browsePreview .preview-block .resource-list.preview {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.block-browsePreview .preview-block li.item.resource {
+  display: flex;
+  flex-direction: column;
+  padding: 30px 0;
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+}
+.block-browsePreview .preview-block li.item.resource:first-child {
+  padding-top: 0;
+}
+.block-browsePreview .preview-block li.item.resource:last-child {
+  padding-bottom: 30px;
+}
+.block-browsePreview .preview-block li.item.resource .resource-link {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+.block-browsePreview .preview-block li.item.resource .resource-link img {
+  width: auto;
+  height: 180px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+  margin-bottom: 20px;
+}
+.block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 20px;
+  color: #93340E;
+  font-weight: 400;
+  display: inline-block;
+}
+.block-browsePreview .preview-block li.item.resource .resource-link .resource-name:hover {
+  color: #653C2C;
+}
+.block-browsePreview .preview-block li.item.resource .description {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  color: #56352D;
+  line-height: 1.6;
+  margin: 0;
+}
+@media screen and (min-width: 576px) {
+  .block-browsePreview .preview-block li.item.resource .resource-link img {
+    height: 220px;
+    width: auto;
+    margin-bottom: 20px;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
+    font-size: 22px;
+  }
+  .block-browsePreview .preview-block li.item.resource .description {
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .block-browsePreview {
+    padding: 60px 40px;
+  }
+  .block-browsePreview .preview-block li.item.resource {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto auto;
+    -moz-column-gap: 20px;
+         column-gap: 20px;
+    row-gap: 0;
+    align-items: start;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link {
+    display: contents;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link img {
+    grid-column: 1;
+    grid-row: 1/3;
+    width: 300px;
+    height: 180px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 26px;
+    margin: 0;
+  }
+  .block-browsePreview .preview-block li.item.resource .description {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+  }
+}
+@media screen and (min-width: 992px) {
+  .block-browsePreview {
+    padding: 80px 60px;
+  }
+  .block-browsePreview .preview-block li.item.resource {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto auto;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
+    row-gap: 0;
+    align-items: start;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link {
+    display: contents;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link img {
+    grid-column: 1;
+    grid-row: 1/3;
+    height: 180px;
+    width: auto;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 24px;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  .block-browsePreview .preview-block li.item.resource .description {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 18px;
+    margin: 0;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .block-browsePreview {
+    padding: 60px 80px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .block-browsePreview .preview-block li.item.resource {
+    -moz-column-gap: 10px;
+         column-gap: 10px;
+  }
+  .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
+    font-size: 28px;
+  }
+  .block-browsePreview .preview-block li.item.resource .description {
+    margin-top: -30px !important;
+    font-size: 18px;
+  }
+}
+.block-browsePreview .preview-block > a[href*=item] {
+  display: block;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 40px auto;
+  padding: 12px 30px;
+  background-color: #653C2C;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+  text-align: center;
+}
+.block-browsePreview .preview-block > a[href*=item]::after {
+  content: "→";
+  font-size: 20px;
+  margin-left: 4px;
+}
+.block-browsePreview .preview-block > a[href*=item]:hover {
+  background-color: #7A5141;
+  text-decoration: none;
+}
+.block-browsePreview .preview-block > a[href*=item]:active {
+  background-color: #A17756;
 }
