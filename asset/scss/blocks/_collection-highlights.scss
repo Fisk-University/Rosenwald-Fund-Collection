@@ -141,10 +141,10 @@
 
       h2 {
         font-size: 36px;
-        margin: 0 0 20px;
+        //margin: 0 0 20px;
       }
       .collection-description {
-        margin: 36px 0 0;
+        //margin: 36px 0 0;
         p {
           font-size: $font-size-body;
           line-height: $lh-body;
@@ -381,7 +381,6 @@
 
   @media screen and (min-width: #{$breakpoint-lg}) {
     margin: -40px auto 0;
-    padding: 0 0 120px;
     max-width: 1140px;
 
     .carousel-block { max-width: 900px; min-height: 644px; }
@@ -404,7 +403,7 @@
 
   @media screen and (min-width: #{$breakpoint-xl}) {
     max-width: 1440px;
-    margin-top: -60px;
+    margin-top: -100px;
 
     .carousel-block { max-width: 962px; min-height: 644px; }
     .slick-list { padding: 0 60px; }

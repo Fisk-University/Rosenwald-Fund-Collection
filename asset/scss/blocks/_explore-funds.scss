@@ -81,9 +81,9 @@
 
       .view-link {
         font-family: $font-sans;
-        font-size: 16px;
+        font-size: 15px;
         color: $color-link;
-        font-weight: $weight-regular;
+        font-weight: $weight-semibold;
         display: inline-flex;
         align-items: center;
         gap: 6px;
@@ -125,11 +125,12 @@
     }
 
     .fund-item {
-      .fund-image { height: 200px; }
+      .fund-image { width: 270px; height: auto; }
       .fund-content {
         padding: 20px;
-        h3  { font-size: 24px; }
+        h3  { font-size: 22px; }
         p   { font-size: 15px; }
+        .view-link { font-size: 13px;}
       }
     }
   }
@@ -148,7 +149,7 @@
     }
 
     .fund-item {
-      .fund-image { height: 220px; }
+      .fund-image { width: 320px; height: auto; }
       .fund-content {
         padding: 24px;
         h3 { font-size: 26px; }
@@ -175,7 +176,7 @@
     .fund-item {
       .fund-image { height: 200px; }
       .fund-content {
-        h3 { font-size: 28px; }
+        h3 { font-size: 24px; }
         p  { font-size: 16px; }
       }
     }

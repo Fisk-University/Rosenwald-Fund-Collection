@@ -11,8 +11,9 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url('../img/background.jpg');
+    background-image: url('../img/original paper background texture.jpg');
     background-size: cover;
+    background-color: $color-bg-light;
     background-repeat: repeat;
     opacity: 0.3;
     z-index: -1;
@@ -48,11 +49,11 @@
         width: auto;
         display: block;
         mix-blend-mode: darken;
-        background-color: $color-bg-light; 
+        background-color: #ffffff; 
       }
 
       .placeholder-logo {
-        background-color: #eee;
+        background-color: #ffffff;
         border: 1px solid $color-divider;
         width: 80px;
         height: 40px;
