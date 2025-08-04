@@ -88,7 +88,7 @@ section {
 @media screen and (min-width: $breakpoint-md) {
   section {
     article > header {
-      margin-bottom: 250px; // Increased for 50% overlap
+      margin-bottom: 200px; // Increased for 50% overlap
 
       > div {
         bottom: -50%; // Keep 50/50
@@ -118,7 +118,7 @@ section {
 @media screen and (min-width: $breakpoint-lg) {
   section {
     article > header {
-      margin-bottom: 320px; // Increased for 50% overlap
+      margin-bottom: 190px; // Increased for 50% overlap
 
       > div {
         bottom: -50%; // Keep 50/50
@@ -348,14 +348,15 @@ section {
       position: absolute;
       left: 330px;
       top: 32px;
+      margin-top: -30px;
       padding: 0;
-      font-size: 32px;
+      font-size: 28px;
       z-index: 10;
     }
 
     .caption {
       padding: 32px;
-      padding-top: 80px; 
+      padding-top: 40px; 
       flex: 1;
       min-height: 240px; // ADD THIS
       align-items: flex-start; // ADD THIS
@@ -364,7 +365,7 @@ section {
       line-height: $lh-body;
 
       .view-fund-link {
-        font-size: $font-size-link;
+        font-size: 16px;
         //margin-top: auto; // CHANGE THIS
         margin-bottom: 0; // ADD THIS
       }

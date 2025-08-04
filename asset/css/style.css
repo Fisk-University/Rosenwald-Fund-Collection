@@ -3375,7 +3375,7 @@ section article > header > div p {
 }
 @media screen and (min-width: 768px) {
   section article > header {
-    margin-bottom: 250px;
+    margin-bottom: 200px;
   }
   section article > header > div {
     bottom: -50%;
@@ -3397,7 +3397,7 @@ section article > header > div p {
 }
 @media screen and (min-width: 992px) {
   section article > header {
-    margin-bottom: 320px;
+    margin-bottom: 190px;
   }
   section article > header > div {
     bottom: -50%;
@@ -3586,13 +3586,14 @@ section article > header > div p {
     position: absolute;
     left: 330px;
     top: 32px;
+    margin-top: -30px;
     padding: 0;
-    font-size: 32px;
+    font-size: 28px;
     z-index: 10;
   }
   .item-set.resource .caption {
     padding: 32px;
-    padding-top: 80px;
+    padding-top: 40px;
     flex: 1;
     min-height: 240px;
     align-items: flex-start;
@@ -3601,7 +3602,7 @@ section article > header > div p {
     line-height: 175%;
   }
   .item-set.resource .caption .view-fund-link {
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 0;
   }
 }
