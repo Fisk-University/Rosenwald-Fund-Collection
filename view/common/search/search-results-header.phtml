@@ -1,0 +1,55 @@
+<?php
+/**
+ * Search Results Header
+ * Displays the appropriate header based on search type
+ */
+
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+// Get variables from parent
+$searchContext = isset($searchContext) ? $searchContext : [];
+$totalResults = isset($totalResults) ? $totalResults : 0;
+?>
+
+<?php if ($searchContext['type'] == 'keyword' && $searchContext['searchTerm']): ?>
+    <!-- Keyword search header -->
+    <h2 class="search-results-title">
+        <?php echo sprintf(
+            $translate('Showing %s results for "%s"'), 
+            $totalResults, 
+            $escape((string)$searchContext['searchTerm'])
+        ); ?>
+    </h2>
+    
+<?php elseif ($searchContext['type'] == 'location'): ?>
+    <!-- Location search header -->
+    <h2 class="search-results-title">
+        <?php 
+        // Build location string
+        $locationParts = [];
+        if ($searchContext['searchState']) {
+            $locationParts[] = '"' . $escape($searchContext['searchState']) . '"';
+        }
+        if ($searchContext['searchCounty']) {
+            $locationParts[] = '"' . $escape($searchContext['searchCounty']) . '"';
+        }
+        
+        if (!empty($locationParts)) {
+            echo sprintf(
+                $translate('Showing %s results for %s'), 
+                $totalResults,
+                implode(' and ', $locationParts)
+            );
+        } else {
+            echo $translate('Browse Items');
+        }
+        ?>
+    </h2>
+    
+<?php else: ?>
+    <!-- Default header -->
+    <h2 class="search-results-title">
+        <?php echo $translate('Browse Items'); ?>
+    </h2>
+<?php endif; ?>

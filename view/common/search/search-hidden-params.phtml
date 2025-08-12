@@ -1,0 +1,31 @@
+<?php
+/**
+ * Hidden Search Parameters
+ * Preserves search parameters in forms (like sort form)
+ */
+
+$escape = $this->plugin('escapeHtml');
+$searchContext = isset($searchContext) ? $searchContext : [];
+?>
+
+<?php if ($searchContext['type'] == 'keyword'): ?>
+    <!-- Preserve keyword search -->
+    <input type="hidden" name="fulltext_search" value="<?php echo $escape((string)$searchContext['searchTerm']); ?>">
+    
+<?php elseif ($searchContext['type'] == 'location'): ?>
+    <!-- Preserve location search -->
+    <?php if ($searchContext['searchState']): ?>
+        <input type="hidden" name="property_one_value" value="<?php echo $escape($searchContext['searchState']); ?>">
+        <input type="hidden" name="property[0][joiner]" value="and">
+        <input type="hidden" name="property[0][property]" value="rfc:state">
+        <input type="hidden" name="property[0][type]" value="eq">
+        <input type="hidden" name="property[0][text]" value="<?php echo $escape($searchContext['searchState']); ?>">
+    <?php endif; ?>
+    
+    <!-- Always include county structure for consistency -->
+    <input type="hidden" name="property_two_value" value="<?php echo $escape($searchContext['searchCounty']); ?>">
+    <input type="hidden" name="property[1][joiner]" value="and">
+    <input type="hidden" name="property[1][property]" value="rfc:county">
+    <input type="hidden" name="property[1][type]" value="eq">
+    <input type="hidden" name="property[1][text]" value="<?php echo $escape($searchContext['searchCounty']); ?>">
+<?php endif; ?>

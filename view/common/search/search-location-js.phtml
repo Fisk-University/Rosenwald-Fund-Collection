@@ -1,0 +1,109 @@
+<script>
+/**
+ * JavaScript for Location Search
+ * Handles dynamic county population based on state selection
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    const stateSelect = document.getElementById('state');
+    const countySelect = document.getElementById('county');
+    
+    if (stateSelect && countySelect) {
+        
+        // Counties organized by state
+        const countiesByState = {
+            'Mississippi': [
+                'Forrest County', 'Hinds County', 'Jackson County', 
+                'Harrison County', 'Rankin County', 'Madison County',
+                'DeSoto County', 'Lee County'
+            ],
+            'Alabama': [
+                'Jefferson County', 'Mobile County', 'Madison County',
+                'Montgomery County', 'Shelby County', 'Tuscaloosa County',
+                'Baldwin County'
+            ],
+            'Georgia': [
+                'Fulton County', 'DeKalb County', 'Cobb County',
+                'Gwinnett County', 'Clayton County', 'Cherokee County',
+                'Forsyth County'
+            ],
+            'North Carolina': [
+                'Wake County', 'Mecklenburg County', 'Durham County',
+                'Pitt County', 'Harnett County', 'Guilford County',
+                'Forsyth County', 'Cumberland County'
+            ],
+            'South Carolina': [
+                'Charleston County', 'Richland County', 'Greenville County',
+                'Spartanburg County', 'Horry County', 'Lexington County',
+                'York County'
+            ]
+        };
+        
+        // Update counties based on selected state
+        function updateCounties() {
+            const selectedState = stateSelect.value;
+            const previouslySelectedCounty = '<?php echo isset($searchContext["searchCounty"]) ? $this->escapeJs($searchContext["searchCounty"]) : ""; ?>';
+            
+            // Clear counties
+            countySelect.innerHTML = '';
+            
+            // Add default option
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = '<?php echo $this->translate("Select county"); ?>';
+            countySelect.appendChild(defaultOption);
+            
+            // Enable/disable county select
+            if (selectedState) {
+                countySelect.disabled = false;
+                
+                // Add counties for selected state
+                if (countiesByState[selectedState]) {
+                    countiesByState[selectedState].forEach(county => {
+                        const option = document.createElement('option');
+                        option.value = county;
+                        option.textContent = county;
+                        
+                        // Restore selected county
+                        if (county === previouslySelectedCounty) {
+                            option.selected = true;
+                        }
+                        
+                        countySelect.appendChild(option);
+                    });
+                }
+            } else {
+                countySelect.disabled = true;
+            }
+        }
+        
+        // Initialize counties
+        updateCounties();
+        
+        // Update when state changes
+        stateSelect.addEventListener('change', function() {
+            countySelect.value = '';
+            updateCounties();
+            
+            // Update hidden field for state
+            const stateHiddenField = document.getElementById('state-hidden-text');
+            if (stateHiddenField) {
+                stateHiddenField.value = this.value;
+            }
+            
+            // Clear county hidden field
+            const countyHiddenField = document.getElementById('county-hidden-text');
+            if (countyHiddenField) {
+                countyHiddenField.value = '';
+            }
+        });
+        
+        // Update hidden field when county changes
+        countySelect.addEventListener('change', function() {
+            const countyHiddenField = document.getElementById('county-hidden-text');
+            if (countyHiddenField) {
+                countyHiddenField.value = this.value;
+            }
+        });
+    }
+});
+</script>

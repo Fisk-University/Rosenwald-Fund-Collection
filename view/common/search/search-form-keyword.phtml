@@ -1,0 +1,50 @@
+<?php
+/**
+ * Keyword Search Form
+ * Single text input for searching by keywords/title
+ */
+
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+// Get variables
+$searchContext = isset($searchContext) ? $searchContext : [];
+$query = isset($query) ? $query : [];
+$searchTerm = isset($searchContext['searchTerm']) ? $searchContext['searchTerm'] : '';
+?>
+
+<div class="search-form-container keyword-search-container">
+    <form method="get" 
+          action="<?php echo $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], true); ?>" 
+          class="search-form keyword-search-form">
+        
+        <div class="search-field-group">
+            <label for="search-term" class="search-label">
+                <?php echo $translate('Search term'); ?>
+            </label>
+            
+            <div class="search-input-wrapper">
+                <input type="text" 
+                       id="search-term" 
+                       name="fulltext_search" 
+                       value="<?php echo $escape((string)$searchTerm); ?>"
+                       placeholder="<?php echo $translate('Enter a search term'); ?>"
+                       class="search-input search-text-input"
+                       autocomplete="off">
+                
+                <button type="submit" class="search-button search-submit-btn">
+                    <?php echo $translate('Search'); ?>
+                </button>
+            </div>
+        </div>
+        
+        <?php // Keep sort parameters if they exist ?>
+        <?php if (isset($query['sort_by'])): ?>
+            <input type="hidden" name="sort_by" value="<?php echo $escape($query['sort_by']); ?>">
+        <?php endif; ?>
+        <?php if (isset($query['sort_order'])): ?>
+            <input type="hidden" name="sort_order" value="<?php echo $escape($query['sort_order']); ?>">
+        <?php endif; ?>
+        
+    </form>
+</div>

@@ -1,0 +1,104 @@
+<?php
+/**
+ * Location Search Form
+ * Dual dropdown for searching by State and County
+ */
+
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+// Get variables
+$searchContext = isset($searchContext) ? $searchContext : [];
+$query = isset($query) ? $query : [];
+$searchState = isset($searchContext['searchState']) ? $searchContext['searchState'] : '';
+$searchCounty = isset($searchContext['searchCounty']) ? $searchContext['searchCounty'] : '';
+
+// Available states
+$states = [
+    'Mississippi',
+    'Alabama', 
+    'Georgia',
+    'North Carolina',
+    'South Carolina'
+];
+?>
+
+<div class="search-form-container location-search-container">
+    <form method="get" 
+          action="<?php echo $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], true); ?>" 
+          class="search-form location-search-form"
+          id="location-search-form">
+        
+        <div class="search-filters">
+            <div class="filter-row">
+                
+                <!-- State Dropdown -->
+                <div class="search-filter-group">
+                    <label for="state" class="filter-label">
+                        <?php echo $translate('State'); ?> 
+                        <span class="required">*</span>
+                    </label>
+                    
+                    <select id="state" 
+                            name="property_one_value" 
+                            class="filter-select state-select">
+                        <option value="">
+                            <?php echo $translate('Select state'); ?>
+                        </option>
+                        <?php foreach ($states as $state): ?>
+                            <option value="<?php echo $escape($state); ?>" 
+                                    <?php echo $searchState == $state ? 'selected' : ''; ?>>
+                                <?php echo $escape($state); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                
+                <!-- County Dropdown -->
+                <div class="search-filter-group">
+                    <label for="county" class="filter-label">
+                        <?php echo $translate('County (optional)'); ?>
+                    </label>
+                    
+                    <select id="county" 
+                            name="property_two_value" 
+                            class="filter-select county-select"
+                            <?php echo empty($searchState) ? 'disabled' : ''; ?>>
+                        <option value="">
+                            <?php echo $translate('Select county'); ?>
+                        </option>
+                        <!-- Counties populated by JavaScript -->
+                    </select>
+                </div>
+                
+                <!-- Search Button -->
+                <button type="submit" class="search-button location-search-btn">
+                    <?php echo $translate('Search'); ?>
+                </button>
+                
+            </div>
+        </div>
+        
+        <!-- Hidden fields for Omeka property search -->
+        <!-- State property -->
+        <input type="hidden" name="property[0][joiner]" value="and">
+        <input type="hidden" name="property[0][property]" value="rfc:state">
+        <input type="hidden" name="property[0][type]" value="eq">
+        <input type="hidden" name="property[0][text]" id="state-hidden-text" value="<?php echo $escape($searchState); ?>">
+        
+        <!-- County property -->
+        <input type="hidden" name="property[1][joiner]" value="and">
+        <input type="hidden" name="property[1][property]" value="rfc:county">
+        <input type="hidden" name="property[1][type]" value="eq">
+        <input type="hidden" name="property[1][text]" id="county-hidden-text" value="<?php echo $escape($searchCounty); ?>">
+        
+        <?php // Keep sort parameters if they exist ?>
+        <?php if (isset($query['sort_by'])): ?>
+            <input type="hidden" name="sort_by" value="<?php echo $escape($query['sort_by']); ?>">
+        <?php endif; ?>
+        <?php if (isset($query['sort_order'])): ?>
+            <input type="hidden" name="sort_order" value="<?php echo $escape($query['sort_order']); ?>">
+        <?php endif; ?>
+        
+    </form>
+</div>
