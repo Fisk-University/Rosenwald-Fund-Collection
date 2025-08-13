@@ -3357,7 +3357,7 @@ section article > header > div p {
 
 @media screen and (min-width: 576px) {
   section article > header {
-    margin-bottom: 200px;
+    margin-bottom: 150px;
   }
   section article > header > div {
     bottom: -50%;
@@ -3442,13 +3442,13 @@ section article > header > div p {
 .block.block-itemSetShowcase .block.item-set-showcase {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 50px;
   max-width: 100%;
   padding: 0 16px;
 }
 @media (min-width: 576px) {
   .block.block-itemSetShowcase .block.item-set-showcase {
-    gap: 24px;
+    gap: 50px;
     padding: 0 20px;
   }
 }
@@ -3465,6 +3465,7 @@ section article > header > div p {
     margin-left: 155px;
   }
   .block.block-itemSetShowcase .block.item-set-showcase {
+    gap: 50px;
     max-width: 960px;
   }
 }
@@ -3473,6 +3474,7 @@ section article > header > div p {
     margin-left: 125px;
   }
   .block.block-itemSetShowcase .block.item-set-showcase {
+    gap: 70px;
     max-width: 1000px;
   }
 }
@@ -3486,18 +3488,8 @@ section article > header > div p {
   position: relative;
   align-items: center;
 }
-.item-set.resource > a:first-child {
-  width: 400px;
-}
-.item-set.resource > a:first-child img {
-  width: 90%;
-  height: auto;
-  -o-object-fit: cover;
-     object-fit: cover;
-  display: block;
-  pointer-events: none;
-}
 .item-set.resource > a:nth-child(2) {
+  order: 1;
   position: relative;
   visibility: visible;
   pointer-events: none;
@@ -3508,7 +3500,22 @@ section article > header > div p {
   color: #442F2A;
   display: block;
 }
+.item-set.resource > a:first-child {
+  order: 2;
+  width: 400px;
+}
+.item-set.resource > a:first-child img {
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+  pointer-events: none;
+  border: 0.5px solid #947E72;
+  margin-top: 10px;
+}
 .item-set.resource .caption {
+  order: 3;
   align-items: center;
   padding: 0 16px 16px;
   display: flex;
@@ -3517,6 +3524,8 @@ section article > header > div p {
   font-size: 14px;
   color: #56352D;
   line-height: 1.5;
+  margin-top: 16px;
+  padding-top: 16px;
 }
 .item-set.resource .caption::after {
   display: none;
@@ -3552,7 +3561,8 @@ section article > header > div p {
   }
   .item-set.resource > a:first-child img {
     height: auto;
-    width: 90%;
+    width: 100%;
+    margin-top: 10px;
   }
   .item-set.resource > a:nth-child(2) {
     padding: 20px 20px 0;
@@ -3575,14 +3585,17 @@ section article > header > div p {
     align-items: stretch;
   }
   .item-set.resource > a:first-child {
+    order: unset;
     flex-shrink: 0;
     width: 300px;
   }
   .item-set.resource > a:first-child img {
     height: 240px;
     width: 100%;
+    margin-top: 0px !important;
   }
   .item-set.resource > a:nth-child(2) {
+    order: unset;
     position: absolute;
     left: 330px;
     top: 32px;
@@ -3592,8 +3605,11 @@ section article > header > div p {
     z-index: 10;
   }
   .item-set.resource .caption {
+    order: unset;
     padding: 32px;
     padding-top: 40px;
+    border-top: none;
+    margin-top: 0;
     flex: 1;
     min-height: 240px;
     align-items: flex-start;

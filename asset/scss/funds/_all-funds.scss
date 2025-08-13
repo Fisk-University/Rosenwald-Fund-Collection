@@ -63,7 +63,7 @@ section {
 @media screen and (min-width: $breakpoint-sm) {
   section {
     article > header {
-      margin-bottom: 200px; // Increased for 50% overlap
+      margin-bottom: 150px; // Increased for 50% overlap
 
       > div {
         bottom: -50%; // Keep 50/50
@@ -178,7 +178,7 @@ section {
   .block.item-set-showcase {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 50px;
     max-width: 100%;
     padding: 0 16px;
   }
@@ -186,7 +186,7 @@ section {
   // Small devices (576px and up)
   @media (min-width: $breakpoint-sm) { 
     .block.item-set-showcase {
-      gap: 24px;
+      gap: 50px;
       padding: 0 20px;
     }
   }
@@ -205,6 +205,7 @@ section {
   @media (min-width: $breakpoint-lg) {
     margin-left: 155px;
     .block.item-set-showcase {
+      gap: 50px;
       max-width: 960px;
     }
   }
@@ -214,6 +215,7 @@ section {
     margin-left: 125px;
 
     .block.item-set-showcase {
+      gap: 70px;
       max-width: 1000px;
     }
   }
@@ -229,21 +231,9 @@ section {
   position: relative;
   align-items: center;
 
-  // Fund Image Link - Mobile
-  > a:first-child {
-    width: 400px;
-    
-    img {
-      width: 90%;
-      height: auto;
-      object-fit: cover;
-      display: block;
-      pointer-events: none;
-    }
-  }
-
-  // Fund Title Link - Mobile
+  // Fund Title Link - Mobile (moved to first position)
   > a:nth-child(2) {
+    order: 1;
     position: relative;
     visibility: visible;
     pointer-events: none;
@@ -255,8 +245,25 @@ section {
     display: block;
   }
 
-  // Caption Area - Mobile
+  // Fund Image Link - Mobile (moved to second position)
+  > a:first-child {
+    order: 2;
+    width: 400px;
+    
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      border: 0.5px solid $color-input-border;
+      margin-top: 10px;
+    }
+  }
+
+  // Caption Area - Mobile (stays third)
   .caption {
+    order: 3;
     align-items: center;
     padding: 0 16px 16px;
     display: flex;
@@ -265,6 +272,8 @@ section {
     font-size: 14px;
     color: $color-body;
     line-height: 1.5;
+    margin-top: 16px;
+    padding-top: 16px;
 
     &::after {
       display: none;
@@ -307,7 +316,8 @@ section {
     > a:first-child {
       img {
         height: auto;
-        width: 90%;
+        width: 100%;
+        margin-top: 10px;
       }
     }
 
@@ -335,16 +345,19 @@ section {
     align-items: stretch;
 
     > a:first-child {
+      order: unset;
       flex-shrink: 0;
       width: 300px;
 
       img {
         height: 240px;
         width: 100%;
+        margin-top: 0px !important;
       }
     }
 
     > a:nth-child(2) {
+      order: unset;
       position: absolute;
       left: 330px;
       top: 32px;
@@ -355,8 +368,11 @@ section {
     }
 
     .caption {
+      order: unset;
       padding: 32px;
-      padding-top: 40px; 
+      padding-top: 40px;
+      border-top: none;
+      margin-top: 0;
       flex: 1;
       min-height: 240px; // ADD THIS
       align-items: flex-start; // ADD THIS
@@ -408,7 +424,7 @@ section {
     > a:nth-child(2) {
       left: 482px;
       margin-top: -40px;
-      top: 40px; 
+      top: 40px;
       font-size: $font-size-h2;
     }
 
