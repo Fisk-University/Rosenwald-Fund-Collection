@@ -21,7 +21,7 @@
         bottom: -30%; // Changed to 50/50
         left: 50%;
         transform: translateX(-50%);
-        background-color: white;
+        background-color: $color-white;
         border: 1px solid #e0e0e0;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
         padding: 10px;
@@ -37,21 +37,23 @@
           margin-top: 2px;
           
           .breadcrumb-link {
-            color: #666;
+            color: #706461;
+            font-weight: $weight-medium
+            
           }
           
           .breadcrumb-separator {
-            color: #999;
+            color: $color-input-border;
           }
           
           .breadcrumb-current {
             color: $color-link;
-            font-family: $weight-semibold;
+            font-weight: $weight-semibold;
           }
         }
 
         h1 {
-          font-family: serif;
+          font-family: $font-serif;
           font-size: 16px;
           color: $color-heading;
           font-weight: $weight-regular;
@@ -235,7 +237,7 @@
     .about-container {
       .about-content {
         .about-title {
-          font-size: 42px;
+          font-size: 28px;
         }
         
         .about-text {
@@ -258,7 +260,7 @@
         flex: 1;
         
         .about-title {
-          font-size: 48px;
+          font-size: 36px;
         }
       }
       
@@ -284,7 +286,7 @@
       
       .about-content {
         .about-title {
-          font-size: 56px;
+          font-size: 42px;
         }
         
         .about-text {
@@ -308,11 +310,11 @@
   &::before {
     content: "SEARCH FOR A ROSENWALD SCHOOL:";
     display: block;
-    font-family: $font-serif;
+    font-family: $font-sans;
     font-size: 14px; // Mobile size
     font-weight: $weight-semibold;
     text-transform: uppercase;
-    color: $color-primary;
+    color: #5F330F;
     letter-spacing: 1px;
     margin-bottom: 8px;
   }
@@ -323,7 +325,7 @@
     width: 100%;
     min-height: 130px;
     height: auto;
-    border: 1px solid #f3d4bb;
+    border: 1px solid $color-divider;
     margin-left: 0px !important;
     
     form {
@@ -347,7 +349,7 @@
           width: 100%;
           font-family: $font-sans;
           font-size: 14px; // Mobile size
-          font-weight: $weight-medium;
+          font-weight: $weight-semibold;
           color: $color-primary;
           margin-top: 20px;
         }
@@ -360,18 +362,18 @@
           font-family: $font-sans;
           font-size: 14px; // Mobile size
           background-color: white;
-          border: 1px solid #999;
+          border: 1px solid $color-input-border;
           border-radius: 4px;
           margin-right: 10px;
           
           &::placeholder {
-            color: $color-primary;
+            color: #000000;
             font-weight: $weight-semibold;
           }
           
           &:focus {
             outline: none;
-            border-color: #666;
+            border-color: $color-input-border;
           }
         }
         
@@ -381,8 +383,8 @@
           padding: 0 30px; // Mobile padding
           font-family: $font-sans;
           font-size: 14px; // Mobile size
-          font-weight: 500;
-          color: white;
+          font-weight: $weight-semibold;
+          color: $color-white;
           background-color: $color-primary;
           border: none;
           border-radius: 2px;
@@ -526,6 +528,12 @@
     max-width: 1200px;
     margin: 0 auto;
     display: block;
+
+    h2 {
+      font-family: $font-serif;
+      font-weight: $weight-regular;
+      color: $color-primary
+    }
     
     // Remove list styling
     .resource-list.preview {
@@ -566,10 +574,10 @@
         
         // Title
         .resource-name {
-          font-family: $font-serif;
+          font-family: $font-sans;
           font-size: 20px;
           color: $color-link;
-          font-weight: $weight-regular;
+          font-weight: $weight-semibold;
           display: inline-block;
           
           &:hover {
@@ -677,6 +685,7 @@
             grid-row: 1 / 3; // Span both rows
             height: 180px;
             width: auto;
+            border: 0.5px solid $color-input-border;
             }
             
             .resource-name {
@@ -684,7 +693,6 @@
             grid-row: 1;
             font-size: 24px;
             margin: 0;
-            margin-bottom: 10px; // Small gap to description
             }
         }
         
@@ -730,9 +738,9 @@
     display: block;
     width: fit-content;
     margin: 40px auto;
-    padding: 12px 30px;
+    padding: 12px 20px;
     background-color: $color-primary;
-    color: white;
+    color: $color-white;
     font-family: $font-sans;
     font-size: 20px;
     font-weight: $weight-semibold;

@@ -3660,7 +3660,7 @@ section article > header > div p {
   bottom: -30%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: white;
+  background-color: #FFFFFF;
   border: 1px solid #e0e0e0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   padding: 10px;
@@ -3675,17 +3675,18 @@ section article > header > div p {
   margin-top: 2px;
 }
 .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb .breadcrumb-link {
-  color: #666;
+  color: #706461;
+  font-weight: 500;
 }
 .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb .breadcrumb-separator {
-  color: #999;
+  color: #947E72;
 }
 .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card .breadcrumb .breadcrumb-current {
   color: #93340E;
-  font-family: 600;
+  font-weight: 600;
 }
 .school-fund-wrapper .school-fund-section .school-fund-header .school-fund-card h1 {
-  font-family: serif;
+  font-family: "Sorts Mill Goudy", serif;
   font-size: 16px;
   color: #442F2A;
   font-weight: 400;
@@ -3825,7 +3826,7 @@ section article > header > div p {
     padding: 60px 40px;
   }
   .school-fund-about .about-container .about-content .about-title {
-    font-size: 42px;
+    font-size: 28px;
   }
   .school-fund-about .about-container .about-content .about-text {
     font-size: 18px;
@@ -3844,7 +3845,7 @@ section article > header > div p {
     flex: 1;
   }
   .school-fund-about .about-container .about-content .about-title {
-    font-size: 48px;
+    font-size: 36px;
   }
   .school-fund-about .about-container .about-image {
     flex: 1;
@@ -3865,7 +3866,7 @@ section article > header > div p {
     gap: 30px;
   }
   .school-fund-about .about-container .about-content .about-title {
-    font-size: 56px;
+    font-size: 42px;
   }
   .school-fund-about .about-container .about-content .about-text {
     font-size: 20px;
@@ -3883,11 +3884,11 @@ section article > header > div p {
 .block-ItemSetSearch.school-fund-search-section::before {
   content: "SEARCH FOR A ROSENWALD SCHOOL:";
   display: block;
-  font-family: "Sorts Mill Goudy", serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 14px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #653C2C;
+  color: #5F330F;
   letter-spacing: 1px;
   margin-bottom: 8px;
 }
@@ -3897,7 +3898,7 @@ section article > header > div p {
   width: 100%;
   min-height: 130px;
   height: auto;
-  border: 1px solid #f3d4bb;
+  border: 1px solid #DCD0C9;
   margin-left: 0px !important;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form {
@@ -3919,7 +3920,7 @@ section article > header > div p {
   width: 100%;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: #653C2C;
   margin-top: 20px;
 }
@@ -3930,29 +3931,29 @@ section article > header > div p {
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   background-color: white;
-  border: 1px solid #999;
+  border: 1px solid #947E72;
   border-radius: 4px;
   margin-right: 10px;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input::-moz-placeholder {
-  color: #653C2C;
+  color: #000000;
   font-weight: 600;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input::placeholder {
-  color: #653C2C;
+  color: #000000;
   font-weight: 600;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input:focus {
   outline: none;
-  border-color: #666;
+  border-color: #947E72;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form .input-group button[type=submit] {
   height: 45px;
   padding: 0 30px;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
-  font-weight: 500;
-  color: white;
+  font-weight: 600;
+  color: #FFFFFF;
   background-color: #653C2C;
   border: none;
   border-radius: 2px;
@@ -4065,6 +4066,11 @@ section article > header > div p {
   margin: 0 auto;
   display: block;
 }
+.block-browsePreview .preview-block h2 {
+  font-family: "Sorts Mill Goudy", serif;
+  font-weight: 400;
+  color: #653C2C;
+}
 .block-browsePreview .preview-block .resource-list.preview {
   list-style: none;
   padding: 0;
@@ -4097,10 +4103,10 @@ section article > header > div p {
   margin-bottom: 20px;
 }
 .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
-  font-family: "Sorts Mill Goudy", serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 20px;
   color: #93340E;
-  font-weight: 400;
+  font-weight: 600;
   display: inline-block;
 }
 .block-browsePreview .preview-block li.item.resource .resource-link .resource-name:hover {
@@ -4185,13 +4191,13 @@ section article > header > div p {
     grid-row: 1/3;
     height: 180px;
     width: auto;
+    border: 0.5px solid #947E72;
   }
   .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
     grid-column: 2;
     grid-row: 1;
     font-size: 24px;
     margin: 0;
-    margin-bottom: 10px;
   }
   .block-browsePreview .preview-block li.item.resource .description {
     grid-column: 2;
@@ -4225,9 +4231,9 @@ section article > header > div p {
   width: -moz-fit-content;
   width: fit-content;
   margin: 40px auto;
-  padding: 12px 30px;
+  padding: 12px 20px;
   background-color: #653C2C;
-  color: white;
+  color: #FFFFFF;
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
   font-weight: 600;
@@ -4530,7 +4536,6 @@ section article > header > div p {
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
   min-width: 120px;
-  margin-left: 5px;
 }
 .results-header .results-controls .sort-form .sort-controls .sort-select:focus {
   outline: none;
