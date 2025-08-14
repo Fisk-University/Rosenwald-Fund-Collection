@@ -1940,16 +1940,15 @@ input[type=text]:focus, select:focus {
   padding-top: 75px !important;
 }
 .block-introduction .intro-content {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 .block-introduction .intro-content .intro-text-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  display: contents;
 }
 .block-introduction .intro-content .intro-text-wrapper h2 {
+  grid-row: 1;
   font-family: "Sorts Mill Goudy", serif;
   font-size: 16px;
   line-height: 1.3;
@@ -1970,6 +1969,7 @@ input[type=text]:focus, select:focus {
   background-color: #B65934;
 }
 .block-introduction .intro-content .intro-text-wrapper p {
+  grid-row: 2;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   line-height: 1.6;
@@ -1977,8 +1977,10 @@ input[type=text]:focus, select:focus {
   margin: 0;
 }
 .block-introduction .intro-content .intro-text-wrapper .btn {
-  align-self: flex-start;
-  padding: 6px 6px;
+  grid-row: 4;
+  width: 100%;
+  text-align: center;
+  padding: 10px 6px;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   font-weight: 600;
@@ -1994,10 +1996,17 @@ input[type=text]:focus, select:focus {
   color: #FFFFFF;
   transform: translateY(-1px);
 }
+.block-introduction .intro-content .intro-image {
+  grid-row: 3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .block-introduction .intro-content .intro-image img {
   display: block;
-  width: auto;
-  height: 300px;
+  width: 100%;
+  height: auto;
+  max-width: 400px;
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: center;
@@ -2012,9 +2021,6 @@ input[type=text]:focus, select:focus {
   .block-introduction .intro-content {
     gap: 32px;
   }
-  .block-introduction .intro-content .intro-text-wrapper {
-    gap: 20px;
-  }
   .block-introduction .intro-content .intro-text-wrapper h2 {
     font-size: 20px;
   }
@@ -2023,7 +2029,11 @@ input[type=text]:focus, select:focus {
   }
   .block-introduction .intro-content .intro-text-wrapper .btn {
     font-size: 15px;
-    padding: 8px 8px;
+    padding: 10px 8px;
+  }
+  .block-introduction .intro-content .intro-image img {
+    width: 100%;
+    max-width: 450px;
   }
 }
 @media screen and (min-width: 768px) {
@@ -2033,9 +2043,6 @@ input[type=text]:focus, select:focus {
   }
   .block-introduction .intro-content {
     gap: 40px;
-  }
-  .block-introduction .intro-content .intro-text-wrapper {
-    gap: 24px;
   }
   .block-introduction .intro-content .intro-text-wrapper h2 {
     font-size: 24px;
@@ -2047,6 +2054,13 @@ input[type=text]:focus, select:focus {
   .block-introduction .intro-content .intro-text-wrapper .btn {
     font-size: 16px;
     padding: 8px 8px;
+    width: auto;
+    text-align: center;
+    justify-self: stretch;
+  }
+  .block-introduction .intro-content .intro-image img {
+    width: 100%;
+    max-width: 500px;
   }
 }
 @media screen and (min-width: 992px) {
@@ -2055,6 +2069,7 @@ input[type=text]:focus, select:focus {
     padding-top: 50px !important;
   }
   .block-introduction .intro-content {
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 60px;
@@ -2062,6 +2077,9 @@ input[type=text]:focus, select:focus {
     margin: 0 auto;
   }
   .block-introduction .intro-content .intro-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     flex: 1;
     max-width: 600px;
   }
@@ -2071,7 +2089,13 @@ input[type=text]:focus, select:focus {
   .block-introduction .intro-content .intro-text-wrapper p {
     font-size: 17px;
   }
+  .block-introduction .intro-content .intro-text-wrapper .btn {
+    padding: 8px 36px;
+    align-self: flex-start;
+    justify-self: unset;
+  }
   .block-introduction .intro-content .intro-image {
+    display: block;
     flex: 0 0 45%;
     max-width: 500px;
   }
@@ -2792,7 +2816,7 @@ input[type=text]:focus, select:focus {
   cursor: default;
 }
 .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body {
-  padding: 16px;
+  padding: 10px 28px 28px 28px;
 }
 .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body > p {
   margin: 0 0 8px;
@@ -2829,9 +2853,6 @@ input[type=text]:focus, select:focus {
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-header h3 {
     font-size: 15px;
   }
-  .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body {
-    padding: 8px;
-  }
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body > p {
     font-size: 14px;
     margin-bottom: 8px;
@@ -2867,9 +2888,6 @@ input[type=text]:focus, select:focus {
     right: 16px;
     font-size: 12px;
   }
-  .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body {
-    padding: 6px;
-  }
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body > p {
     font-size: 15px;
     margin-bottom: 6px;
@@ -2895,9 +2913,6 @@ input[type=text]:focus, select:focus {
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-header h3 {
     font-size: 17px;
   }
-  .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body {
-    padding: 14px;
-  }
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body > p {
     margin-bottom: 8px;
   }
@@ -2908,7 +2923,7 @@ input[type=text]:focus, select:focus {
 }
 @media screen and (min-width: 1200px) {
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content {
-    width: 550px;
+    width: 600px;
   }
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-header {
     padding: 5px 55px 5px 28px;
@@ -2920,7 +2935,7 @@ input[type=text]:focus, select:focus {
     font-size: 14px;
   }
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body {
-    padding: 18px;
+    padding: 10px 30px 30px 30px;
   }
   .homepage .block-mappingMapQuery .map-tooltip-wrapper .map-tooltip-content .tooltip-body > p {
     font-size: 16px;
