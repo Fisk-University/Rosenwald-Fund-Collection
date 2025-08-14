@@ -1,17 +1,17 @@
+.site-footer {
+  padding: 0;
+}
 .footer {
-  //position: relative; // Required for ::before to position properly
   border-top: 1px solid $color-divider;
   margin: 0 auto;
   width: 100%;
-  //margin-top: 600px;
-  height: auto; // Add 'px' to ensure correct rendering
-  //background-color: $color-bg-light;
+  height: auto;
 
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url('../img/original paper background texture.jpg');
+    background-image: url('../img/background.jpg');
     background-size: cover;
     background-color: $color-bg-light;
     background-repeat: repeat;
@@ -23,7 +23,7 @@
     max-width: 1141px;
     width: 100%;
     height: 265px;
-    margin: 53px auto; // add 53px top/bottom
+    margin: 53px auto;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -48,8 +48,6 @@
         height: 42.4px;
         width: auto;
         display: block;
-        mix-blend-mode: darken;
-        background-color: #ffffff; 
       }
 
       .placeholder-logo {
