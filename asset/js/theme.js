@@ -75,7 +75,6 @@
                         '<div class="map-tooltip-content">' +
                             '<div class="tooltip-header">' +
                                 '<h3>Map Instruction Tooltips</h3>' +
-                                '<span class="close-visual">Close x</span>' +
                             '</div>' +
                             '<div class="tooltip-body">' +
                                 '<p>In order to identify a school:</p>' +

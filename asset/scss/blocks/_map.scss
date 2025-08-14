@@ -239,7 +239,7 @@
         
         // Content area
         .tooltip-body {
-          padding: 16px;
+          padding: 10px 28px 28px 28px;
           
           > p {
             margin: 0 0 8px;
@@ -290,7 +290,6 @@
           }
           
           .tooltip-body {
-            padding: 8px;
             
             > p {
               font-size: 14px;
@@ -341,7 +340,6 @@
           }
           
           .tooltip-body {
-            padding: 6px;
             
             > p {
               font-size: 15px;
@@ -379,7 +377,6 @@
           }
           
           .tooltip-body {
-            padding: 14px;
             
             > p {
               margin-bottom: 8px;
@@ -398,7 +395,7 @@
     @media screen and (min-width: $breakpoint-xl) {
       .map-tooltip-wrapper {
         .map-tooltip-content {
-          width: 550px;
+          width: 600px;
           
           .tooltip-header {
             padding: 5px 55px 5px 28px;
@@ -413,7 +410,8 @@
           }
           
           .tooltip-body {
-            padding: 18px;
+            padding: 10px 30px 30px 30px;
+
             
             > p {
               font-size: 16px;
