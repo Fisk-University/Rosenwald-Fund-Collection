@@ -424,12 +424,12 @@
             text-align: center;
             
             a {
-              padding: $space-lg 0;
+              padding: 16px 0;
               display: block;
               font-size: 1.25rem;
               font-weight: $weight-medium;
               color: $color-primary;
-              border-bottom: 2px solid $color-divider;
+              border-bottom: 1px solid $color-divider;
               
               &:hover {
                 background-color: $color-bg-light;
@@ -437,7 +437,6 @@
               
               &.active {
                 color: $color-link;
-                background-color: $color-bg-light;
               }
             }
             
@@ -452,14 +451,15 @@
                 &::after {
                   position: absolute;
                   right: $space-md;
-                  transform: rotate(0deg);
+                  top: 50%; // Center vertically
+                  transform: translateY(-50%) rotate(0deg); // Vertical centering
                   width: 24px;
                   height: 24px;
                 }
               }
               
               &.open .nav-link::after {
-                transform: rotate(180deg);
+                transform: translateY(-50%) rotate(180deg); // Maintain centering when rotated
               }
               
               .sub-menu {
@@ -486,7 +486,6 @@
                     color: $color-body;
                     
                     &:hover {
-                      background-color: darken($color-bg-light, 5%);
                       color: $color-link;
                     }
                   }
