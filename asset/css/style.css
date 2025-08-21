@@ -1409,7 +1409,7 @@ input[type=text]:focus, select:focus {
     margin-top: 60px;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block .search-card__title {
+.blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title {
   font-family: "Sorts Mill Goudy", serif;
   font-size: 16px;
   text-transform: uppercase;
@@ -1417,28 +1417,28 @@ input[type=text]:focus, select:focus {
   margin-bottom: 5px;
 }
 @media (min-width: 576px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__title {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title {
     font-size: 28px;
     margin-bottom: 8px;
   }
 }
 @media (min-width: 768px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__title {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title {
     font-size: 30px;
     margin-bottom: 10px;
   }
 }
 @media (min-width: 992px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__title {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title {
     font-size: 36px;
   }
 }
 @media (min-width: 1200px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__title {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title {
     font-size: 44px;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block .search-card__intro {
+.blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__intro {
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   line-height: 1.4;
@@ -1446,25 +1446,25 @@ input[type=text]:focus, select:focus {
   margin-bottom: 8px;
 }
 @media (min-width: 576px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__intro {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__intro {
     font-size: 15px;
     margin-bottom: 10px;
   }
 }
 @media (min-width: 768px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__intro {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__intro {
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 12px;
   }
 }
 @media (min-width: 992px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__intro {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__intro {
     font-size: 18px;
     line-height: 175%;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block .search-card__heading {
+.blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__heading {
   font-family: "Montserrat", sans-serif;
   font-size: 12px;
   text-transform: uppercase;
@@ -1474,18 +1474,18 @@ input[type=text]:focus, select:focus {
   margin-bottom: 0;
 }
 @media (min-width: 576px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__heading {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__heading {
     font-size: 13px;
   }
 }
 @media (min-width: 768px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__heading {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__heading {
     font-size: 14px;
     letter-spacing: 0.75px;
   }
 }
 @media (min-width: 992px) {
-  .blocks .block-blockGroup.section-find-schools + .block .search-card__heading {
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__heading {
     font-size: 20px;
   }
 }
@@ -1655,7 +1655,7 @@ input[type=text]:focus, select:focus {
   content: "";
   flex: 1;
   height: 1px;
-  background: #e0e0e0;
+  background: #DCD0C9;
 }
 .blocks .block-blockGroup.section-find-schools + .block + .block + .block .search-card__divider::before {
   margin-right: 8px;
@@ -1898,7 +1898,7 @@ input[type=text]:focus, select:focus {
     padding-bottom: 60px !important;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help {
+.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help {
   font-family: "Montserrat", sans-serif;
   font-size: 0;
   color: #93340E;
@@ -1906,13 +1906,13 @@ input[type=text]:focus, select:focus {
   align-items: center;
   gap: 5px;
 }
-.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon {
+.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon {
   position: relative;
   display: inline-flex;
   align-items: center;
   cursor: help;
 }
-.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon::before {
+.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon::before {
   content: "i";
   display: inline-flex;
   align-items: center;
@@ -1927,25 +1927,25 @@ input[type=text]:focus, select:focus {
   margin-right: 5px;
 }
 @media (min-width: 768px) {
-  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon::before {
+  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon::before {
     width: 18px;
     height: 18px;
     font-size: 12px;
     margin-right: 6px;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon .help-text {
+.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon .help-text {
   text-decoration: underline;
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
   color: #93340E;
 }
 @media (min-width: 768px) {
-  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon .help-text {
+  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon .help-text {
     font-size: 16px;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon .tooltip-text {
+.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon .tooltip-text {
   position: absolute;
   bottom: calc(100% + 10px);
   left: 50%;
@@ -1965,7 +1965,7 @@ input[type=text]:focus, select:focus {
   z-index: 1000;
 }
 @media (min-width: 576px) {
-  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon .tooltip-text {
+  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon .tooltip-text {
     left: 0;
     transform: translateX(0);
     width: 300px;
@@ -1974,12 +1974,12 @@ input[type=text]:focus, select:focus {
   }
 }
 @media (min-width: 768px) {
-  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon .tooltip-text {
+  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon .tooltip-text {
     width: 320px;
     font-size: 16px;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon .tooltip-text::after {
+.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon .tooltip-text::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -1990,12 +1990,12 @@ input[type=text]:focus, select:focus {
   border-top: 6px solid white;
 }
 @media (min-width: 576px) {
-  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon .tooltip-text::after {
+  .blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon .tooltip-text::after {
     left: 20px;
     transform: translateX(0);
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card__help .help-icon:hover .tooltip-text {
+.blocks .block-blockGroup.section-find-schools + .block + .block + .block + .block + .block .search-card-tool-tip .search-card__help .help-icon:hover .tooltip-text {
   opacity: 1;
   visibility: visible;
 }
@@ -4275,7 +4275,7 @@ section article > header > div p {
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
   color: #93340E;
-  font-weight: 600;
+  font-weight: 500;
   display: inline-block;
 }
 .block-browsePreview .preview-block li.item.resource .resource-link .resource-name:hover {

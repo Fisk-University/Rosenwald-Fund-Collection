@@ -134,7 +134,7 @@
       @media (min-width: $breakpoint-lg) {
         margin-top: 60px;
       }
-
+      .search-card {
       .search-card__title {
         font-family: $font-serif;
         font-size: 16px;
@@ -207,6 +207,7 @@
           font-size: $font-size-label-sm;
         }
       }
+    }
     }
 
     // School name search form
@@ -370,7 +371,7 @@
           content: '';
           flex: 1;
           height: 1px;
-          background: #e0e0e0;
+          background: $color-divider;
         }
         
         &::before { 
@@ -611,7 +612,7 @@
       @media (min-width: $breakpoint-lg) {
         padding-bottom: 60px !important;
       }
-
+      .search-card-tool-tip {
       .search-card__help {
         font-family: $font-sans;
         font-size: 0;
@@ -714,6 +715,7 @@
           }
         }
       }
+    }
     }
   }
 
