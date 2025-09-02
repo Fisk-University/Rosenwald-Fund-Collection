@@ -1,26 +1,70 @@
 <?php
 /**
  * Location Search Form
- * Dual dropdown for searching by State and County
+ * Implements Dual Property Search with dynamic filtering
  */
 
 $translate = $this->plugin('translate');
 $escape = $this->plugin('escapeHtml');
+$api = $this->api();
 
-// Get variables
-$searchContext = isset($searchContext) ? $searchContext : [];
-$query = isset($query) ? $query : [];
-$searchState = isset($searchContext['searchState']) ? $searchContext['searchState'] : '';
-$searchCounty = isset($searchContext['searchCounty']) ? $searchContext['searchCounty'] : '';
+// Get search context from URL parameters
+$searchState = isset($_GET['property'][0]['text']) ? $_GET['property'][0]['text'] : '';
+$searchCounty = isset($_GET['property'][1]['text']) ? $_GET['property'][1]['text'] : '';
 
-// Available states
-$states = [
-    'Mississippi',
-    'Alabama', 
-    'Georgia',
-    'North Carolina',
-    'South Carolina'
-];
+// Build state-county relationship map
+$statesData = [];
+$countiesByState = [];
+
+try {
+    // Get all items to build relationships
+    $items = $api->search('items')->getContent();
+    
+    foreach ($items as $item) {
+        $stateValue = $item->value('rfc:state');
+        
+        if ($stateValue) {
+            $state = trim($stateValue->value());
+            
+            if (!empty($state)) {
+                if (!isset($statesData[$state])) {
+                    $statesData[$state] = true;
+                    $countiesByState[$state] = [];
+                }
+                
+                $countyValue = $item->value('rfc:county');
+                if ($countyValue) {
+                    $county = trim($countyValue->value());
+                    if (!empty($county) && !in_array($county, $countiesByState[$state])) {
+                        $countiesByState[$state][] = $county;
+                    }
+                }
+            }
+        }
+    }
+    
+    // Sort states and counties
+    $states = array_keys($statesData);
+    sort($states);
+    
+    foreach ($countiesByState as &$counties) {
+        sort($counties);
+    }
+    
+} catch (Exception $e) {
+    // Fallback to hardcoded data if API fails
+    $states = ['Mississippi', 'Alabama', 'Georgia', 'North Carolina', 'South Carolina'];
+    $countiesByState = [
+        'Mississippi' => ['Forrest County', 'Hinds County', 'Jackson County', 'Harrison County', 'Rankin County', 'Madison County', 'DeSoto County', 'Lee County'],
+        'Alabama' => ['Jefferson County', 'Mobile County', 'Madison County', 'Montgomery County', 'Shelby County', 'Tuscaloosa County', 'Baldwin County'],
+        'Georgia' => ['Fulton County', 'DeKalb County', 'Cobb County', 'Gwinnett County', 'Clayton County', 'Cherokee County', 'Forsyth County'],
+        'North Carolina' => ['Wake County', 'Mecklenburg County', 'Durham County', 'Pitt County', 'Harnett County', 'Guilford County', 'Forsyth County', 'Cumberland County'],
+        'South Carolina' => ['Charleston County', 'Richland County', 'Greenville County', 'Spartanburg County', 'Horry County', 'Lexington County', 'York County']
+    ];
+}
+
+// Convert to JSON for JavaScript
+$countiesJson = json_encode($countiesByState);
 ?>
 
 <div class="search-form-container location-search-container">
@@ -40,7 +84,7 @@ $states = [
                     </label>
                     
                     <select id="state" 
-                            name="property_one_value" 
+                            name="property[0][text]" 
                             class="filter-select state-select">
                         <option value="">
                             <?php echo $translate('Select state'); ?>
@@ -61,13 +105,21 @@ $states = [
                     </label>
                     
                     <select id="county" 
-                            name="property_two_value" 
+                            name="property[1][text]" 
                             class="filter-select county-select"
                             <?php echo empty($searchState) ? 'disabled' : ''; ?>>
                         <option value="">
                             <?php echo $translate('Select county'); ?>
                         </option>
-                        <!-- Counties populated by JavaScript -->
+                        <?php 
+                        if ($searchState && isset($countiesByState[$searchState])): 
+                            foreach ($countiesByState[$searchState] as $county): ?>
+                                <option value="<?php echo $escape($county); ?>" 
+                                        <?php echo $searchCounty == $county ? 'selected' : ''; ?>>
+                                    <?php echo $escape($county); ?>
+                                </option>
+                            <?php endforeach;
+                        endif; ?>
                     </select>
                 </div>
                 
@@ -80,25 +132,22 @@ $states = [
         </div>
         
         <!-- Hidden fields for Omeka property search -->
-        <!-- State property -->
         <input type="hidden" name="property[0][joiner]" value="and">
         <input type="hidden" name="property[0][property]" value="rfc:state">
         <input type="hidden" name="property[0][type]" value="eq">
-        <input type="hidden" name="property[0][text]" id="state-hidden-text" value="<?php echo $escape($searchState); ?>">
         
-        <!-- County property -->
         <input type="hidden" name="property[1][joiner]" value="and">
         <input type="hidden" name="property[1][property]" value="rfc:county">
         <input type="hidden" name="property[1][type]" value="eq">
-        <input type="hidden" name="property[1][text]" id="county-hidden-text" value="<?php echo $escape($searchCounty); ?>">
-        
-        <?php // Keep sort parameters if they exist ?>
-        <?php if (isset($query['sort_by'])): ?>
-            <input type="hidden" name="sort_by" value="<?php echo $escape($query['sort_by']); ?>">
-        <?php endif; ?>
-        <?php if (isset($query['sort_order'])): ?>
-            <input type="hidden" name="sort_order" value="<?php echo $escape($query['sort_order']); ?>">
-        <?php endif; ?>
         
     </form>
 </div>
+
+<script>
+// Pass PHP data to JavaScript
+window.unitedSearchData = {
+    countiesByState: <?php echo $countiesJson; ?>,
+    selectedState: <?php echo json_encode($searchState); ?>,
+    selectedCounty: <?php echo json_encode($searchCounty); ?>
+};
+</script>

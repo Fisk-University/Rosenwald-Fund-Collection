@@ -1,7 +1,7 @@
 <script>
 /**
  * JavaScript for Location Search
- * Handles dynamic county population based on state selection
+ * Implements dynamic county population based on state selection
  */
 document.addEventListener('DOMContentLoaded', function() {
     const stateSelect = document.getElementById('state');
@@ -9,101 +9,105 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (stateSelect && countySelect) {
         
-        // Counties organized by state
-        const countiesByState = {
-            'Mississippi': [
-                'Forrest County', 'Hinds County', 'Jackson County', 
-                'Harrison County', 'Rankin County', 'Madison County',
-                'DeSoto County', 'Lee County'
-            ],
-            'Alabama': [
-                'Jefferson County', 'Mobile County', 'Madison County',
-                'Montgomery County', 'Shelby County', 'Tuscaloosa County',
-                'Baldwin County'
-            ],
-            'Georgia': [
-                'Fulton County', 'DeKalb County', 'Cobb County',
-                'Gwinnett County', 'Clayton County', 'Cherokee County',
-                'Forsyth County'
-            ],
-            'North Carolina': [
-                'Wake County', 'Mecklenburg County', 'Durham County',
-                'Pitt County', 'Harnett County', 'Guilford County',
-                'Forsyth County', 'Cumberland County'
-            ],
-            'South Carolina': [
-                'Charleston County', 'Richland County', 'Greenville County',
-                'Spartanburg County', 'Horry County', 'Lexington County',
-                'York County'
-            ]
-        };
+        // Get counties data from PHP
+        const countiesByState = window.unitedSearchData ? 
+            window.unitedSearchData.countiesByState : 
+            {
+                // Fallback data if PHP data not available
+                'Mississippi': ['Forrest County', 'Hinds County', 'Jackson County', 'Harrison County', 'Rankin County', 'Madison County', 'DeSoto County', 'Lee County'],
+                'Alabama': ['Jefferson County', 'Mobile County', 'Madison County', 'Montgomery County', 'Shelby County', 'Tuscaloosa County', 'Baldwin County'],
+                'Georgia': ['Fulton County', 'DeKalb County', 'Cobb County', 'Gwinnett County', 'Clayton County', 'Cherokee County', 'Forsyth County'],
+                'North Carolina': ['Wake County', 'Mecklenburg County', 'Durham County', 'Pitt County', 'Harnett County', 'Guilford County', 'Forsyth County', 'Cumberland County'],
+                'South Carolina': ['Charleston County', 'Richland County', 'Greenville County', 'Spartanburg County', 'Horry County', 'Lexington County', 'York County']
+            };
         
-        // Update counties based on selected state
-        function updateCounties() {
-            const selectedState = stateSelect.value;
-            const previouslySelectedCounty = '<?php echo isset($searchContext["searchCounty"]) ? $this->escapeJs($searchContext["searchCounty"]) : ""; ?>';
+        const selectedState = window.unitedSearchData ? window.unitedSearchData.selectedState : '';
+        const selectedCounty = window.unitedSearchData ? window.unitedSearchData.selectedCounty : '';
+        
+        // Update counties based on selected state (United Search logic)
+        function updateCounties(preserveSelection = false) {
+            const currentState = stateSelect.value;
             
-            // Clear counties
+            // Clear current options
             countySelect.innerHTML = '';
             
             // Add default option
             const defaultOption = document.createElement('option');
             defaultOption.value = '';
-            defaultOption.textContent = '<?php echo $this->translate("Select county"); ?>';
+            defaultOption.textContent = 'Select county';
             countySelect.appendChild(defaultOption);
             
-            // Enable/disable county select
-            if (selectedState) {
+            // Handle state selection
+            if (currentState && countiesByState[currentState]) {
+                // Enable county select
                 countySelect.disabled = false;
                 
+                const counties = countiesByState[currentState];
+                
                 // Add counties for selected state
-                if (countiesByState[selectedState]) {
-                    countiesByState[selectedState].forEach(county => {
-                        const option = document.createElement('option');
-                        option.value = county;
-                        option.textContent = county;
-                        
-                        // Restore selected county
-                        if (county === previouslySelectedCounty) {
-                            option.selected = true;
-                        }
-                        
-                        countySelect.appendChild(option);
-                    });
-                }
+                counties.forEach(county => {
+                    const option = document.createElement('option');
+                    option.value = county;
+                    option.textContent = county;
+                    
+                    // Preserve selection on page load
+                    if (preserveSelection && county === selectedCounty) {
+                        option.selected = true;
+                    }
+                    
+                    countySelect.appendChild(option);
+                });
             } else {
+                // No state selected - disable county
                 countySelect.disabled = true;
             }
         }
         
-        // Initialize counties
-        updateCounties();
+        // Initialize on page load
+        if (selectedState) {
+            // Page loaded with search results - preserve selections
+            updateCounties(true);
+        }
         
         // Update when state changes
         stateSelect.addEventListener('change', function() {
+            // Clear county selection
             countySelect.value = '';
-            updateCounties();
             
-            // Update hidden field for state
-            const stateHiddenField = document.getElementById('state-hidden-text');
-            if (stateHiddenField) {
-                stateHiddenField.value = this.value;
-            }
+            // Update available counties
+            updateCounties(false);
             
-            // Clear county hidden field
-            const countyHiddenField = document.getElementById('county-hidden-text');
-            if (countyHiddenField) {
-                countyHiddenField.value = '';
+            // If county becomes empty, remove its value from the form submission
+            if (!countySelect.value) {
+                // Find and clear the county text input
+                const countyTextInput = document.querySelector('input[name="property[1][text]"]');
+                if (countyTextInput) {
+                    countyTextInput.value = '';
+                }
             }
         });
         
-        // Update hidden field when county changes
-        countySelect.addEventListener('change', function() {
-            const countyHiddenField = document.getElementById('county-hidden-text');
-            if (countyHiddenField) {
-                countyHiddenField.value = this.value;
-            }
-        });
+        // Handle form submission
+        const form = document.getElementById('location-search-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                // If no county selected, clear the county property fields
+                if (!countySelect.value) {
+                    const countyInputs = form.querySelectorAll('input[name^="property[1]"]');
+                    countyInputs.forEach(input => {
+                        input.disabled = true; // Disable so they won't be submitted
+                    });
+                }
+                
+                // Ensure state has a value (required field)
+                if (!stateSelect.value) {
+                    e.preventDefault();
+                    alert('Please select a state');
+                    stateSelect.focus();
+                    return false;
+                }
+            });
+        }
     }
 });
 </script>

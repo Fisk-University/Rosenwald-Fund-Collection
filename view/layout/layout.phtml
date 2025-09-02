@@ -12,6 +12,7 @@ $this->headLink()->prependStylesheet($this->assetUrl('css/iconfonts.css', 'Omeka
 $this->headLink()->prependStylesheet('https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&family=Montserrat:wght@400;500;600&display=swap');
 
 $this->headScript()->prependFile($this->assetUrl('js/map-popup.js'));
+$this->headScript()->prependFile($this->assetUrl('js/hide-mobile-top-pagination.js'));
 $this->headScript()->prependFile($this->assetUrl('js/update-dual-property-placeholders.js'));
 $this->headScript()->prependFile($this->assetUrl('js/pagination-reorder.js'));
 $this->headScript()->prependFile($this->assetUrl('js/fund-links.js'));

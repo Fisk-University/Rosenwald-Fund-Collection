@@ -670,6 +670,10 @@
     }
   }
 }
+.result-item:last-child {
+  border-bottom: none;
+}
+
 
 // PAGINATION COMPONENT (Single Definition)
 .pagination-wrapper {
@@ -789,7 +793,7 @@
 
   // Bottom pagination specific
   &.pagination-bottom {
-    padding-top: 20px;
+    padding-bottom: 30px;
   }
 
 @media screen and (max-width: 767px) {
