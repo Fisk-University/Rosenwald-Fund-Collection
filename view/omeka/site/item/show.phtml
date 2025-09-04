@@ -1,47 +1,56 @@
 <?php
 $escape = $this->plugin('escapeHtml');
 $this->headLink()->appendStylesheet($this->assetUrl('css/resource-page.css'));
+$this->headLink()->appendStylesheet($this->assetUrl('css/item-page.css'));
 $this->htmlElement('body')->appendAttribute('class', 'item resource show');
+$this->headScript()->appendFile($this->assetUrl('js/item-page.js'));
+$this->headScript()->appendFile($this->assetUrl('js/carousel-thumbnails.js'));
+
+// Get the full title
+$fullTitle = $item->displayTitle();
+
+// Extract school name (everything before " in ")
+$schoolName = $fullTitle;
+if (strpos($fullTitle, ' in ') !== false) {
+    $parts = explode(' in ', $fullTitle);
+    $schoolName = $parts[0];
+}
+
+// Get item sets for breadcrumb
+$itemSets = $item->itemSets();
+
+// Get description
+$description = $item->displayDescription();
 ?>
 
 <div class="resource-page">
-    <h1 class="resource-title"><?php echo $escape($item->displayTitle()); ?></h1>
+    <header class="item-header">
+        <div class="header-container">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <?php if ($itemSets && count($itemSets) > 0): ?>
+                    <?php 
+                    $firstItemSet = is_array($itemSets) ? reset($itemSets) : $itemSets[0];
+                    if ($firstItemSet): 
+                    ?>
+                        <a href="<?php echo $firstItemSet->url(); ?>" class="breadcrumb-link">
+                            <?php echo $escape($firstItemSet->displayTitle()); ?>
+                        </a>
+                        <span class="breadcrumb-separator">/</span>
+                    <?php endif; ?>
+                <?php endif; ?>
+                <span class="breadcrumb-current"><?php echo $escape($schoolName); ?></span>
+            </nav>
+            <h1 class="school-name"><?php echo $escape($schoolName); ?></h1>
+            <?php if ($description): ?>
+            <p class="school-description"><?php echo $escape($description); ?></p>
+            <?php endif; ?>
+        </div>
+    </header>
     
     <?php if ($item->media()): ?>
     <div class="resource-media">
         <?php echo $this->resourcePageBlocks($item, 'main')->getBlocks(); ?>
     </div>
     <?php endif; ?>
-    
-    <div class="resource-metadata">
-        <?php if ($item->displayDescription()): ?>
-        <div class="resource-description">
-            <?php echo $escape($item->displayDescription()); ?>
-        </div>
-        <?php endif; ?>
-        
-        <div class="resource-details">
-            <?php echo $item->displayValues(); ?>
-        </div>
-        
-        <?php if ($item->itemSets()): ?>
-        <div class="resource-sets">
-            <h3><?php echo $this->translate('Part of collections'); ?></h3>
-            <ul>
-                <?php foreach ($item->itemSets() as $itemSet): ?>
-                <li><?php echo $itemSet->link($itemSet->displayTitle()); ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-        <?php endif; ?>
-        
-        <?php
-        $subjects = $item->subjectValues();
-        if ($subjects): ?>
-        <div class="resource-subjects">
-            <h3><?php echo $this->translate('Related resources'); ?></h3>
-            <?php echo $subjects; ?>
-        </div>
-        <?php endif; ?>
-    </div>
 </div>
+

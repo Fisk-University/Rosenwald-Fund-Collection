@@ -1,0 +1,147 @@
+<?php
+/**
+ * Item Tabs Partial
+ * Displays metadata in tabbed interface
+ * 
+ * Variables available:
+ * - $item: The item object
+ */
+
+// Safety check
+if (!isset($item)) {
+    return;
+}
+
+$escape = $this->plugin('escapeHtml');
+
+// Define which fields go in each tab
+$basicInfoFields = ['Title', 'Description', 'Date', 'State', 'County'];
+$moreDetailsFields = ['Identifier', 'Item Number', 'Application Number', 'Subject', 'Source', 'Publisher', 'Rights', 'Format', 'Latitude', 'Longitude'];
+
+// Get all item values
+$values = $item->values();
+
+// Separate values into tabs
+$basicInfo = [];
+$moreDetails = [];
+
+// Process each property
+foreach ($values as $term => $propertyData) {
+    foreach ($propertyData['property'] as $property) {
+        $label = $property->label();
+        $propertyValues = [];
+        
+        foreach ($propertyData['values'] as $value) {
+            $propertyValues[] = $escape($value);
+        }
+        
+        if (!empty($propertyValues)) {
+            $valueHtml = implode(', ', $propertyValues);
+            
+            if (in_array($label, $basicInfoFields)) {
+                $basicInfo[$label] = $valueHtml;
+            } else {
+                $moreDetails[$label] = $valueHtml;
+            }
+        }
+    }
+}
+
+// Check if we have content
+$hasBasicInfo = !empty($basicInfo);
+$hasMoreDetails = !empty($moreDetails);
+?>
+
+<section class="information-background">
+    <h2 class="section-title">Information and Background</h2>
+    
+    <div class="metadata-tabs" x-data="{ activeTab: 'basic' }">
+        
+        <!-- Tab Navigation -->
+        <div class="tab-nav" role="tablist">
+            <?php if ($hasBasicInfo): ?>
+            <button 
+                class="tab-button"
+                :class="{ 'active': activeTab === 'basic' }"
+                @click="activeTab = 'basic'"
+                role="tab"
+                :aria-selected="activeTab === 'basic'"
+                aria-controls="tab-panel-basic"
+            >
+                BASIC INFORMATION
+            </button>
+            <?php endif; ?>
+            
+            <?php if ($hasMoreDetails): ?>
+            <button 
+                class="tab-button"
+                :class="{ 'active': activeTab === 'details' }"
+                @click="activeTab = 'details'"
+                role="tab"
+                :aria-selected="activeTab === 'details'"
+                aria-controls="tab-panel-details"
+            >
+                MORE DETAILS
+            </button>
+            <?php endif; ?>
+        </div>
+        
+        <!-- Tab Content -->
+        <div class="tab-content">
+            
+            <!-- Basic Information Tab -->
+            <?php if ($hasBasicInfo): ?>
+            <div 
+                id="tab-panel-basic"
+                class="tab-panel"
+                x-show="activeTab === 'basic'"
+                role="tabpanel"
+            >
+                <dl class="metadata-list">
+                    <?php foreach ($basicInfoFields as $field): ?>
+                        <?php if (isset($basicInfo[$field])): ?>
+                        <div class="property">
+                            <dt><?php echo $escape($field); ?></dt>
+                            <dd><?php echo $basicInfo[$field]; ?></dd>
+                        </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </dl>
+            </div>
+            <?php endif; ?>
+            
+            <!-- More Details Tab -->
+            <?php if ($hasMoreDetails): ?>
+            <div 
+                id="tab-panel-details"
+                class="tab-panel"
+                x-show="activeTab === 'details'"
+                role="tabpanel"
+                style="display: none;"
+            >
+                <dl class="metadata-list">
+                    <?php foreach ($moreDetailsFields as $field): ?>
+                        <?php if (isset($moreDetails[$field])): ?>
+                        <div class="property">
+                            <dt><?php echo $escape($field); ?></dt>
+                            <dd><?php echo $moreDetails[$field]; ?></dd>
+                        </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    
+                    <!-- Add any remaining fields not in our predefined list -->
+                    <?php foreach ($moreDetails as $label => $value): ?>
+                        <?php if (!in_array($label, $moreDetailsFields)): ?>
+                        <div class="property">
+                            <dt><?php echo $escape($label); ?></dt>
+                            <dd><?php echo $value; ?></dd>
+                        </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </dl>
+            </div>
+            <?php endif; ?>
+            
+        </div>
+    </div>
+</section>

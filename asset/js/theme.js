@@ -57,13 +57,22 @@
      * Inject map tooltips into Omeka map blocks (Homepage only)
      */
     function injectMapTooltips() {
-        // Only run on homepage
-        if (!$('body').hasClass('home') && !$('.homepage').length) {
+        // Run on homepage OR item show pages
+        if (!$('body').hasClass('home') && !$('.homepage').length && !$('body').hasClass('item')) {
             return;
         }
         
-        // Find all map blocks
-        $('.block-mappingMapQuery .mapping-block').each(function() {
+        // Find map blocks - different selectors for different pages
+        var $mapBlocks;
+        if ($('body').hasClass('home') || $('.homepage').length) {
+            // Homepage selector
+            $mapBlocks = $('.block-mappingMapQuery .mapping-block');
+        } else if ($('body').hasClass('item')) {
+            // Item page selector - target the mapping section
+            $mapBlocks = $('#mapping-section');
+        }
+        
+        $mapBlocks.each(function() {
             var $mapBlock = $(this);
             
             // Check if tooltip already exists
@@ -86,10 +95,17 @@
                             '</div>' +
                         '</div>' +
                     '</div>';
-                $mapBlock.find('.mapping-map').after(tooltipHTML);
+                
+                // For item pages, insert after the map div
+                if ($('body').hasClass('item')) {
+                    $mapBlock.find('#mapping-map').after(tooltipHTML);
+                } else {
+                    // For homepage
+                    $mapBlock.find('.mapping-map').after(tooltipHTML);
+                }
             }
         });
-        
+                
         // Prevent default click behavior
         $(document).on('click', '.map-tooltip-trigger', function(e) {
             e.preventDefault();

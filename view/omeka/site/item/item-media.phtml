@@ -1,0 +1,109 @@
+<?php
+/**
+ * Item Media Partial
+ * Displays media/images for the item
+ * 
+ * Variables available:
+ * - $item: The item object
+ */
+
+// Safety check
+if (!isset($item)) {
+    return;
+}
+
+$media = $item->media();
+if (empty($media)) {
+    return;
+}
+
+$escape = $this->plugin('escapeHtml');
+?>
+
+<section class="item-media-section">
+    <div class="media-container">
+        <div class="media-viewer">
+            <?php 
+            // For single image, just display it
+            if (count($media) === 1): 
+            ?>
+                <div class="main-image">
+                    <?php echo $media[0]->render(); ?>
+                </div>
+            <?php 
+            // For multiple images, create a simple gallery
+            else: 
+            ?>
+                <div class="main-image" id="main-image-display">
+                    <?php echo $media[0]->render(); ?>
+                </div>
+                
+                <?php if (count($media) > 1): ?>
+                <!-- Thumbnail navigation -->
+                <div class="media-thumbnails">
+                    <?php foreach ($media as $index => $mediaItem): ?>
+                    <div class="thumbnail <?php echo $index === 0 ? 'active' : ''; ?>" 
+                         data-index="<?php echo $index; ?>">
+                        <?php 
+                        // Try to get thumbnail
+                        $thumbnailType = $mediaItem->thumbnailDisplayUrl('square');
+                        if ($thumbnailType):
+                        ?>
+                            <img src="<?php echo $escape($thumbnailType); ?>" 
+                                 alt="Thumbnail <?php echo $index + 1; ?>">
+                        <?php else: ?>
+                            <!-- Fallback if no thumbnail -->
+                            <div style="width:100%;height:100%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;">
+                                <?php echo $index + 1; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+                
+                <!-- Simple dots indicator as alternative -->
+                <div class="media-dots">
+                    <?php for ($i = 0; $i < count($media); $i++): ?>
+                    <span class="dot <?php echo $i === 0 ? 'active' : ''; ?>" 
+                          data-index="<?php echo $i; ?>"></span>
+                    <?php endfor; ?>
+                </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<?php if (count($media) > 1): ?>
+<script>
+// Simple image switcher (optional - can use Alpine.js instead)
+document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const dots = document.querySelectorAll('.dot');
+    const mediaItems = <?php echo json_encode(array_map(function($m) { 
+        return $m->render(); 
+    }, $media)); ?>;
+    
+    function switchImage(index) {
+        // Update main image
+        document.getElementById('main-image-display').innerHTML = mediaItems[index];
+        
+        // Update active states
+        thumbnails.forEach(t => t.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        
+        if (thumbnails[index]) thumbnails[index].classList.add('active');
+        if (dots[index]) dots[index].classList.add('active');
+    }
+    
+    // Add click handlers
+    thumbnails.forEach((thumb, index) => {
+        thumb.addEventListener('click', () => switchImage(index));
+    });
+    
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => switchImage(index));
+    });
+});
+</script>
+<?php endif; ?>
