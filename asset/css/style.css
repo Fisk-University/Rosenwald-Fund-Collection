@@ -6434,9 +6434,6 @@ body.item.resource.show .skip-link:focus {
   padding: 16px 0;
   border-bottom: 1px solid #DCD0C9;
 }
-.metadata-tabs-section .tab-content dl .property:first-child {
-  padding-top: 10px;
-}
 .metadata-tabs-section .tab-content dl .property:last-child {
   border-bottom: none;
   padding-bottom: 15px;
