@@ -1,153 +1,176 @@
 <?php
 /**
- * Location Search Form
- * Implements Dual Property Search with dynamic filtering
+ * Location Search Form (DBAL cache via UnitedSearch\LocationMap)
  */
 
 $translate = $this->plugin('translate');
-$escape = $this->plugin('escapeHtml');
-$api = $this->api();
+$escape    = $this->plugin('escapeHtml');
+$api       = $this->api();
 
-// Get search context from URL parameters
-$searchState = isset($_GET['property'][0]['text']) ? $_GET['property'][0]['text'] : '';
-$searchCounty = isset($_GET['property'][1]['text']) ? $_GET['property'][1]['text'] : '';
+/**
+ * Resolve the two property terms (supports URL detection, site/global settings, and safe fallback).
+ * Returns array [$termOne, $termTwo, $propIdOne, $propIdTwo]
+ */
+$resolveTerms = function() use ($api) {
+    $params   = $this->params()->fromQuery();
+    $termOne  = null;
+    $termTwo  = null;
+    $idOne    = null;
+    $idTwo    = null;
 
-// Build state-county relationship map
-$statesData = [];
-$countiesByState = [];
+    // 1) Detect from current URL (works with term strings or numeric property IDs)
+    if (!empty($params['property']) && is_array($params['property'])) {
+        foreach ($params['property'] as $cond) {
+            $prop = $cond['property'] ?? null;
+            if ($prop === null || $prop === '') continue;
 
-try {
-    // Get all items to build relationships
-    $items = $api->search('items')->getContent();
-    
-    foreach ($items as $item) {
-        $stateValue = $item->value('rfc:state');
-        
-        if ($stateValue) {
-            $state = trim($stateValue->value());
-            
-            if (!empty($state)) {
-                if (!isset($statesData[$state])) {
-                    $statesData[$state] = true;
-                    $countiesByState[$state] = [];
+            // If it's numeric, resolve to a term via API once
+            if (ctype_digit((string)$prop)) {
+                $p = null;
+                try { $p = $api->read('properties', (int)$prop)->getContent(); } catch (\Exception $e) {}
+                $propTerm = $p ? $p->term() : null;
+                if ($propTerm) {
+                    if ($termOne === null) { $termOne = $propTerm; $idOne = (int)$prop; }
+                    elseif ($termTwo === null && $propTerm !== $termOne) { $termTwo = $propTerm; $idTwo = (int)$prop; }
                 }
-                
-                $countyValue = $item->value('rfc:county');
-                if ($countyValue) {
-                    $county = trim($countyValue->value());
-                    if (!empty($county) && !in_array($county, $countiesByState[$state])) {
-                        $countiesByState[$state][] = $county;
-                    }
-                }
+            } else {
+                // Already a term ("prefix:local_name")
+                if ($termOne === null) { $termOne = (string)$prop; }
+                elseif ($termTwo === null && $prop !== $termOne) { $termTwo = (string)$prop; }
             }
         }
     }
-    
-    // Sort states and counties
-    $states = array_keys($statesData);
-    sort($states);
-    
-    foreach ($countiesByState as &$counties) {
-        sort($counties);
+
+    // 2) Fill from settings if missing
+    $termOne  = $termOne ?? ($this->siteSetting('unitedsearch.dualprop.term_one')  ?: $this->setting('unitedsearch.dualprop.term_one')  ?: null);
+    $termTwo  = $termTwo ?? ($this->siteSetting('unitedsearch.dualprop.term_two')  ?: $this->setting('unitedsearch.dualprop.term_two')  ?: null);
+
+    // Resolve numeric IDs for matching later
+    if ($termOne && !$idOne) {
+        $p = $api->searchOne('properties', ['term' => $termOne])->getContent();
+        if ($p) $idOne = (int)$p->id();
     }
-    
-} catch (Exception $e) {
-    // Fallback to hardcoded data if API fails
-    $states = ['Mississippi', 'Alabama', 'Georgia', 'North Carolina', 'South Carolina'];
-    $countiesByState = [
-        'Mississippi' => ['Forrest County', 'Hinds County', 'Jackson County', 'Harrison County', 'Rankin County', 'Madison County', 'DeSoto County', 'Lee County'],
-        'Alabama' => ['Jefferson County', 'Mobile County', 'Madison County', 'Montgomery County', 'Shelby County', 'Tuscaloosa County', 'Baldwin County'],
-        'Georgia' => ['Fulton County', 'DeKalb County', 'Cobb County', 'Gwinnett County', 'Clayton County', 'Cherokee County', 'Forsyth County'],
-        'North Carolina' => ['Wake County', 'Mecklenburg County', 'Durham County', 'Pitt County', 'Harnett County', 'Guilford County', 'Forsyth County', 'Cumberland County'],
-        'South Carolina' => ['Charleston County', 'Richland County', 'Greenville County', 'Spartanburg County', 'Horry County', 'Lexington County', 'York County']
-    ];
+    if ($termTwo && !$idTwo) {
+        $p = $api->searchOne('properties', ['term' => $termTwo])->getContent();
+        if ($p) $idTwo = (int)$p->id();
+    }
+
+    return [$termOne, $termTwo, $idOne, $idTwo];
+};
+
+list($termOne, $termTwo, $propIdOne, $propIdTwo) = $resolveTerms();
+
+// Resolve currently - selected STATE/COUNTY values from query, by matching either term or ID
+$selectedState  = '';
+$selectedCounty = '';
+$params = $this->params()->fromQuery();
+if (!empty($params['property']) && is_array($params['property'])) {
+    foreach ($params['property'] as $cond) {
+        $prop = $cond['property'] ?? null;
+        $text = (string)($cond['text'] ?? '');
+        if ($text === '' || $prop === null) continue;
+
+        $isState  = ($prop === $termOne)  || (ctype_digit((string)$prop) && (int)$prop === $propIdOne);
+        $isCounty = ($prop === $termTwo)  || (ctype_digit((string)$prop) && (int)$prop === $propIdTwo);
+
+        if ($isState)  $selectedState  = $text;
+        if ($isCounty) $selectedCounty = $text;
+    }
 }
 
-// Convert to JSON for JavaScript
-$countiesJson = json_encode($countiesByState);
-?>
+// TTL (seconds): default 3600
+$ttl = (int)($this->siteSetting('unitedsearch.dualprop.ttl') ?: $this->setting('unitedsearch.dualprop.ttl') ?: 3600);
 
+// Site scope for the map
+$siteId = isset($this->site) && $this->site ? (int)$this->site->id() : null;
+
+// Build/read cached map once (DBAL)
+$loc    = $this->locationMap($siteId, (string)$termOne, (string)$termTwo, $ttl);
+$states = $loc['valuesOne'] ?? [];
+$map    = $loc['map']       ?? [];
+
+// Server-rendered counties for initial paint
+$countiesForSelected = ($selectedState && !empty($map[$selectedState])) ? $map[$selectedState] : [];
+
+$selectStateLabel  = $translate('Select state');
+$selectCountyLabel = $translate('Select county');
+?>
 <div class="search-form-container location-search-container">
-    <form method="get" 
-          action="<?php echo $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], true); ?>" 
-          class="search-form location-search-form"
-          id="location-search-form">
-        
-        <div class="search-filters">
-            <div class="filter-row">
-                
-                <!-- State Dropdown -->
-                <div class="search-filter-group">
-                    <label for="state" class="filter-label">
-                        <?php echo $translate('State'); ?> 
-                        <span class="required">*</span>
-                    </label>
-                    
-                    <select id="state" 
-                            name="property[0][text]" 
-                            class="filter-select state-select">
-                        <option value="">
-                            <?php echo $translate('Select state'); ?>
-                        </option>
-                        <?php foreach ($states as $state): ?>
-                            <option value="<?php echo $escape($state); ?>" 
-                                    <?php echo $searchState == $state ? 'selected' : ''; ?>>
-                                <?php echo $escape($state); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                
-                <!-- County Dropdown -->
-                <div class="search-filter-group">
-                    <label for="county" class="filter-label">
-                        <?php echo $translate('County (optional)'); ?>
-                    </label>
-                    
-                    <select id="county" 
-                            name="property[1][text]" 
-                            class="filter-select county-select"
-                            <?php echo empty($searchState) ? 'disabled' : ''; ?>>
-                        <option value="">
-                            <?php echo $translate('Select county'); ?>
-                        </option>
-                        <?php 
-                        if ($searchState && isset($countiesByState[$searchState])): 
-                            foreach ($countiesByState[$searchState] as $county): ?>
-                                <option value="<?php echo $escape($county); ?>" 
-                                        <?php echo $searchCounty == $county ? 'selected' : ''; ?>>
-                                    <?php echo $escape($county); ?>
-                                </option>
-                            <?php endforeach;
-                        endif; ?>
-                    </select>
-                </div>
-                
-                <!-- Search Button -->
-                <button type="submit" class="search-button location-search-btn">
-                    <?php echo $translate('Search'); ?>
-                </button>
-                
-            </div>
+  <form method="get"
+        action="<?= $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], true); ?>"
+        class="search-form location-search-form"
+        id="location-search-form">
+
+    <div class="search-filters">
+      <div class="filter-row">
+
+        <!-- State -->
+        <div class="search-filter-group">
+          <label for="state" class="filter-label">
+            <?= $translate('State'); ?> <span class="required">*</span>
+          </label>
+          <select id="state" name="property[0][text]" class="filter-select state-select">
+            <option value=""><?= $escape($selectStateLabel) ?></option>
+            <?php foreach ($states as $state): ?>
+              <option value="<?= $escape($state) ?>" <?= $state === $selectedState ? 'selected' : '' ?>>
+                <?= $escape($state) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
         </div>
-        
-        <!-- Hidden fields for Omeka property search -->
-        <input type="hidden" name="property[0][joiner]" value="and">
-        <input type="hidden" name="property[0][property]" value="rfc:state">
-        <input type="hidden" name="property[0][type]" value="eq">
-        
-        <input type="hidden" name="property[1][joiner]" value="and">
-        <input type="hidden" name="property[1][property]" value="rfc:county">
-        <input type="hidden" name="property[1][type]" value="eq">
-        
-    </form>
+
+        <!-- County -->
+        <div class="search-filter-group">
+          <label for="county" class="filter-label"><?= $translate('County (optional)'); ?></label>
+          <select id="county" name="property[1][text]" class="filter-select county-select" <?= $selectedState ? '' : 'disabled' ?>>
+            <option value=""><?= $escape($selectCountyLabel) ?></option>
+            <?php foreach ($countiesForSelected as $county): ?>
+              <option value="<?= $escape($county) ?>" <?= $county === $selectedCounty ? 'selected' : '' ?>>
+                <?= $escape($county) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <button type="submit" class="search-button location-search-btn">
+          <?= $translate('Search'); ?>
+        </button>
+      </div>
+    </div>
+
+    <!-- Hidden Omeka filters use the *resolved* terms (works for browse controller) -->
+    <input type="hidden" name="property[0][joiner]"   value="and">
+    <input type="hidden" name="property[0][property]" value="<?= $escape((string)$termOne) ?>">
+    <input type="hidden" name="property[0][type]"     value="eq">
+
+    <input type="hidden" name="property[1][joiner]"   value="and">
+    <input type="hidden" name="property[1][property]" value="<?= $escape((string)$termTwo) ?>">
+    <input type="hidden" name="property[1][type]"     value="eq">
+  </form>
 </div>
 
+<!-- JS: only repopulates counties when state changes -->
 <script>
-// Pass PHP data to JavaScript
-window.unitedSearchData = {
-    countiesByState: <?php echo $countiesJson; ?>,
-    selectedState: <?php echo json_encode($searchState); ?>,
-    selectedCounty: <?php echo json_encode($searchCounty); ?>
-};
+(function(){
+  const stateEl  = document.getElementById('state');
+  const countyEl = document.getElementById('county');
+  const SELECT_COUNTY = <?= json_encode($selectCountyLabel) ?>;
+
+  // Embed the map for instant switches
+  const relationshipMap = <?= json_encode($map, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ?>;
+
+  function fillCounties(list, selected) {
+    countyEl.innerHTML = '';
+    countyEl.add(new Option(SELECT_COUNTY, ''));
+    (list || []).forEach(function(c){
+      countyEl.add(new Option(c, c, false, c === selected));
+    });
+    countyEl.disabled = !list || list.length === 0;
+  }
+
+  stateEl.addEventListener('change', function(){
+    const s = this.value;
+    fillCounties(relationshipMap[s] || [], '');
+  });
+})();
 </script>

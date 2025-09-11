@@ -221,12 +221,3 @@ if ($paginator && $totalResults > 0 && isset($query['page'])) {
     ?>
     
 </div>
-
-<?php 
-// Include JavaScript for location search
-if ($searchContext['type'] == 'location') {
-    echo $this->partial('common/search/search-location-js.phtml', [
-        'searchContext' => $searchContext
-    ]);
-}
-?>
