@@ -24,11 +24,12 @@ $resolveTerms = function() use ($api) {
             $prop = $cond['property'] ?? null;
             if ($prop === null || $prop === '') continue;
 
-            // If it's numeric, resolve to a term via API once
             if (ctype_digit((string)$prop)) {
-                $p = null;
-                try { $p = $api->read('properties', (int)$prop)->getContent(); } catch (\Exception $e) {}
-                $propTerm = $p ? $p->term() : null;
+                // Numeric id -> term
+                try {
+                    $p = $api->read('properties', (int)$prop)->getContent();
+                    $propTerm = $p ? $p->term() : null;
+                } catch (\Exception $e) { $propTerm = null; }
                 if ($propTerm) {
                     if ($termOne === null) { $termOne = $propTerm; $idOne = (int)$prop; }
                     elseif ($termTwo === null && $propTerm !== $termOne) { $termTwo = $propTerm; $idTwo = (int)$prop; }
@@ -45,7 +46,15 @@ $resolveTerms = function() use ($api) {
     $termOne  = $termOne ?? ($this->siteSetting('unitedsearch.dualprop.term_one')  ?: $this->setting('unitedsearch.dualprop.term_one')  ?: null);
     $termTwo  = $termTwo ?? ($this->siteSetting('unitedsearch.dualprop.term_two')  ?: $this->setting('unitedsearch.dualprop.term_two')  ?: null);
 
-    // Resolve numeric IDs for matching later
+    // 3) Final fallback: auto-discover RFC terms if they exist (covers OR + state-only URLs)
+    if (!$termOne || !$termTwo) {
+        $stateProp  = $api->searchOne('properties', ['term' => 'rfc:state'])->getContent();
+        $countyProp = $api->searchOne('properties', ['term' => 'rfc:county'])->getContent();
+        if (!$termOne && $stateProp)  $termOne  = 'rfc:state';
+        if (!$termTwo && $countyProp) $termTwo  = 'rfc:county';
+    }
+
+    // Resolve numeric IDs (for matching selected values)
     if ($termOne && !$idOne) {
         $p = $api->searchOne('properties', ['term' => $termOne])->getContent();
         if ($p) $idOne = (int)$p->id();
@@ -77,6 +86,9 @@ if (!empty($params['property']) && is_array($params['property'])) {
         if ($isCounty) $selectedCounty = $text;
     }
 }
+// Fallback: UnitedSearch helpers on some forms
+if ($selectedState === ''  && isset($params['property_one_value'])) $selectedState  = (string)$params['property_one_value'];
+if ($selectedCounty === '' && isset($params['property_two_value'])) $selectedCounty = (string)$params['property_two_value'];
 
 // TTL (seconds): default 3600
 $ttl = (int)($this->siteSetting('unitedsearch.dualprop.ttl') ?: $this->setting('unitedsearch.dualprop.ttl') ?: 3600);
@@ -84,7 +96,7 @@ $ttl = (int)($this->siteSetting('unitedsearch.dualprop.ttl') ?: $this->setting('
 // Site scope for the map
 $siteId = isset($this->site) && $this->site ? (int)$this->site->id() : null;
 
-// Build/read cached map once (DBAL)
+// Build/read cached map once (DBAL) — works even when only State was selected
 $loc    = $this->locationMap($siteId, (string)$termOne, (string)$termTwo, $ttl);
 $states = $loc['valuesOne'] ?? [];
 $map    = $loc['map']       ?? [];
@@ -138,7 +150,7 @@ $selectCountyLabel = $translate('Select county');
       </div>
     </div>
 
-    <!-- Hidden Omeka filters use the *resolved* terms (works for browse controller) -->
+    <!-- Hidden Omeka filters use the *resolved* terms (browse expects terms; OR/AND is handled by origin form) -->
     <input type="hidden" name="property[0][joiner]"   value="and">
     <input type="hidden" name="property[0][property]" value="<?= $escape((string)$termOne) ?>">
     <input type="hidden" name="property[0][type]"     value="eq">
@@ -167,6 +179,11 @@ $selectCountyLabel = $translate('Select county');
     });
     countyEl.disabled = !list || list.length === 0;
   }
+
+  // Pre-populate if a state is already selected
+  <?php if ($selectedState): ?>
+  fillCounties(relationshipMap[<?= json_encode($selectedState) ?>] || [], <?= json_encode($selectedCounty) ?> || '');
+  <?php endif; ?>
 
   stateEl.addEventListener('change', function(){
     const s = this.value;
