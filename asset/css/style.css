@@ -3665,6 +3665,9 @@ section article > header > div p {
   border: 0.5px solid #947E72;
   margin-top: 10px;
 }
+.item-set.resource:last-child > a:first-child {
+  padding-bottom: 60px;
+}
 .item-set.resource .caption {
   order: 3;
   align-items: center;
@@ -4422,6 +4425,79 @@ section article > header > div p {
   background-color: #A17756;
 }
 
+.subcollection-placeholder {
+  padding: 64px 16px;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subcollection-placeholder .placeholder-container {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.subcollection-placeholder .placeholder-container::before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #F0D4C4, #B65934);
+  margin: 0 auto 32px auto;
+  border-radius: 2px;
+}
+.subcollection-placeholder .placeholder-container .placeholder-heading {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #442F2A;
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out;
+}
+@media (max-width: 768px) {
+  .subcollection-placeholder .placeholder-container .placeholder-heading {
+    font-size: 28px;
+  }
+}
+.subcollection-placeholder .placeholder-container .placeholder-message {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  line-height: 175%;
+  color: #56352D;
+  font-style: italic;
+  opacity: 0.9;
+  max-width: 540px;
+  margin: 0 auto;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+.subcollection-placeholder .placeholder-container .placeholder-message::first-line {
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .subcollection-placeholder .placeholder-container .placeholder-message {
+    font-size: 15px;
+  }
+}
+@media (max-width: 576px) {
+  .subcollection-placeholder {
+    padding: 32px 16px;
+    min-height: 350px;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /**
  * Unified Search Forms Styles
  * Styles for keyword search form

@@ -1,0 +1,85 @@
+.subcollection-placeholder {
+  padding: $space-xl $space-md;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .placeholder-container {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    
+    // Decorative line above heading
+    &::before {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, $color-tape, $color-accent);
+      margin: 0 auto $space-lg auto;
+      border-radius: 2px;
+    }
+    
+    .placeholder-heading {
+      font-family: $font-serif;
+      font-size: $font-size-h2;
+      font-weight: $weight-semibold;
+      color: $color-heading;
+      margin-bottom: $space-lg;
+      letter-spacing: 0.5px;
+      position: relative;
+      
+      // Subtle animation on load
+      animation: fadeInUp 0.8s ease-out;
+      
+      // Mobile responsive
+      @media (max-width: $breakpoint-md) {
+        font-size: $font-size-label-md;
+      }
+    }
+    
+    .placeholder-message {
+      font-family: $font-sans;
+      font-size: $font-size-body-sm;
+      line-height: $lh-body;
+      color: $color-body;
+      font-style: italic;
+      opacity: 0.9;
+      max-width: 540px;
+      margin: 0 auto;
+      
+      // Subtle animation with delay
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+      
+      // Add emphasis to key phrase
+      &::first-line {
+        font-weight: $weight-medium;
+      }
+      
+      // Mobile responsive
+      @media (max-width: $breakpoint-md) {
+        font-size: 15px;
+      }
+    }
+  }
+  
+  // Mobile adjustments
+  @media (max-width: $breakpoint-sm) {
+    padding: $space-lg $space-md;
+    min-height: 350px;
+  }
+}
+
+// Animation keyframes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
