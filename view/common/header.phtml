@@ -52,9 +52,9 @@ $topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
           
           $itemClass = 'nav-item' . ($hasSubmenu ? ' has-submenu' : '');
         ?>
-          <li class="<?= $itemClass ?>">
+          <li class="<?= $itemClass ?>" data-has-submenu="<?= $hasSubmenu ? 'true' : 'false' ?>">
             <a href="<?= $escape($page->getHref()) ?>" class="<?= $linkClass ?>">
-              <?= $label ?>
+              <span class="nav-text"><?= $label ?></span>
             </a>
 
             <?php if ($hasSubmenu): ?>
@@ -78,66 +78,3 @@ $topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
 
   </div>
 </header>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.querySelector(".mobile-nav-toggle");
-    const nav = document.querySelector(".main-nav");
-    const search = document.querySelector(".site-search");
-
-    // Toggle mobile menu
-    toggle?.addEventListener("click", () => {
-      nav.classList.toggle("mobile-nav-open");
-      // Also toggle search visibility on mobile
-      if (window.innerWidth <= 768) {
-        search.style.display = nav.classList.contains("mobile-nav-open") ? "block" : "none";
-      }
-    });
-
-    // Handle dropdown toggles on mobile
-    document.querySelectorAll(".has-submenu > .nav-link").forEach(link => {
-      link.addEventListener("click", function(e) {
-        const parent = this.closest(".has-submenu");
-        const isMobile = window.innerWidth <= 768;
-        
-        if (isMobile) {
-          e.preventDefault();
-          parent.classList.toggle("open");
-          
-          // Close other open dropdowns
-          document.querySelectorAll(".has-submenu").forEach(item => {
-            if (item !== parent) {
-              item.classList.remove("open");
-            }
-          });
-        }
-      });
-    });
-
-    // Handle window resize
-    let resizeTimer;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (window.innerWidth > 768) {
-          nav.classList.remove("mobile-nav-open");
-          search.style.display = "";
-          document.querySelectorAll(".has-submenu").forEach(item => {
-            item.classList.remove("open");
-          });
-        }
-      }, 250);
-    });
-  });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const navLinks = document.querySelectorAll('.main-nav .nav-link');
-    navLinks.forEach(link => {
-      if (link.textContent.trim() === 'Contact') {
-        link.setAttribute('target', '_blank');
-        link.setAttribute('rel', 'noopener');
-      }
-    });
-  });
-</script>
