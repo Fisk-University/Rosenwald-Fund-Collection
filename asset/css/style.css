@@ -1389,9 +1389,6 @@ input[type=text]:focus, select:focus {
     padding: 0 30px;
   }
 }
-.blocks .block-blockGroup.section-find-schools + .block {
-  margin-top: 30px;
-}
 @media (min-width: 576px) {
   .blocks .block-blockGroup.section-find-schools + .block {
     margin-top: 40px;
@@ -1409,15 +1406,28 @@ input[type=text]:focus, select:focus {
 }
 .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title {
   font-family: "Sorts Mill Goudy", serif;
-  font-size: 16px;
+  font-size: 22px;
   text-transform: uppercase;
   color: #442F2A;
   margin-bottom: 5px;
+  position: relative;
+}
+.blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 65%;
+  height: 1px;
+  background-color: #B65934;
 }
 @media (min-width: 576px) {
   .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title {
     font-size: 28px;
     margin-bottom: 8px;
+  }
+  .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__title::after {
+    display: none;
   }
 }
 @media (min-width: 768px) {
@@ -2022,6 +2032,7 @@ input[type=text]:focus, select:focus {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+  padding-top: 30px;
 }
 .block-introduction .intro-content .intro-text-wrapper {
   display: contents;
@@ -2099,6 +2110,7 @@ input[type=text]:focus, select:focus {
   }
   .block-introduction .intro-content {
     gap: 32px;
+    padding-top: 0px;
   }
   .block-introduction .intro-content .intro-text-wrapper h2 {
     font-size: 20px;

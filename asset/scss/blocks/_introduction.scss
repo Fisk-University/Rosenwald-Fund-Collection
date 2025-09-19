@@ -10,6 +10,7 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
+    padding-top: 30px;
     
     .intro-text-wrapper {
       // Unwrap container to expose children to grid
@@ -98,7 +99,7 @@
     .intro-content {
       // Keep grid for small tablets
       gap: 32px;
-      
+      padding-top: 0px;
       .intro-text-wrapper {
         h2 {
           font-size: 20px;

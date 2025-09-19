@@ -121,7 +121,7 @@
 
     // Title block
     & + .block {
-      margin-top: 30px;
+      //margin-top: 30px;
       
       @media (min-width: $breakpoint-sm) {
         margin-top: 40px;
@@ -137,14 +137,28 @@
       .search-card {
       .search-card__title {
         font-family: $font-serif;
-        font-size: 16px;
+        font-size: 22px;
         text-transform: uppercase;
         color: $color-heading;
         margin-bottom: 5px;
+        position: relative; 
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 65%;
+          height: 1px;
+          background-color: $color-accent;
+        }
         
         @media (min-width: $breakpoint-sm) {
           font-size: 28px;
           margin-bottom: 8px;
+          &::after {
+            display: none;
+          }
         }
         
         @media (min-width: $breakpoint-md) {
