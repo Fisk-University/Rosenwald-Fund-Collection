@@ -9,12 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Define custom URL mapping
   const fundUrlMapping = {
-    'School Fund': `${basePath}/page/school-funds`,
-    'Fellowship Fund': `${basePath}/page/home`,
-    'Fellowships Granted': `${basePath}/page/home`,
-    'Photographs and Clippings': `${basePath}/page/home`,
-    'Studies and Publications': `${basePath}/page/home`,
-    'Rosenwald Family': `${basePath}/page/home`,
+    'School Fund': `${basePath}/page/school-fund`,
+    'Fellowship Fund': `${basePath}/page/fellowship-fund`,
+    'Administrative': `${basePath}/page/administrative`,
+    'Photographs and Clippings': `${basePath}/page/photographs-clippings`,
+    'Studies and Publications': `${basePath}/page/studies-publications`,
+    'Rosenwald Family': `${basePath}/page/rosenwald-family`,
   };
 
   // Find all ItemSet showcase items
