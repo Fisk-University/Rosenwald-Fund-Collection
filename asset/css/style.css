@@ -120,17 +120,6 @@ input[type=text]:focus, select:focus {
   padding: 2rem 2rem 3rem;
   max-width: 1200px;
   margin: 0 auto;
-  /*&::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url('../img/original paper background texture.jpg');
-    background-repeat: repeat;
-    background-size: cover;
-    opacity: 0.25;
-    z-index: -1;
-    pointer-events: none;
-  }*/
   font-family: "Montserrat", sans-serif;
   color: #56352D;
   line-height: 1.7;
@@ -477,9 +466,17 @@ input[type=text]:focus, select:focus {
     font-size: 1.5rem;
     margin: 2rem 0 1.5rem;
   }
+  .static-page .team-photo-block {
+    display: flex;
+    flex-direction: column;
+  }
   .static-page .team-photo-block img {
     width: 100%;
     max-width: none;
+    margin-bottom: 1rem;
+  }
+  .static-page .team-photo-block .bio-text {
+    width: 100%;
   }
   .static-page .team-photo-block .bio-text p {
     font-size: 0.9rem;
@@ -524,6 +521,28 @@ input[type=text]:focus, select:focus {
 .team-photo-block .bio-text p {
   margin: 0 0 0.75rem;
   text-align: justify;
+}
+
+.team-gallery {
+  margin: 2rem 0;
+}
+.team-gallery .gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.team-gallery .gallery-grid img {
+  width: 100%;
+  height: auto;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
+}
+@media (max-width: 576px) {
+  .team-gallery .gallery-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .site-layout {
