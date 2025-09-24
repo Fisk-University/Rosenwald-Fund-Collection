@@ -682,11 +682,11 @@ input[type=text]:focus, select:focus {
 .site-header .site-logo {
   display: flex;
   align-items: center;
-  margin-top: 26px;
+  margin-top: 20px;
 }
 .site-header .site-logo img {
   height: auto;
-  width: 93px;
+  width: 110px;
 }
 .site-header .main-nav {
   flex: 1;
@@ -897,8 +897,12 @@ input[type=text]:focus, select:focus {
     max-width: 1200px;
     padding: 0 32px;
   }
+  .site-header .site-logo {
+    margin-top: 13px;
+  }
   .site-header .site-search {
     max-width: 300px;
+    margin-top: 23px;
   }
   .site-header .mobile-nav-toggle {
     display: none;
@@ -910,6 +914,9 @@ input[type=text]:focus, select:focus {
 @media (min-width: 992px) and (max-width: 1199px) {
   .site-header .header-inner {
     padding: 0 16px;
+  }
+  .site-header .site-logo {
+    margin-top: 14px;
   }
   .site-header .site-search {
     max-width: 240px;
@@ -930,14 +937,14 @@ input[type=text]:focus, select:focus {
   }
   .site-header .header-inner {
     flex-wrap: wrap;
-    padding: 8px 16px;
+    padding: 8px 16px 12px 16px;
   }
   .site-header .site-logo {
-    margin-top: 16px;
+    margin-top: 0px;
   }
   .site-header .site-search {
     max-width: 200px;
-    margin-top: 16px;
+    margin-top: 12px;
   }
   .site-header .mobile-nav-toggle {
     display: none;
@@ -959,7 +966,7 @@ input[type=text]:focus, select:focus {
   }
   .site-header .header-inner {
     flex-direction: column;
-    padding: 16px;
+    padding: 12px 16px 0 16px;
     gap: 0;
     align-items: stretch;
   }
@@ -968,8 +975,8 @@ input[type=text]:focus, select:focus {
     margin-bottom: 16px;
   }
   .site-header .site-logo img {
-    height: 48px;
-    width: auto;
+    height: auto;
+    width: 110px;
   }
   .site-header .mobile-nav-toggle {
     display: block;
@@ -1089,13 +1096,18 @@ input[type=text]:focus, select:focus {
 }
 @media (max-width: 575px) {
   .site-header .header-inner {
-    padding: 8px;
+    padding: 8px 12px 8px 12px;
+  }
+  .site-header .site-logo {
+    margin-top: 6px;
+    margin-bottom: 10px;
   }
   .site-header .site-logo img {
-    height: 40px;
+    height: auto;
+    width: 100px;
   }
   .site-header .mobile-nav-toggle {
-    top: 8px;
+    top: 16px;
     right: 8px;
   }
   .site-header .main-nav.mobile-nav-open .nav-links .nav-item a {
