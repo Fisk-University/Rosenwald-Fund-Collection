@@ -4308,12 +4308,13 @@ section article > header > div p {
   margin-bottom: 10px;
 }
 .block-browsePreview .preview-block li.item.resource .resource-link img {
-  width: auto;
-  height: 180px;
+  width: 260px;
+  height: auto;
   -o-object-fit: cover;
      object-fit: cover;
   display: block;
   margin-bottom: 20px;
+  border: 0.5px solid #947E72;
 }
 .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
   font-family: "Montserrat", sans-serif;
@@ -4334,8 +4335,8 @@ section article > header > div p {
 }
 @media screen and (min-width: 576px) {
   .block-browsePreview .preview-block li.item.resource .resource-link img {
-    height: 220px;
-    width: auto;
+    width: 280px;
+    height: auto;
     margin-bottom: 20px;
   }
   .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
@@ -4351,11 +4352,11 @@ section article > header > div p {
   }
   .block-browsePreview .preview-block li.item.resource {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: auto 1fr;
     -moz-column-gap: 20px;
          column-gap: 20px;
-    row-gap: 0;
+    row-gap: 10px;
     align-items: start;
   }
   .block-browsePreview .preview-block li.item.resource .resource-link {
@@ -4364,8 +4365,8 @@ section article > header > div p {
   .block-browsePreview .preview-block li.item.resource .resource-link img {
     grid-column: 1;
     grid-row: 1/3;
-    width: 300px;
-    height: 180px;
+    width: 240px;
+    height: auto;
     -o-object-fit: cover;
        object-fit: cover;
   }
@@ -4374,6 +4375,7 @@ section article > header > div p {
     grid-row: 1;
     font-size: 26px;
     margin: 0;
+    padding-bottom: 8px;
   }
   .block-browsePreview .preview-block li.item.resource .description {
     grid-column: 2;
@@ -4389,11 +4391,11 @@ section article > header > div p {
   }
   .block-browsePreview .preview-block li.item.resource {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: auto 1fr;
     -moz-column-gap: 10px;
          column-gap: 10px;
-    row-gap: 0;
+    row-gap: 12px;
     align-items: start;
   }
   .block-browsePreview .preview-block li.item.resource .resource-link {
@@ -4402,8 +4404,8 @@ section article > header > div p {
   .block-browsePreview .preview-block li.item.resource .resource-link img {
     grid-column: 1;
     grid-row: 1/3;
-    height: 180px;
-    width: auto;
+    width: 240px;
+    height: auto;
     border: 0.5px solid #947E72;
   }
   .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
@@ -4411,6 +4413,7 @@ section article > header > div p {
     grid-row: 1;
     font-size: 24px;
     margin: 0;
+    padding-bottom: 10px;
   }
   .block-browsePreview .preview-block li.item.resource .description {
     grid-column: 2;
@@ -4430,12 +4433,14 @@ section article > header > div p {
   .block-browsePreview .preview-block li.item.resource {
     -moz-column-gap: 10px;
          column-gap: 10px;
+    row-gap: 15px;
   }
   .block-browsePreview .preview-block li.item.resource .resource-link .resource-name {
     font-size: 28px;
+    padding-bottom: 12px;
   }
   .block-browsePreview .preview-block li.item.resource .description {
-    margin-top: -30px !important;
+    margin: 0;
     font-size: 18px;
   }
 }

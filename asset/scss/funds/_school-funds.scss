@@ -565,11 +565,12 @@
         margin-bottom: 10px; // Space before description
         
         img {
-          width: auto;
-          height: 180px;
+          width: 260px;
+          height: auto;
           object-fit: cover;
           display: block;
           margin-bottom: 20px; // Space between image and title
+          border: 0.5px solid $color-input-border;
         }
         
         // Title
@@ -604,8 +605,8 @@
             // Still vertical stack
             .resource-link {
             img {
-                height: 220px;
-                width: auto;
+                width: 280px; 
+                height: auto;
                 margin-bottom: 20px;
             }
             
@@ -628,10 +629,10 @@
     .preview-block {
         li.item.resource {
         display: grid; // Use grid instead of flex
-        grid-template-columns: 300px 1fr;
-        grid-template-rows: auto auto;
+        grid-template-columns: 240px 1fr;
+        grid-template-rows: auto 1fr;
         column-gap: 20px;
-        row-gap: 0;
+        row-gap: 10px;
         align-items: start;
         
         .resource-link {
@@ -640,8 +641,8 @@
             img {
             grid-column: 1;
             grid-row: 1 / 3; // Span both rows
-            width: 300px;
-            height: 180px;
+            width: 240px;
+            height: auto;
             object-fit: cover;
             }
             
@@ -650,6 +651,7 @@
             grid-row: 1;
             font-size: 26px;
             margin: 0;
+            padding-bottom: 8px;
             }
         }
         
@@ -671,10 +673,10 @@
     .preview-block {
         li.item.resource {
         display: grid;
-        grid-template-columns: 300px 1fr;
-        grid-template-rows: auto auto; // Two rows
+        grid-template-columns: 240px 1fr;
+        grid-template-rows: auto 1fr;
         column-gap: 10px;
-        row-gap: 0; // No row gap
+        row-gap: 12px;
         align-items: start;
         
         .resource-link {
@@ -683,8 +685,8 @@
             img {
             grid-column: 1;
             grid-row: 1 / 3; // Span both rows
-            height: 180px;
-            width: auto;
+            width: 240px;
+            height: auto;
             border: 0.5px solid $color-input-border;
             }
             
@@ -693,6 +695,7 @@
             grid-row: 1;
             font-size: 24px;
             margin: 0;
+            padding-bottom: 10px;
             }
         }
         
@@ -717,15 +720,17 @@
     .preview-block {
         li.item.resource {
         column-gap: 10px; // Adjust gap
+        row-gap: 15px;
         
         .resource-link {
             .resource-name {
             font-size: 28px;
+            padding-bottom: 12px;
             }
         }
         
         .description {
-            margin-top: -30px!important;
+            margin: 0;
             font-size: 18px;
         }
         }
