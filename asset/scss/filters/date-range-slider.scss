@@ -1,0 +1,183 @@
+/**
+ * Date Range Filter Styles
+ * Integrates with Rosenwald Fund Collection theme
+ */
+
+/* Container Styling - Matches theme's search containers */
+.search-filters-sidebar {
+    margin-bottom: 16px;
+}
+
+.date-range-filter {
+    max-width: 100%;
+}   
+
+.date-range-filter h3 {
+    font-family: $font-serif;
+    font-size: 32px;
+    font-weight: $weight-regular;
+    color: #5F330F;
+}
+
+.date-range-filter h4 {
+    font-family: $font-sans;
+    font-size: 16px;
+    font-weight: $weight-medium;
+    color: $color-body;
+    text-transform: uppercase;
+    margin: 0 0 1px 0;
+    padding: 0;
+}
+
+.date-range-filter p {
+    font-family: $font-sans;
+    font-size: 16px;
+    font-weight: $weight-regular;
+    color: $color-body;
+    margin: 8px 0 12px 0px;;
+}
+
+.date-range-values {
+    font-family: $font-sans;
+    font-size: 16px;
+    font-weight: $weight-regular;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 0px 0;
+    padding: 0;
+}
+
+#date-start-display,
+#date-end-display {
+    font-weight: $weight-medium;
+    color: $color-heading;
+}
+
+/* The actual slider container */
+#date-range-slider {
+    height: 10px;
+    background: $color-divider;
+    border-radius: 5px;
+    border: 5px;
+}
+
+/* Active range bar */
+.ui-slider-range.ui-corner-all.ui-widget-header {
+    background: $color-primary;
+    border-radius: 5px;
+    position: relative;
+    height: 100%;
+}
+
+/* Slider handles */
+.ui-slider-handle.ui-corner-all.ui-state-default {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: $color-white;
+    border: 1px solid #000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    cursor: grab;
+    top: -7px;
+    margin-left: -12px;
+}
+
+.ui-slider-handle:hover {
+    border-color: $btn-primary-hover;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.ui-slider-handle:active,
+.ui-slider-handle.ui-state-active {
+    cursor: grabbing;
+    border-color: $btn-primary-pressed;
+}
+
+.ui-slider-handle:focus {
+    outline: none;
+}
+
+@media screen and (min-width: $breakpoint-sm) {
+    
+    .date-range-filter h4 {
+        font-size: 20px;
+    }
+    
+    .date-range-values {
+        font-size: 18px;
+    }
+}
+
+@media screen and (min-width: $breakpoint-md) {
+    .search-filters-sidebar {
+        position: sticky;
+        top: 32px;
+        float: left;
+        width: 200px;
+        margin-right: 32px;
+        margin-bottom: 0;
+    }
+    
+    .search-results-container .search-results-content {
+        margin-left: 222px;
+    }
+    
+    .date-range-filter h4 {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: $breakpoint-lg) {
+    .search-filters-sidebar {
+        width: 200px;
+        margin-right: 32px;
+    }
+    
+    .search-results-container .search-results-content {
+        margin-left: 232px;
+    }
+    
+    .date-range-filter {
+        padding: 0px;
+    }
+}
+
+@media screen and (min-width: $breakpoint-xl) {
+    .search-filters-sidebar {
+        width: 200px;
+    }
+    
+    .search-results-container .search-results-content {
+        margin-left: 232px;
+    }
+}
+
+.search-results-container {
+    position: relative;
+    overflow: visible;
+}
+
+.search-filters-sidebar {
+    z-index: 10;
+}
+
+.date-range-filter.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.date-range-filter.loading::after {
+    content: 'Updating...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255,255,255,0.95);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #653C2C;
+    font-family: 'Montserrat', sans-serif;
+}

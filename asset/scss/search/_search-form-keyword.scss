@@ -15,23 +15,13 @@
   .search-results-title {
     position: relative;
     display: inline-block;
-    font-family: $font-serif;
-    font-weight: $weight-regular;
+    font-family: $font-sans;
+    font-weight: $weight-semibold;
     color: $color-heading;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 12px;            // XS
+    font-size: 16px;            // XS
     margin: 0 0 14px;
     max-width: 90%;
-
-    &::after {
-    content: '';
-    position: absolute;
-    top: 100%; left: 0;
-    width: 75%;
-    height: 1px;
-    background-color: $color-accent;
-    }
   }
 
   // Search Form Wrapper
@@ -137,7 +127,7 @@
     .search-results-title {
       max-width: 600px;
       font-size: 18px;
-      margin-bottom: $space-md;
+      margin: 0 auto 10px;
       //padding: 0 30px;
     }
 
@@ -186,7 +176,6 @@
       font-size: 22px;
       padding: 0;
       max-width: 1000px;
-      margin: 0 auto 20px;
     }
 
     .search-form-wrapper {
@@ -227,7 +216,6 @@
     margin-right: auto;
 
     .search-results-title {
-      font-size: $font-size-label-md;
       max-width: 1000px;
     }
 
@@ -265,10 +253,6 @@
   @media screen and (min-width: $breakpoint-xl) {
     max-width: 1200px;
 
-    .search-results-title {
-      font-size: $font-size-label-lg;
-    }
-
     .search-form-wrapper {
       max-width: 1200px;
     }
@@ -305,6 +289,24 @@
  * Includes sort controls, pagination, and result items
  */
 
+.results-count-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 70px;
+}
+
+.results-count {
+    font-family: $font-serif;
+    font-size: 32px;
+    font-weight: $weight-regular;
+    color: #5F330F;
+}
+
+.results-count-pagination .pagination-wrapper {
+    display: inline-flex;
+    align-items: center;
+}
 
 .results-header {
   display: flex;
@@ -416,7 +418,7 @@
     gap: 20px;
 
     .pagination-wrapper.pagination-top {
-      align-self: center;
+      align-self: flex-end;
     }
 
     .results-controls {
@@ -604,7 +606,6 @@
 
   // Medium - 768px
   @media screen and (min-width: $breakpoint-md) {
-    flex-direction: row;
     gap: 20px;
 
     .result-thumbnail {
@@ -650,6 +651,7 @@
 
   // Extra Large - 1200px
   @media screen and (min-width: $breakpoint-xl) {
+    flex-direction: row;
     gap: 28px; 
 
     .result-thumbnail {

@@ -18,6 +18,18 @@ $totalResults = isset($totalResults) ? $totalResults : 0;
     
     <div class="search-results-content">
         
+        <!-- Results Count and Pagination Line -->
+        <div class="results-count-pagination">
+            <span class="results-count">
+                <?php echo sprintf($translate('%s Results'), $totalResults); ?>
+            </span>
+            
+            <!-- Top Pagination -->
+            <div class="pagination-wrapper pagination-top">
+                <?php echo $this->pagination(); ?>
+            </div>
+        </div>
+        
         <!-- Sort Controls -->
         <div class="results-header">
             <div class="results-controls">
@@ -57,11 +69,6 @@ $totalResults = isset($totalResults) ? $totalResults : 0;
                         </button>
                     </div>
                 </form>
-            </div>
-            
-            <!-- Top Pagination -->
-            <div class="pagination-wrapper pagination-top">
-                <?php echo $this->pagination(); ?>
             </div>
         </div>
         

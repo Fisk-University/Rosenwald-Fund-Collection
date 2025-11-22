@@ -209,6 +209,20 @@ if ($paginator && $totalResults > 0 && isset($query['page'])) {
         }
         ?>
     </div>
+
+    <div class="search-filters-sidebar">
+        <?php 
+        // Include the filter panel from SearchFilterPlus module
+        $filterVars = [
+            'minYear' => 1910,
+            'maxYear' => 1950,
+            'startYear' => 1910,
+            'endYear' => 1950,
+            'property' => 'dcterms:date'
+        ];
+        echo $this->partial('date-range-filter/common/date-range-slider.phtml', $filterVars);
+        ?>
+    </div>
     
     <?php 
     // Display search results

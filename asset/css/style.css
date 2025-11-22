@@ -4560,23 +4560,13 @@ section article > header > div p {
 .search-results-container .search-results-title {
   position: relative;
   display: inline-block;
-  font-family: "Sorts Mill Goudy", serif;
-  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
   color: #442F2A;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 12px;
+  font-size: 16px;
   margin: 0 0 14px;
   max-width: 90%;
-}
-.search-results-container .search-results-title::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 75%;
-  height: 1px;
-  background-color: #B65934;
 }
 .search-results-container .search-form-wrapper {
   margin-bottom: 20px;
@@ -4666,7 +4656,7 @@ section article > header > div p {
   .search-results-container .search-results-title {
     max-width: 600px;
     font-size: 18px;
-    margin-bottom: 16px;
+    margin: 0 auto 10px;
   }
   .search-results-container .search-form-wrapper {
     padding: 0;
@@ -4705,7 +4695,6 @@ section article > header > div p {
     font-size: 22px;
     padding: 0;
     max-width: 1000px;
-    margin: 0 auto 20px;
   }
   .search-results-container .search-form-wrapper {
     max-width: 1000px;
@@ -4733,7 +4722,6 @@ section article > header > div p {
     margin-right: auto;
   }
   .search-results-container .search-results-title {
-    font-size: 28px;
     max-width: 1000px;
   }
   .search-results-container .search-form-wrapper {
@@ -4759,9 +4747,6 @@ section article > header > div p {
   .search-results-container {
     max-width: 1200px;
   }
-  .search-results-container .search-results-title {
-    font-size: 32px;
-  }
   .search-results-container .search-form-wrapper {
     max-width: 1200px;
   }
@@ -4786,6 +4771,25 @@ section article > header > div p {
  * Search Results - Complete Styling
  * Includes sort controls, pagination, and result items
  */
+.results-count-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.results-count {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #5F330F;
+}
+
+.results-count-pagination .pagination-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
 .results-header {
   display: flex;
   justify-content: space-between;
@@ -4877,7 +4881,7 @@ section article > header > div p {
     gap: 20px;
   }
   .results-header .pagination-wrapper.pagination-top {
-    align-self: center;
+    align-self: flex-end;
   }
   .results-header .results-controls .results-label {
     font-size: 15px;
@@ -5027,7 +5031,6 @@ section article > header > div p {
 }
 @media screen and (min-width: 768px) {
   .result-item {
-    flex-direction: row;
     gap: 20px;
   }
   .result-item .result-thumbnail {
@@ -5062,6 +5065,7 @@ section article > header > div p {
 }
 @media screen and (min-width: 1200px) {
   .result-item {
+    flex-direction: row;
     gap: 28px;
   }
   .result-item .result-thumbnail {
@@ -6677,4 +6681,175 @@ body.item.resource.show .skip-link:focus {
     flex: 0 0 220px;
     font-size: 18px;
   }
+}
+/**
+ * Date Range Filter Styles
+ * Integrates with Rosenwald Fund Collection theme
+ */
+/* Container Styling - Matches theme's search containers */
+.search-filters-sidebar {
+  margin-bottom: 16px;
+}
+
+.date-range-filter {
+  max-width: 100%;
+}
+
+.date-range-filter h3 {
+  font-family: "Sorts Mill Goudy", serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #5F330F;
+}
+
+.date-range-filter h4 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #56352D;
+  text-transform: uppercase;
+  margin: 0 0 1px 0;
+  padding: 0;
+}
+
+.date-range-filter p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #56352D;
+  margin: 8px 0 12px 0px;
+}
+
+.date-range-values {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 0px 0;
+  padding: 0;
+}
+
+#date-start-display,
+#date-end-display {
+  font-weight: 500;
+  color: #442F2A;
+}
+
+/* The actual slider container */
+#date-range-slider {
+  height: 10px;
+  background: #DCD0C9;
+  border-radius: 5px;
+  border: 5px;
+}
+
+/* Active range bar */
+.ui-slider-range.ui-corner-all.ui-widget-header {
+  background: #653C2C;
+  border-radius: 5px;
+  position: relative;
+  height: 100%;
+}
+
+/* Slider handles */
+.ui-slider-handle.ui-corner-all.ui-state-default {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid #000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  cursor: grab;
+  top: -7px;
+  margin-left: -12px;
+}
+
+.ui-slider-handle:hover {
+  border-color: #7A5141;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.ui-slider-handle:active,
+.ui-slider-handle.ui-state-active {
+  cursor: grabbing;
+  border-color: #A17756;
+}
+
+.ui-slider-handle:focus {
+  outline: none;
+}
+
+@media screen and (min-width: 576px) {
+  .date-range-filter h4 {
+    font-size: 20px;
+  }
+  .date-range-values {
+    font-size: 18px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .search-filters-sidebar {
+    position: sticky;
+    top: 32px;
+    float: left;
+    width: 200px;
+    margin-right: 32px;
+    margin-bottom: 0;
+  }
+  .search-results-container .search-results-content {
+    margin-left: 222px;
+  }
+  .date-range-filter h4 {
+    font-size: 20px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .search-filters-sidebar {
+    width: 200px;
+    margin-right: 32px;
+  }
+  .search-results-container .search-results-content {
+    margin-left: 232px;
+  }
+  .date-range-filter {
+    padding: 0px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .search-filters-sidebar {
+    width: 200px;
+  }
+  .search-results-container .search-results-content {
+    margin-left: 232px;
+  }
+}
+.search-results-container {
+  position: relative;
+  overflow: visible;
+}
+
+.search-filters-sidebar {
+  z-index: 10;
+}
+
+.date-range-filter.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.date-range-filter.loading::after {
+  content: "Updating...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #653C2C;
+  font-family: "Montserrat", sans-serif;
 }
