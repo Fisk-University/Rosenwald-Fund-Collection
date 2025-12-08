@@ -6853,3 +6853,13 @@ body.item.resource.show .skip-link:focus {
   color: #653C2C;
   font-family: "Montserrat", sans-serif;
 }
+
+.file-type-filter h4 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #56352D;
+  text-transform: uppercase;
+  margin: 0 0 1px 0;
+  padding-top: 30px;
+}

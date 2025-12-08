@@ -221,6 +221,9 @@ if ($paginator && $totalResults > 0 && isset($query['page'])) {
             'property' => 'dcterms:date'
         ];
         echo $this->partial('date-range-filter/common/date-range-slider.phtml', $filterVars);
+            
+        // File Type Filter
+        echo $this->partial('file-type-filter/common/file-type-filter.phtml');
         ?>
     </div>
     
