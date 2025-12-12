@@ -224,6 +224,9 @@ if ($paginator && $totalResults > 0 && isset($query['page'])) {
             
         // File Type Filter
         echo $this->partial('file-type-filter/common/file-type-filter.phtml');
+
+        // Collection Filter
+        echo $this->partial('collection-filter/common/collection-filter.phtml');
         ?>
     </div>
     
