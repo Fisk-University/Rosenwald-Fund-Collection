@@ -569,7 +569,7 @@
           height: auto;
           object-fit: cover;
           display: block;
-          margin-bottom: 20px; // Space between image and title
+          margin: 0 auto 20px auto; // Space between image and title
           border: 0.5px solid $color-input-border;
         }
         
