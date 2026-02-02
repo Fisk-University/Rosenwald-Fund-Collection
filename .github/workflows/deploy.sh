@@ -61,8 +61,8 @@ rm -rf /tmp/theme-artifact.zip /tmp/deployed-theme
 aws s3 cp "$LOG_FILE" "s3://${S3_BUCKET}/${ENV}/logs/themes/${THEME_NAME}_deploy_${TAG}.log"
 aws s3 cp --recursive "$BACKUP_DIR/" "s3://${S3_BUCKET}/${ENV}/backups/themes/${THEME_NAME}_${TAG}/"
 
-# Clean up local backups and logs for dev/test environments
-if [[ "$ENV" == "dev" || "$ENV" == "test" ]]; then
+# Clean up local backups and logs for dev environment
+if [[ "$ENV" == "dev" ]]; then
   echo "[INFO] Cleaning up local backup and logs for $ENV environment" | tee -a "$LOG_FILE"
   rm -rf "$BACKUP_DIR"
   rm -f "$LOG_FILE"
