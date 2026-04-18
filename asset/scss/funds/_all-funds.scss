@@ -1,0 +1,442 @@
+// All Funds
+// Mobile First - Base styles (below 576px)
+section {
+  article > header {
+    position: relative;
+    width: 100%;
+    margin-bottom: 100px; // Increased for 50% overlap
+
+    // Hero image
+    > img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    // Hero box - smaller on mobile
+    > div {
+      position: absolute;
+      bottom: -50%; // Changed to 50/50
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: $color-white;
+      border: 1px solid $color-divider;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      padding: 8px;
+      width: 50%;
+      max-width: 280px;
+      z-index: 2;
+
+      h1 {
+        font-family: $font-serif;
+        font-size: 16px;
+        color: $color-heading;
+        font-weight: $weight-regular;
+        margin-bottom: 4px;
+        display: inline-block;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 75%;
+          height: 1px;
+          background-color: $color-link;
+        }
+      }
+
+      p {
+        font-family: $font-sans;
+        font-size: 8px;
+        color: $color-body;
+        line-height: 1.4;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Small devices (576px and up)
+@media screen and (min-width: $breakpoint-sm) {
+  section {
+    article > header {
+      margin-bottom: 150px; // Increased for 50% overlap
+
+      > div {
+        bottom: -50%; // Keep 50/50
+        padding: 20px;
+        width: 75%;
+        max-width: 400px;
+
+        h1 {
+          font-size: 24px;
+          margin-bottom: 12px;
+        }
+
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+// Medium devices (768px and up)
+@media screen and (min-width: $breakpoint-md) {
+  section {
+    article > header {
+      margin-bottom: 200px; // Increased for 50% overlap
+
+      > div {
+        bottom: -50%; // Keep 50/50
+        padding: 28px;
+        width: 75%;
+        max-width: 500px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+
+        h1 {
+          font-size: 28px;
+          margin-bottom: 16px;
+
+          &::after {
+            height: 1px;
+          }
+        }
+
+        p {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+// Large devices (992px and up)
+@media screen and (min-width: $breakpoint-lg) {
+  section {
+    article > header {
+      margin-bottom: 190px; // Increased for 50% overlap
+
+      > div {
+        bottom: -50%; // Keep 50/50
+        padding: 32px;
+        width: 75%;
+        max-width: 650px;
+
+        h1 {
+          font-size: 34px;
+          margin-bottom: 20px;
+        }
+
+        p {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
+
+// Extra large devices (1200px and up)
+@media screen and (min-width: $breakpoint-xl) {
+  section {
+    article > header {
+      margin-bottom: 160px; // Keep original
+
+      > div {
+        bottom: -25%; // Keep original for XL
+        padding: 32px;
+        max-width: 800px;
+        width: 80%;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+        h1 {
+          font-size: $font-size-h1;
+          margin-bottom: $space-md;
+          
+          &::after {
+            height: 1px;
+          }
+        }
+
+        p {
+          font-size: $font-size-body;
+          line-height: $lh-body;
+        }
+      }
+    }
+  }
+}
+
+//Item Set Show Case -- From Block Plus Module
+
+// Fund Cards Section - ItemSetShowcase Styling (Mobile First)
+.block.block-itemSetShowcase {
+  align-items: center;
+  .block.item-set-showcase {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  // Small devices (576px and up)
+  @media (min-width: $breakpoint-sm) { 
+    .block.item-set-showcase {
+      gap: 50px;
+      padding: 0 20px;
+    }
+  }
+
+  // Medium devices (768px and up)
+  @media (min-width: $breakpoint-md) {
+    .block.item-set-showcase {
+      gap: 32px;
+      padding: 0 24px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+  }
+
+  // Large devices (992px and up)
+  @media (min-width: $breakpoint-lg) {
+    margin-left: 155px;
+    .block.item-set-showcase {
+      gap: 50px;
+      max-width: 960px;
+    }
+  }
+
+  // Extra large devices (1200px and up)
+  @media (min-width: $breakpoint-xl) {
+    margin-left: 125px;
+
+    .block.item-set-showcase {
+      gap: 70px;
+      max-width: 1000px;
+    }
+  }
+}
+
+// Individual Fund Card Styling (Mobile First)
+.item-set.resource {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+  position: relative;
+  align-items: center;
+
+  // Fund Title Link - Mobile (moved to first position)
+  > a:nth-child(2) {
+    order: 1;
+    position: relative;
+    visibility: visible;
+    pointer-events: none;
+    padding: 8px 8px 0;
+    font-family: $font-serif;
+    font-size: 24px;
+    font-weight: $weight-semibold;
+    color: $color-heading;
+    display: block;
+  }
+
+  // Fund Image Link - Mobile (moved to second position)
+  > a:first-child {
+    order: 2;
+    width: 400px;
+    
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      border: 0.5px solid $color-input-border;
+      margin-top: 10px;
+    }
+  }
+  &:last-child {
+    > a:first-child {
+      padding-bottom: 60px;
+    }
+  }
+
+  // Caption Area - Mobile (stays third)
+  .caption {
+    order: 3;
+    align-items: center;
+    padding: 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    font-family: $font-sans;
+    font-size: 14px;
+    color: $color-body;
+    line-height: 1.5;
+    margin-top: 16px;
+    padding-top: 16px;
+
+    &::after {
+      display: none;
+    }
+
+    .view-fund-link {
+      font-family: $font-sans;
+      font-size: 14px;
+      color: $color-link;
+      text-decoration: none;
+      font-weight: $weight-semibold;
+      display: inline-block;
+      margin-top: 12px;
+      transition: color 0.3s ease;
+
+      span {
+        border-bottom: 1px solid $color-link;
+        padding-bottom: 2px;
+        transition: all 0.3s ease;
+      }
+
+      &:hover {
+        color: $btn-link-hover;
+        
+        span {
+          border-color: $btn-link-hover;
+        }
+      }
+
+      &:focus {
+        outline: 2px solid $color-link;
+        outline-offset: 4px;
+      }
+    }
+  }
+
+  // Small devices (576px and up)
+  @media (min-width: $breakpoint-sm) {
+    align-items: center;
+    > a:first-child {
+      img {
+        height: auto;
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+
+    > a:nth-child(2) {
+      padding: 20px 20px 0;
+      font-size: 28px;
+    }
+
+    .caption {
+      align-items: center;
+      padding: 0 20px 20px;
+      font-size: 16px;
+      line-height: 1.6;
+
+      .view-fund-link {
+        font-size: 16px;
+        margin-top: 12px;
+      }
+    }
+  }
+
+  // Medium devices (768px and up)
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    align-items: stretch;
+
+    > a:first-child {
+      order: unset;
+      flex-shrink: 0;
+      width: 300px;
+
+      img {
+        height: 240px;
+        width: 100%;
+        margin-top: 0px !important;
+      }
+    }
+
+    > a:nth-child(2) {
+      order: unset;
+      position: absolute;
+      left: 330px;
+      top: 32px;
+      margin-top: -30px;
+      padding: 0;
+      font-size: 28px;
+      z-index: 10;
+    }
+
+    .caption {
+      order: unset;
+      padding: 32px;
+      padding-top: 40px;
+      border-top: none;
+      margin-top: 0;
+      flex: 1;
+      min-height: 240px; // ADD THIS
+      align-items: flex-start; // ADD THIS
+      text-align: left; // ADD THIS
+      font-size: $font-size-body-sm;
+      line-height: $lh-body;
+
+      .view-fund-link {
+        font-size: 16px;
+        //margin-top: auto; // CHANGE THIS
+        margin-bottom: 0; // ADD THIS
+      }
+    }
+  }
+
+  // Large devices (992px and up)
+  @media (min-width: $breakpoint-lg) {
+    > a:first-child {
+      width: 350px;
+
+      img {
+        height: auto;
+      }
+    }
+
+    > a:nth-child(2) {
+      left: 385px;
+      margin-top: -30px;
+      top: 36px;
+      font-size: 34px;
+    }
+
+    .caption {
+      //padding: 36px;
+      padding-top: 50px;
+    }
+  }
+
+  // Extra large devices (1200px and up)
+  @media (min-width: $breakpoint-xl) {
+    > a:first-child {
+      width: 450px;
+
+      img {
+        height: auto;
+      }
+    }
+
+    > a:nth-child(2) {
+      left: 482px;
+      margin-top: -40px;
+      top: 40px;
+      font-size: $font-size-h2;
+    }
+
+    .caption {
+      padding-top: 40px;
+      font-size: $font-size-body;
+      justify-content: flex-start;
+    }
+  }
+}

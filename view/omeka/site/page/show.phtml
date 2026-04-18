@@ -1,0 +1,56 @@
+<?php
+$escape = $this->plugin('escapeHtml');
+$this->headLink()->appendStylesheet($this->assetUrl('css/style.css'));
+
+// List of slugs that use the custom "About" layout
+$aboutSlugs = [
+  'about',
+  'about-project',
+  'project-team',
+  'acknowledgments',
+  'accessibility',
+  'use-statement',
+  'how-to',
+  'project-doc'
+];
+
+$currentSlug = $page->slug();
+
+// Set body class based on page type
+if (in_array($currentSlug, $aboutSlugs)) {
+    $this->htmlElement('body')->appendAttribute('class', 'static-page');
+} elseif ($currentSlug === 'home' || $currentSlug === 'homepage') {
+    $this->htmlElement('body')->appendAttribute('class', 'homepage');
+} else {
+    $this->htmlElement('body')->appendAttribute('class', 'page');
+}
+?>
+
+<?php if (in_array($currentSlug, $aboutSlugs)): ?>
+  <!-- Custom layout for About-related pages -->
+  <main id="content" class="page-content container" role="main">
+    <article class="page-inner">
+      <header class="page-header">
+        <h1 class="page-title"><?php echo $escape($page->title()); ?></h1>
+      </header>
+
+      <section class="page-blocks">
+        <?php foreach ($page->blocks() as $block): ?>
+          <div class="page-block">
+            <?php echo $this->blockLayout()->render($block); ?>
+          </div>
+        <?php endforeach; ?>
+      </section>
+    </article>
+  </main>
+
+<?php else: ?>
+  <!-- Default rendering for homepage and other pages -->
+  <main id="content" role="main">
+    <div class="blocks">
+      <?php foreach ($page->blocks() as $block): ?>
+        <?php echo $this->blockLayout()->render($block); ?>
+      <?php endforeach; ?>
+    </div>
+  </main>
+<?php endif; ?>

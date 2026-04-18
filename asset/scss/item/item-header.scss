@@ -1,0 +1,136 @@
+/**
+ * Header Section Styles
+ */
+
+.item-header {
+     padding: $space-xl $space-xl;
+    .header-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    // Breadcrumb Navigation
+    .breadcrumb {
+        font-family: $font-sans;
+        font-size: 14px;
+        color: $color-breadcrumb;
+        
+        .breadcrumb-link {
+            color: $color-body;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            
+            &:hover {
+                color: $btn-link-hover;
+            }
+        }
+        
+        .breadcrumb-separator {
+            margin: 0 $space-xs;
+            color: $color-breadcrumb;
+        }
+        
+        .breadcrumb-current {
+            color: $color-link;
+            font-weight: $weight-medium;
+        }
+    }
+    
+    // School Name with 75% Underline
+    .school-name {
+        font-family: $font-serif;
+        font-size: 24px;
+        font-weight: $weight-regular;
+        color: $color-heading;
+        position: relative;
+        display: inline-block;
+        margin-top: 20px;
+        
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 75%;
+            height: 1px;
+            background-color: $color-accent;
+        }
+    }
+    
+    // Description
+    .school-description {
+        font-family: $font-sans;
+        font-size: $font-size-body-sm;
+        font-weight: $weight-regular;
+        color: $color-body;
+        line-height: $lh-body;
+        max-width: 800px;
+    }
+}
+
+// Small screens (576px and up)
+@media (min-width: $breakpoint-sm) {
+    .item-header {
+        .breadcrumb {
+            font-size: 15px;
+        }
+        
+        .school-name {
+            font-size: 24px;
+        }
+        
+        .school-description {
+            font-size: 17px;
+        }
+    }
+}
+
+// Medium screens (768px and up)
+@media (min-width: $breakpoint-md) {
+    .item-header {
+        .breadcrumb {
+            font-size: $font-size-body-sm;
+        }
+        
+        .school-name {
+            font-size: 28px;
+        }
+        
+        .school-description {
+            font-size: $font-size-body;
+            line-height: $lh-body;
+            max-width: 900px;
+        }
+    }
+}
+
+// Large screens (992px and up)
+@media (min-width: $breakpoint-lg) {
+    .item-header {
+        .school-name {
+            font-size: $font-size-h2;
+        }
+        
+        .school-description {
+            max-width: 950px;
+        }
+    }
+}
+
+// Extra large screens (1200px and up)
+@media (min-width: $breakpoint-xl) {
+    .item-header {
+        .breadcrumb {
+            font-size: 17px;
+        }
+        
+        .school-name {
+            font-size: 36px;
+        }
+        
+        .school-description {
+            font-size: 20px;
+            max-width: 1000px;
+        }
+    }
+}

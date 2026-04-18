@@ -1,0 +1,80 @@
+<?php
+$site = $site ?? null;
+$siteTitle = $site ? $site->title() : 'Site';
+$escape = $this->plugin('escapeHtml');
+$navPages = $site->publicNav()->getPages();
+$topLevelLabels = ['Home', 'All Funds', 'About', 'Contact'];
+?>
+
+<header class="site-header">
+  <div class="header-inner">
+
+    <!-- Site Logo -->
+    <a href="<?= $site->url(); ?>" class="site-logo" aria-label="<?= $escape($siteTitle); ?>">
+      <?php if ($this->themeSetting('logo')): ?>
+        <img src="<?= $this->themeSettingAssetUrl('logo'); ?>" alt="<?= $escape($siteTitle); ?>">
+      <?php else: ?>
+        <span class="text-logo"><?= $escape($siteTitle); ?></span>
+      <?php endif; ?>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="mobile-nav-toggle" aria-label="<?= $this->translate('Toggle navigation'); ?>">
+      ☰
+    </button>
+
+    <!-- Navigation -->
+    <nav class="main-nav" aria-label="Main Navigation">
+      <ul class="nav-links">
+        <?php foreach ($navPages as $page):
+          $label = $escape($page->getLabel());
+          if (!in_array($label, $topLevelLabels)) continue;
+
+          $hasSubmenu = $page->hasPages();
+          $isActive = $page->isActive();
+          $hasActiveChild = false;
+          
+          // Check if any child is active
+          if ($hasSubmenu) {
+            foreach ($page->getPages() as $subPage) {
+              if ($subPage->isActive()) {
+                $hasActiveChild = true;
+                break;
+              }
+            }
+          }
+          
+          // Set classes
+          $linkClass = 'nav-link';
+          if ($isActive || $hasActiveChild) {
+            $linkClass .= ' active';
+          }
+          
+          $itemClass = 'nav-item' . ($hasSubmenu ? ' has-submenu' : '');
+        ?>
+          <li class="<?= $itemClass ?>" data-has-submenu="<?= $hasSubmenu ? 'true' : 'false' ?>">
+            <a href="<?= $escape($page->getHref()) ?>" class="<?= $linkClass ?>">
+              <span class="nav-text"><?= $label ?></span>
+            </a>
+
+            <?php if ($hasSubmenu): ?>
+              <ul class="sub-menu">
+                <?php foreach ($page->getPages() as $subPage): 
+                  $subIsActive = $subPage->isActive() ? 'active' : '';
+                ?>
+                  <li><a href="<?= $escape($subPage->getHref()) ?>" class="<?= $subIsActive ?>"><?= $escape($subPage->getLabel()) ?></a></li>
+                <?php endforeach; ?>
+              </ul>
+            <?php endif; ?>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    </nav>
+
+    <!-- Search - moved after nav for mobile layout -->
+    <div class="site-search">
+      <?= $this->partial('common/search-form'); ?>
+    </div>
+
+  </div>
+</header>

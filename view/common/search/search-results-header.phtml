@@ -1,0 +1,17 @@
+<?php
+/**
+ * Search Results Header
+ * Displays a static "You Searched for:" header
+ */
+
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+// Get variables from parent
+$searchContext = isset($searchContext) ? $searchContext : [];
+$totalResults = isset($totalResults) ? $totalResults : 0;
+?>
+
+<h2 class="search-results-title">
+    <?php echo $translate('You Searched for:'); ?>
+</h2>

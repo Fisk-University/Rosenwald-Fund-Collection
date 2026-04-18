@@ -1,0 +1,754 @@
+// Homepage Hero Section
+.blocks {
+  position: relative;
+
+  .block-blockGroup.section-find-schools {
+    position: relative;
+    height: 90px;
+    grid-column: 1 / -1;
+
+    // Hero background image
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; 
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw; 
+      height: 850px;
+      z-index: -2;
+      background: url('../img/homepage-hero.png') center/cover no-repeat;
+      
+      @media (min-width: $breakpoint-sm) {
+        height: 900px;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        height: 770px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        height: 850px;
+      }
+      
+      @media (min-width: $breakpoint-xl) {
+        height: 900px;
+      }
+    }
+    
+    // White card container
+    &::after {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 20px);
+      max-width: 420px;
+      height: 750px;
+      background: $color-white;
+      border-radius: 4px;
+      margin-bottom: 100px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      z-index: -1;
+      
+      @media (min-width: $breakpoint-sm) {
+        top: 50px;
+        width: 90%;
+        max-width: 600px;
+        height: 800px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        top: 60px;
+        width: 85%;
+        max-width: 720px;
+        height: 650px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        top: 65px; 
+        width: 80%; 
+        max-width: 920px;
+        height: 700px;
+      }
+      
+      @media (min-width: $breakpoint-xl) {
+        top: 75px;
+        max-width: 1000px;
+        height: 730px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      }
+    }
+
+    // Common styles for all content blocks
+    & + .block,                           
+    & + .block + .block,                  
+    & + .block + .block + .block,         
+    & + .block + .block + .block + .block,
+    & + .block + .block + .block + .block + .block {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: 0;
+      
+      @media (min-width: $breakpoint-sm) {
+        width: auto;
+        max-width: 500px;
+        padding: 0;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        max-width: 550px;
+        width: auto;
+        padding: 0;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        width: auto;
+        max-width: 700px;
+        padding: 0;
+      }
+      
+      @media (min-width: $breakpoint-xl) {
+        max-width: 880px;
+        padding: 0 30px;
+      }
+    }
+
+    // Title block
+    & + .block {
+      //margin-top: 30px;
+      
+      @media (min-width: $breakpoint-sm) {
+        margin-top: 40px;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        margin-top: 40px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        margin-top: 60px;
+      }
+      .search-card {
+      .search-card__title {
+        font-family: $font-serif;
+        font-size: 22px;
+        text-transform: uppercase;
+        color: $color-heading;
+        margin-bottom: 5px;
+        position: relative; 
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 65%;
+          height: 1px;
+          background-color: $color-accent;
+        }
+        
+        @media (min-width: $breakpoint-sm) {
+          font-size: 28px;
+          margin-bottom: 8px;
+          &::after {
+            display: none;
+          }
+        }
+        
+        @media (min-width: $breakpoint-md) {
+          font-size: 30px;
+          margin-bottom: 10px;
+        }
+        
+        @media (min-width: $breakpoint-lg) {
+          font-size: 36px;
+        }
+        
+        @media (min-width: $breakpoint-xl) {
+          font-size: $font-size-h1;
+        }
+      }
+      
+      .search-card__intro {
+        font-family: $font-sans;
+        font-size: 14px;
+        line-height: 1.4;
+        color: $color-body;
+        margin-bottom: 8px;
+        
+        @media (min-width: $breakpoint-sm) {
+          font-size: 15px;
+          margin-bottom: 10px;
+        }
+        
+        @media (min-width: $breakpoint-md) {
+          font-size: 16px;
+          line-height: 1.5;
+          margin-bottom: 12px;
+        }
+        
+        @media (min-width: $breakpoint-lg) {
+          font-size: $font-size-body;
+          line-height: $lh-body;
+        }
+      }
+      
+      .search-card__heading {
+        font-family: $font-sans;
+        font-size: 12px;
+        text-transform: uppercase;
+        color: $color-heading;
+        font-weight: $weight-semibold;
+        letter-spacing: 0.5px;
+        margin-bottom: 0;
+        
+        @media (min-width: $breakpoint-sm) {
+          font-size: 13px;
+        }
+        
+        @media (min-width: $breakpoint-md) {
+          font-size: 14px;
+          letter-spacing: 0.75px;
+        }
+        
+        @media (min-width: $breakpoint-lg) {
+          font-size: $font-size-label-sm;
+        }
+      }
+    }
+    }
+
+    // School name search form
+    & + .block + .block {
+      margin-top: 15px;
+      padding-left: 0;
+      
+      @media (min-width: $breakpoint-md) {
+        margin-top: 20px;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        margin-top: 25px;
+      }
+      
+      @media (min-width: $breakpoint-xl) {
+        padding-left: 50px !important;
+        padding-right: 60px !important;
+      }
+      
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+
+        > label,
+        label[for="search-input"] {
+          display: block;
+          margin-bottom: 0;
+          font-family: $font-sans;
+          font-size: 14px;
+          font-weight: $weight-medium;
+          color: $color-heading;
+          
+          @media (min-width: $breakpoint-md) {
+            font-size: 15px;
+            margin-bottom: 5px;
+          }
+          
+          @media (min-width: $breakpoint-lg) {
+            font-size: $font-size-body-sm;
+          }
+          
+          &:after {
+            content: '*';
+            color: red;
+            margin-left: 2px;
+          }
+        }
+
+        input[type="text"],
+        input#search-input {
+          width: 100%;
+          height: 40px;
+          padding: 0 12px;
+          font-family: $font-sans;
+          font-size: 14px;
+          color: $color-body;
+          font-weight: $weight-regular;
+          background: $color-white;
+          border: 1px solid $color-input-border;
+          border-radius: 3px;
+          box-sizing: border-box;
+          
+          @media (min-width: $breakpoint-sm) {
+            height: 44px;
+            font-size: 15px;
+            padding: 0 14px;
+          }
+          
+          @media (min-width: $breakpoint-md) {
+            height: 48px;
+            font-size: 16px;
+            padding: 0 16px;
+          }
+          
+          @media (min-width: $breakpoint-lg) {
+            height: 50px;
+            font-size: $font-size-body-sm;
+            padding: 0 $space-sm;
+          }
+        }
+
+        // Horizontal layout on desktop
+        @media (min-width: $breakpoint-md) {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 10px;
+          align-items: flex-end;
+          
+          label {
+            flex: 1 0 100%;
+          }
+          
+          input[type="text"] {
+            flex: 1 1 300px;
+            max-width: 400px;
+          }
+          
+          button[type="submit"] {
+            flex: 0 0 auto;
+          }
+        }
+
+        button[type="submit"] {
+          width: 100%;
+          height: 40px;
+          padding: 0 20px;
+          background: $color-primary;
+          color: $color-white;
+          font-size: 14px;
+          font-weight: $weight-medium;
+          border: none;
+          border-radius: 1px;
+          cursor: pointer;
+          box-sizing: border-box;
+          transition: background 0.2s ease;
+          
+          @media (min-width: $breakpoint-sm) {
+            height: 44px;
+            font-size: 15px;
+            padding: 0 24px;
+          }
+          
+          @media (min-width: $breakpoint-md) {
+            width: auto;
+            height: 48px;
+            font-size: 16px;
+            padding: 0 30px;
+          }
+          
+          @media (min-width: $breakpoint-lg) {
+            height: 50px;
+            padding: 0 $space-lg;
+            font-size: $font-size-input-label;
+          }
+
+          &:hover {
+            background: darken($color-primary, 10%);
+          }
+        }
+      }
+    }
+
+    // OR divider
+    & + .block + .block + .block {
+      margin-top: 15px;
+      
+      @media (min-width: $breakpoint-md) {
+        margin-top: 20px;
+      }
+      
+      .search-card__divider {
+        display: flex;
+        align-items: center;
+        margin: 0;
+
+        &::before, 
+        &::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: $color-divider;
+        }
+        
+        &::before { 
+          margin-right: 8px;
+        }
+        
+        &::after { 
+          margin-left: 8px;
+        }
+
+        span {
+          font-size: 14px;
+          color: $color-primary;
+          padding: 0 8px;
+          font-weight: $weight-medium;
+          
+          @media (min-width: $breakpoint-md) {
+            font-size: 16px;
+            padding: 0 12px;
+          }
+          
+          @media (min-width: $breakpoint-lg) {
+            font-size: $font-size-body-sm;
+            padding: 0 $space-sm;
+          }
+        }
+      }
+    }
+
+    // Location search form
+    & + .block + .block + .block + .block {
+      margin-top: 15px;
+      
+      @media (min-width: $breakpoint-md) {
+        margin-top: 20px;
+      }
+      
+      @media (min-width: $breakpoint-xl) {
+        padding-left: 50px !important;
+        padding-right: 60px !important;
+      }
+      
+      .dual-property-search {
+        h4 {
+          font-family: $font-sans;
+          font-size: 0;
+          text-transform: uppercase;
+          color: $color-heading;
+          font-weight: $weight-semibold;
+          margin-bottom: 10px;
+          
+          @media (min-width: $breakpoint-md) {
+            margin-bottom: 15px;
+          }
+          
+          &:after {
+            content: 'Search by Location';
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            
+            @media (min-width: $breakpoint-sm) {
+              font-size: 13px;
+            }
+            
+            @media (min-width: $breakpoint-md) {
+              font-size: 14px;
+              letter-spacing: 0.75px;
+            }
+            
+            @media (min-width: $breakpoint-lg) {
+              font-size: $font-size-label-sm;
+            }
+          }
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          
+          @media (min-width: $breakpoint-md) {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+            align-items: end;
+          }
+          
+          @media (min-width: $breakpoint-lg) {
+            gap: 12px;
+          }
+
+          .form-group {
+            margin-bottom: 0;
+
+            label {
+              display: block;
+              margin-bottom: 3px;
+              font-family: $font-sans;
+              font-size: 14px;
+              color: $color-body;
+              font-weight: $weight-medium;
+              
+              @media (min-width: $breakpoint-md) {
+                font-size: 15px;
+                margin-bottom: 5px;
+              }
+              
+              @media (min-width: $breakpoint-lg) {
+                font-size: $font-size-input-label;
+                margin-bottom: $space-xs;
+              }
+            }
+            
+            label[for="property-one-select"] {
+              &:after {
+                content: '*';
+                color: red;
+                margin-left: 2px;
+              }
+            }
+            
+            label[for="property-two-select"] {
+              font-size: 0;
+              &:after {
+                content: 'County (optional)';
+                font-size: 14px;
+                font-weight: $weight-medium;
+                
+                @media (min-width: $breakpoint-md) {
+                  font-size: 15px;
+                }
+                
+                @media (min-width: $breakpoint-lg) {
+                  font-size: $font-size-input-label;
+                }
+              }
+            }
+            
+            select {
+              width: 100%;
+              height: 40px;
+              padding: 0 20px 0 15px;
+              font-family: $font-sans;
+              font-size: 14px;
+              border: 1px solid $color-input-border;
+              border-radius: 2px;
+              background: $color-white;
+              color: $color-body;
+              appearance: none;
+              cursor: pointer;
+              background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2714%27%20height%3D%278%27%20viewBox%3D%270%200%2014%208%27%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%3E%3Cpath%20d%3D%27M1%201l6%206%206-6%27%20stroke%3D%27%23666%27%20stroke-width%3D%272%27%20fill%3D%27none%27%20fill-rule%3D%27evenodd%27/%3E%3C/svg%3E');
+              background-repeat: no-repeat;
+              background-position: right 12px center;
+              background-size: 12px;
+              
+              @media (min-width: $breakpoint-sm) {
+                height: 44px;
+                font-size: 15px;
+                padding: 0 40px 0 14px;
+              }
+              
+              @media (min-width: $breakpoint-md) {
+                height: 48px;
+                font-size: 16px;
+                padding: 0 40px 0 16px;
+                background-position: right 14px center;
+              }
+              
+              @media (min-width: $breakpoint-lg) {
+                height: 45px;
+                font-size: $font-size-body-sm;
+                padding: 0 40px 0 $space-sm;
+              }
+
+              &:focus {
+                outline: none;
+                border-color: $color-primary;
+              }
+            }
+          }
+
+          button[type="submit"] {
+            width: 100%;
+            height: 40px;
+            padding: 0 20px;
+            background: $color-primary;
+            color: $color-white;
+            font-family: $font-sans;
+            font-size: 14px;
+            font-weight: $weight-medium;
+            border: none;
+            border-radius: 1px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s ease;
+            
+            @media (min-width: $breakpoint-sm) {
+              height: 44px;
+              font-size: 15px;
+              padding: 0 24px;
+            }
+            
+            @media (min-width: $breakpoint-md) {
+              width: auto;
+              height: 48px;
+              font-size: 16px;
+              padding: 0 30px;
+            }
+            
+            @media (min-width: $breakpoint-lg) {
+              height: 50px;
+              padding: 0 $space-lg;
+              font-size: $font-size-input-label;
+            }
+
+            &:hover {
+              background: darken($color-primary, 10%);
+            }
+          }
+        }
+      }
+    }
+
+    // Help tooltip block
+    & + .block + .block + .block + .block + .block {
+      margin-top: 15px;
+      padding-bottom: 30px !important;
+      
+      @media (min-width: $breakpoint-sm) {
+        padding-bottom: 40px !important;
+      }
+      
+      @media (min-width: $breakpoint-md) {
+        margin-top: 20px;
+        padding-bottom: 50px !important;
+      }
+      
+      @media (min-width: $breakpoint-lg) {
+        padding-bottom: 60px !important;
+      }
+      .search-card-tool-tip {
+      .search-card__help {
+        font-family: $font-sans;
+        font-size: 0;
+        color: $color-link;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .help-icon {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          cursor: help;
+
+          &::before {
+            content: 'i';
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 12px;
+            height: 12px;
+            border: 2px solid $color-link;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: $weight-semibold;
+            color: $color-link;
+            margin-right: 5px;
+            
+            @media (min-width: $breakpoint-md) {
+              width: 18px;
+              height: 18px;
+              font-size: 12px;
+              margin-right: 6px;
+            }
+          }
+
+          .help-text {
+            text-decoration: underline;
+            font-size: 14px;
+            font-family: $font-sans;
+            color: $color-link;
+            
+            @media (min-width: $breakpoint-md) {
+              font-size: 16px;
+            }
+          }
+
+          .tooltip-text {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 260px;
+            padding: 12px 14px;
+            background: white;
+            color: $color-body;
+            font-size: 13px;
+            line-height: 1.5;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            z-index: 1000;
+            
+            @media (min-width: $breakpoint-sm) {
+              left: 0;
+              transform: translateX(0);
+              width: 300px;
+              padding: 14px 16px;
+              font-size: 14px;
+            }
+            
+            @media (min-width: $breakpoint-md) {
+              width: 320px;
+              font-size: $font-size-body-sm;
+            }
+
+            &::after {
+              content: '';
+              position: absolute;
+              top: 100%;
+              left: 50%;
+              transform: translateX(-50%);
+              border-left: 6px solid transparent;
+              border-right: 6px solid transparent;
+              border-top: 6px solid white;
+              
+              @media (min-width: $breakpoint-sm) {
+                left: 20px;
+                transform: translateX(0);
+              }
+            }
+          }
+
+          &:hover .tooltip-text {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+    }
+  }
+
+  // Mobile form alignment fix (Indentattion Fix)
+  @media (max-width: $breakpoint-md) {
+    .search-form,
+    .dual-property-search {
+      margin-left: 30px !important;
+      margin-right: 30px !important;
+      padding: 0 !important;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    .search-form,
+    .dual-property-search {
+      margin-left: 20px !important;
+      margin-right: 20px !important;
+      padding: 0 !important;
+    }
+  }
+}

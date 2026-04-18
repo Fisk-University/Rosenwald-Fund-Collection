@@ -1,0 +1,299 @@
+.explore-funds-section {
+  position: relative;
+  width: 100%;
+  margin: 40px 0;
+  padding: 40px 16px;
+  box-sizing: border-box;
+  margin-bottom: 0;
+
+  // Header
+  .section-header {
+    position: relative;
+    margin-bottom: 24px;
+    text-align: left;
+
+    h2 {
+      display: inline-block;         
+      position: relative;             
+      font-family: $font-serif;
+      font-size: 24px;               
+      line-height: $lh-h2;            
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: $color-heading;
+      margin: 0 0 8px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 75%;
+        height: 1px;
+        background-color: $color-accent;
+      }
+    }
+  }
+
+  // Grid
+  .funds-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    
+    // Hide HTML dividers if they exist
+    .grid-divider {
+      display: none;
+    }
+  }
+
+  // Base Styles for CARD
+  .fund-item {
+    transition: 0.3s ease all;
+    overflow: visible;
+    position: relative;
+
+    .fund-image {
+      height: 200px;
+      border: 0.5px solid $color-divider;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+
+    .fund-content {
+      padding: 16px 16px 16px 0px;
+
+      h3 {
+        font-family: $font-serif;
+        font-size: 24px;
+        font-weight: $weight-regular;
+        margin: 0 0 8px;
+        color: $color-heading;
+      }
+
+      p {
+        font-family: $font-sans;
+        font-size: 14px;
+        line-height: 1.6;
+        color: $color-body;
+        margin: 0
+      }
+
+      .view-link {
+        font-family: $font-sans;
+        font-size: 15px;
+        color: $color-link;
+        font-weight: $weight-semibold;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        span.text {
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          text-decoration-thickness: 1px;
+        }
+
+        span.arrow {
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          color: $color-primary;
+          span.arrow {
+            transform: translateX(5px);
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-sm) {
+  margin: 60px auto;
+  padding: 60px 24px;
+
+  .section-header {
+    margin-bottom: 32px;
+    h2 { font-size: 26px; }
+  }
+
+  .funds-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    justify-items: center;
+  }
+
+  .fund-item {
+    max-width: 290px;
+    width: 100%;
+    overflow: visible;
+    position: relative;
+    
+    // Add divider for left column items
+    &:nth-child(1),
+    &:nth-child(3),
+    &:nth-child(5) {
+      &::after {
+        content: '';
+        position: absolute;
+        left: 100%; // Position at right edge of item
+        margin-left: 16px; // Half of 32px gap
+        top: 0;
+        width: 1px;
+        height: 350px;
+        background-color: $color-divider;
+        z-index: 1;
+        display: block;
+      }
+    }
+    
+    .fund-image { 
+      width: 100%;
+      max-width: 350px;
+      height: 200px; 
+    }
+    
+    .fund-content {
+      h3  { font-size: 22px; }
+      p   { font-size: 15px; }
+      .view-link { font-size: 14px;}
+    }
+  }
+}
+
+  @media (min-width: $breakpoint-md) {
+    margin: 80px auto;
+    padding: 80px 40px;
+
+    .section-header {
+      margin-bottom: 40px;
+      h2 { font-size: 28px; }
+    }
+
+    .funds-grid {
+      gap: 40px;
+      justify-items: center; // Center items
+    }
+
+    .fund-item {
+      max-width: 370px;
+      width: 100%; // Take full width up to max
+      
+      // Update divider position for larger gap
+      &:nth-child(1),
+      &:nth-child(3),
+      &:nth-child(5) {
+        &::after {
+          right: -20px;
+          transform: translateX(50%); // Push to center
+        }
+      }
+      
+      .fund-image { 
+        width: 100%;
+        max-width: 370px; // Match parent max-width
+        height: 200px; 
+      }
+      
+      .fund-content {
+        h3 { font-size: 26px; }
+        p  { font-size: 14px; }
+        .view-link { font-size: 16px;}
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    max-width: 1140px;
+    margin: 100px auto;
+    padding: 100px 60px;
+
+    .section-header {
+      margin-bottom: 60px;
+      h2 { font-size: 32px; }
+    }
+
+    .funds-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .fund-item {
+      max-width: 320px;
+      overflow: visible;
+      position: relative;
+      
+      // Remove 2-column dividers
+      &:nth-child(odd) {
+        &::after {
+          display: none;
+        }
+      }
+      
+      // Add 3-column dividers (items 1, 2, 4, 5)
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(4),
+      &:nth-child(5) {
+        &::after {
+          content: '';
+          position: absolute;
+          right: -20px; // Half of 40px gap
+          top: 0;
+          width: 1px;
+          height: 370px; // Match image height
+          background-color: $color-divider;
+          z-index: 1;
+          display: block;
+        }
+      }
+      
+      .fund-image { width: 280px; height: 200px; }
+      .fund-content {
+        h3 { font-size: 26px; }
+        p  { font-size: 16px; margin-bottom: 10px;}
+      }
+    }
+  }
+
+  @media (min-width: $breakpoint-xl) {
+    margin: 120px auto;
+    padding: 120px 80px;
+
+    .section-header {
+      margin-bottom: 80px;
+      h2 { font-size: 34px; }
+    }
+
+    .funds-grid {
+      gap: 48px;
+    }
+
+    .fund-item {
+      // Update divider position and height for XL
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(4),
+      &:nth-child(5) {
+        &::after {
+          right: -24px; // Half of 48px gap
+          height: 430px; // Match XL item(image+content) height
+        }
+      }
+      
+      .fund-image { height: 250px; width: 270px}
+      .fund-content {
+        h3 { font-size: 28px; }
+        p  { font-size: 16px; }
+      }
+    }
+  }
+}

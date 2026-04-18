@@ -1,0 +1,52 @@
+/* Search page enhancements for DateRangeFilter integration */
+.search-filters-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.date-range-container {
+    max-width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .search-filters-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    .search-filters {
+        flex: 2;
+        min-width: 300px;
+    }
+    
+    .date-range-container {
+        flex: 1;
+        min-width: 250px;
+    }
+}
+
+/* Style adjustments for DateRangeFilter */
+.date-range-filter {
+    border-color: rgba(109, 69, 52, 0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.date-range-active-filters {
+    background-color: #f9f5f1;
+    border: 1px solid rgba(109, 69, 52, 0.1);
+}
+
+li.active-filter {
+    background-color: #e9e1d8;
+    color: #39302a;
+}
+
+.remove-filter {
+    background: #a56336;
+}
+
+.remove-filter:hover {
+    background: #6d4534;
+}

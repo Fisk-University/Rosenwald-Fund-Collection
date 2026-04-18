@@ -1,0 +1,137 @@
+<?php
+/**
+ * Search Results List
+ * Displays search results with sort controls and pagination
+ */
+
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+
+// Get variables
+$items = isset($items) ? $items : [];
+$searchContext = isset($searchContext) ? $searchContext : [];
+$query = isset($query) ? $query : [];
+$totalResults = isset($totalResults) ? $totalResults : 0;
+?>
+
+<?php if (count($items) > 0): ?>
+    
+    <div class="search-results-content">
+        
+        <!-- Results Count and Pagination Line -->
+        <div class="results-count-pagination">
+            <span class="results-count">
+                <?php echo sprintf($translate('%s Results'), $totalResults); ?>
+            </span>
+            
+            <!-- Top Pagination -->
+            <div class="pagination-wrapper pagination-top">
+                <?php echo $this->pagination(); ?>
+            </div>
+        </div>
+        
+        <!-- Sort Controls -->
+        <div class="results-header">
+            <div class="results-controls">
+                <span class="results-label">SORT</span>
+                
+                <form method="get" class="sort-form">
+                    <?php 
+                    // Preserve search parameters in sort form
+                    echo $this->partial('common/search/search-hidden-params.phtml', [
+                        'searchContext' => $searchContext
+                    ]); 
+                    ?>
+                    
+                    <div class="sort-controls">
+                        <!-- Sort By -->
+                        <select name="sort_by" class="sort-select sort-by">
+                            <option value="created" <?php echo isset($query['sort_by']) && $query['sort_by'] == 'created' ? 'selected' : ''; ?>>
+                                <?php echo $translate('Created'); ?>
+                            </option>
+                            <option value="title" <?php echo isset($query['sort_by']) && $query['sort_by'] == 'title' ? 'selected' : ''; ?>>
+                                <?php echo $translate('Title'); ?>
+                            </option>
+                        </select>
+                        
+                        <!-- Sort Order -->
+                        <select name="sort_order" class="sort-select sort-order">
+                            <option value="asc" <?php echo isset($query['sort_order']) && $query['sort_order'] == 'asc' ? 'selected' : ''; ?>>
+                                <?php echo $translate('Ascending'); ?>
+                            </option>
+                            <option value="desc" <?php echo isset($query['sort_order']) && $query['sort_order'] == 'desc' ? 'selected' : ''; ?>>
+                                <?php echo $translate('Descending'); ?>
+                            </option>
+                        </select>
+                        
+                        <button type="submit" class="sort-button">
+                            <?php echo $translate('Sort'); ?>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Results Items -->
+        <div class="result-items">
+            <?php foreach ($items as $item): ?>
+                <div class="result-item">
+                    
+                    <!-- Thumbnail -->
+                    <?php if ($primaryMedia = $item->primaryMedia()): ?>
+                        <div class="result-thumbnail">
+                            <a href="<?php echo $escape($item->url()); ?>">
+                                <img src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>" 
+                                     alt="<?php echo $escape($primaryMedia->displayTitle()); ?>"
+                                     loading="lazy">
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <!-- Content -->
+                    <div class="result-content">
+                        <h3 class="result-title">
+                            <a href="<?php echo $escape($item->url()); ?>">
+                                <?php echo $escape($item->displayTitle()); ?>
+                            </a>
+                        </h3>
+                        
+                        <?php if ($description = $item->displayDescription()): ?>
+                            <div class="result-description">
+                                <?php echo $description; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                    
+                </div>
+            <?php endforeach; ?>
+        </div>
+        
+        <!-- Bottom Pagination -->
+        <div class="pagination-wrapper pagination-bottom">
+            <?php echo $this->pagination(); ?>
+        </div>
+        
+    </div>
+    
+<?php else: ?>
+    
+    <!-- No Results -->
+    <div class="no-results">
+        <p class="no-results-message">
+            <?php echo $translate('No results found.'); ?>
+            
+            <?php if ($searchContext['type'] == 'keyword' && $searchContext['searchTerm']): ?>
+                <?php echo $translate('Try different search terms.'); ?>
+            <?php elseif ($searchContext['type'] == 'location'): ?>
+                <?php echo $translate('Try selecting different location criteria.'); ?>
+            <?php endif; ?>
+        </p>
+        
+        <a href="<?php echo $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], true); ?>" 
+           class="clear-search-link">
+            <?php echo $translate('Browse All Items'); ?>
+        </a>
+    </div>
+    
+<?php endif; ?>

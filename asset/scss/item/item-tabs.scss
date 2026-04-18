@@ -1,0 +1,270 @@
+/**
+ * Tabs Section Styles
+ * Information and Background tabbed interface
+ */
+
+.metadata-tabs-section {
+    padding: $space-xl 0;
+    
+    .tabs-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 $space-md;
+    }
+    
+    // Section Title
+    .section-title {
+        font-family: $font-serif;
+        font-size: $font-size-label-sm;
+        font-weight: $weight-regular;
+        color: $color-heading;
+        margin-bottom: 10px;
+        text-align: flex-start;
+        line-height: $lh-h2;
+    }
+    
+    // Tabs Wrapper
+    .tabs-wrapper {
+        background-color: $color-white;
+        border: 1px solid $color-input-border;
+    }
+    
+    // Tab Navigation
+    .tab-nav {
+        display: flex;
+        border-bottom: 1px solid $color-divider;
+        
+        .tab-button {
+            flex: 1;
+            width: 50%;
+            background: transparent;
+            border: none;
+            padding: 15px;
+            font-family: $font-sans;
+            font-size: 12px;
+            font-weight: $weight-semibold;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: $color-heading;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            outline: none;
+            background-color: $color-search-bg;
+            
+            &:hover {
+                background-color: $btn-secondary-hover;
+                color: $color-body;
+            }
+            
+            &.active {
+                color: $color-heading;
+                background-color: $color-white;
+            }
+        }
+    }
+    
+    // Tab Content
+    .tab-content {
+        background-color: $color-white;
+        min-height: 300px;
+        
+        .tab-panel {
+            animation: fadeIn 0.3s ease;
+        }
+        
+        // Property List (the metadata - using Omeka's structure)
+        dl {
+            margin: 0;
+            
+            .property {
+                display: flex;
+                padding: $space-md 0;
+                border-bottom: 1px solid $color-divider;
+                
+                &:last-child {
+                    border-bottom: none;
+                    padding-bottom: 15px;
+                }
+                
+                dt {
+                    flex: 0 0 140px;
+                    font-family: $font-sans;
+                    font-size: 14px;
+                    font-weight: $weight-semibold;
+                    color: $color-link;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    padding-right: $space-lg;
+                    margin-left: 50px;
+                }
+                
+                dd {
+                    flex: 1;
+                    margin: 0;
+                    font-family: $font-sans;
+                    font-size: $font-size-body-sm;
+                    color: $color-body;
+                    line-height: $lh-body;
+                    margin-right: 15px;
+                    
+                    .value {
+                        display: block;
+                        
+                        .value-content {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Animation
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Small screens (576px and up)
+@media (min-width: $breakpoint-sm) {
+    .metadata-tabs-section {
+        .tabs-container {
+            padding: 0 $space-lg;
+        }
+        
+        .section-title {
+            font-size: 24px;
+        }
+        
+        .tab-nav {
+            .tab-button {
+                flex: none;
+                padding: $space-md $space-xl;
+                font-size: 12px;
+            }
+        }
+        
+        .tab-content {            
+            .property-list {
+                .property {
+                    dt {
+                        flex: 0 0 160px;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Medium screens (768px and up)
+@media (min-width: $breakpoint-md) {
+    .metadata-tabs-section {
+        .section-title {
+            font-size: $font-size-label-md;
+        }
+        
+        .tab-nav {
+            .tab-button {
+                font-size: 13px;
+                padding: 18px $space-xl;
+            }
+        }
+        
+        .tab-content {            
+            .property-list {
+                .property {                    
+                    dt {
+                        flex: 0 0 180px;
+                        font-size: 13px;
+                    }
+                    
+                    dd .value {
+                        font-size: 17px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Large screens (992px and up)
+@media (min-width: $breakpoint-lg) {
+    .metadata-tabs-section {
+        padding: 80px 0;
+        
+        .section-title {
+            font-size: $font-size-label-lg;
+        }
+        
+        .tab-nav {
+            .tab-button {
+                font-size: 18px;
+                padding: 20px 60px;
+                
+                &.active::after {
+                    height: 4px;
+                }
+            }
+        }
+        
+        .tab-content {
+            .property-list {
+                .property {
+                    padding: 20px 0;
+                    
+                    dt {
+                        flex: 0 0 200px;
+                        font-size: 14px;
+                    }
+                    
+                    dd .value {
+                        font-size: $font-size-body;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Extra large screens (1200px and up)
+@media (min-width: $breakpoint-xl) {
+    .metadata-tabs-section {
+        padding: 100px 0;
+        
+        .tabs-container {
+            padding: 0 $space-xl;
+        }
+        
+        .section-title {
+            font-size: 36px;
+        }
+        
+        .tab-nav {
+            .tab-button {
+                padding: 24px 80px;
+            }
+        }
+        
+        .tab-content {
+            .property-list {
+                .property {
+                    padding: 24px 0;
+                    
+                    dt {
+                        flex: 0 0 220px;
+                        font-size: 18px;
+                    }
+                }
+            }
+        }
+    }
+}

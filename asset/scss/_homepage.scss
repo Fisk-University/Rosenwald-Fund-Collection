@@ -1,0 +1,143 @@
+// Sandpaper background for entire site
+.sandpaper-bg {
+  position: relative;
+  min-height: 100vh;
+  background-image: url('../img/background.jpg');
+  background-size: inherit;
+  background-position: center center;
+  
+  // Add overlay to lighten
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(244, 240, 240, 0.675); // 60% white overlay
+    pointer-events: none;
+  }
+  
+  // Make sure content is above overlay
+  .site-layout {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+
+// Full-width background for specific homepage sections using nth-child
+
+// Mobile First - Base styles
+.blocks {
+  // First Carousel Section (children 8 & 9)
+  > .block:nth-child(8) {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: calc(100% + 400px); // Mobile default
+      background-color: rgba(0, 0, 0, 0.04);
+      z-index: -1;
+      pointer-events: none;
+      top: 0;
+    }
+  }
+  
+  // Map Section (children 12 & 13)
+  > .block:nth-child(12) {
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: calc(100% + 600px); // Mobile default
+      background-color: rgba(0, 0, 0, 0.04);
+      z-index: -1;
+      pointer-events: none;
+      top: 0;
+    }
+  }
+  
+  // Clean up 9th and 13th blocks
+  > .block:nth-child(9),
+  > .block:nth-child(13) {
+    position: relative;
+    overflow: visible !important;
+    
+    &::before {
+      display: none;
+    }
+  }
+}
+
+// SM Breakpoint
+@media (min-width: $breakpoint-sm) {
+  .blocks {
+    > .block:nth-child(8)::before {
+      height: calc(100% + 500px);
+    }
+    
+    > .block:nth-child(12)::before {
+      height: calc(100% + 620px);
+    }
+  }
+}
+
+// MD Breakpoint
+@media (min-width: $breakpoint-md) {
+  .blocks {
+    > .block:nth-child(8)::before {
+      height: calc(100% + 550px);
+    }
+    
+    > .block:nth-child(12)::before {
+      height: calc(100% + 630px);
+    }
+  }
+}
+
+// LG Breakpoint
+@media (min-width: $breakpoint-lg) {
+  .blocks {
+    > .block:nth-child(8)::before {
+      height: calc(100% + 650px);
+    }
+    
+    > .block:nth-child(12)::before {
+      height: calc(100% + 620px);
+    }
+  }
+}
+
+// XL Breakpoint
+@media (min-width: $breakpoint-xl) {
+  .blocks {
+    > .block:nth-child(8)::before {
+      height: calc(100% + 650px);
+    }
+    
+    > .block:nth-child(12)::before {
+      height: calc(100% + 550px);
+    }
+  }
+}
+// Ensure content stays above backgrounds
+.blocks {
+  > .block:nth-child(8),
+  > .block:nth-child(9),
+  > .block:nth-child(12),
+  > .block:nth-child(13) {
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}

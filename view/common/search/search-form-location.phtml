@@ -1,0 +1,193 @@
+<?php
+/**
+ * Location Search Form (DBAL cache via UnitedSearch\LocationMap)
+ */
+
+$translate = $this->plugin('translate');
+$escape    = $this->plugin('escapeHtml');
+$api       = $this->api();
+
+/**
+ * Resolve the two property terms (supports URL detection, site/global settings, and safe fallback).
+ * Returns array [$termOne, $termTwo, $propIdOne, $propIdTwo]
+ */
+$resolveTerms = function() use ($api) {
+    $params   = $this->params()->fromQuery();
+    $termOne  = null;
+    $termTwo  = null;
+    $idOne    = null;
+    $idTwo    = null;
+
+    // 1) Detect from current URL (works with term strings or numeric property IDs)
+    if (!empty($params['property']) && is_array($params['property'])) {
+        foreach ($params['property'] as $cond) {
+            $prop = $cond['property'] ?? null;
+            if ($prop === null || $prop === '') continue;
+
+            if (ctype_digit((string)$prop)) {
+                // Numeric id -> term
+                try {
+                    $p = $api->read('properties', (int)$prop)->getContent();
+                    $propTerm = $p ? $p->term() : null;
+                } catch (\Exception $e) { $propTerm = null; }
+                if ($propTerm) {
+                    if ($termOne === null) { $termOne = $propTerm; $idOne = (int)$prop; }
+                    elseif ($termTwo === null && $propTerm !== $termOne) { $termTwo = $propTerm; $idTwo = (int)$prop; }
+                }
+            } else {
+                // Already a term ("prefix:local_name")
+                if ($termOne === null) { $termOne = (string)$prop; }
+                elseif ($termTwo === null && $prop !== $termOne) { $termTwo = (string)$prop; }
+            }
+        }
+    }
+
+    // 2) Fill from settings if missing
+    $termOne  = $termOne ?? ($this->siteSetting('unitedsearch.dualprop.term_one')  ?: $this->setting('unitedsearch.dualprop.term_one')  ?: null);
+    $termTwo  = $termTwo ?? ($this->siteSetting('unitedsearch.dualprop.term_two')  ?: $this->setting('unitedsearch.dualprop.term_two')  ?: null);
+
+    // 3) Final fallback: auto-discover RFC terms if they exist (covers OR + state-only URLs)
+    if (!$termOne || !$termTwo) {
+        $stateProp  = $api->searchOne('properties', ['term' => 'rfc:state'])->getContent();
+        $countyProp = $api->searchOne('properties', ['term' => 'rfc:county'])->getContent();
+        if (!$termOne && $stateProp)  $termOne  = 'rfc:state';
+        if (!$termTwo && $countyProp) $termTwo  = 'rfc:county';
+    }
+
+    // Resolve numeric IDs (for matching selected values)
+    if ($termOne && !$idOne) {
+        $p = $api->searchOne('properties', ['term' => $termOne])->getContent();
+        if ($p) $idOne = (int)$p->id();
+    }
+    if ($termTwo && !$idTwo) {
+        $p = $api->searchOne('properties', ['term' => $termTwo])->getContent();
+        if ($p) $idTwo = (int)$p->id();
+    }
+
+    return [$termOne, $termTwo, $idOne, $idTwo];
+};
+
+list($termOne, $termTwo, $propIdOne, $propIdTwo) = $resolveTerms();
+
+// Resolve currently - selected STATE/COUNTY values from query, by matching either term or ID
+$selectedState  = '';
+$selectedCounty = '';
+$params = $this->params()->fromQuery();
+if (!empty($params['property']) && is_array($params['property'])) {
+    foreach ($params['property'] as $cond) {
+        $prop = $cond['property'] ?? null;
+        $text = (string)($cond['text'] ?? '');
+        if ($text === '' || $prop === null) continue;
+
+        $isState  = ($prop === $termOne)  || (ctype_digit((string)$prop) && (int)$prop === $propIdOne);
+        $isCounty = ($prop === $termTwo)  || (ctype_digit((string)$prop) && (int)$prop === $propIdTwo);
+
+        if ($isState)  $selectedState  = $text;
+        if ($isCounty) $selectedCounty = $text;
+    }
+}
+// Fallback: UnitedSearch helpers on some forms
+if ($selectedState === ''  && isset($params['property_one_value'])) $selectedState  = (string)$params['property_one_value'];
+if ($selectedCounty === '' && isset($params['property_two_value'])) $selectedCounty = (string)$params['property_two_value'];
+
+// TTL (seconds): default 3600
+$ttl = (int)($this->siteSetting('unitedsearch.dualprop.ttl') ?: $this->setting('unitedsearch.dualprop.ttl') ?: 3600);
+
+// Site scope for the map
+$siteId = isset($this->site) && $this->site ? (int)$this->site->id() : null;
+
+// Build/read cached map once (DBAL) — works even when only State was selected
+$loc    = $this->locationMap($siteId, (string)$termOne, (string)$termTwo, $ttl);
+$states = $loc['valuesOne'] ?? [];
+$map    = $loc['map']       ?? [];
+
+// Server-rendered counties for initial paint
+$countiesForSelected = ($selectedState && !empty($map[$selectedState])) ? $map[$selectedState] : [];
+
+$selectStateLabel  = $translate('Select state');
+$selectCountyLabel = $translate('Select county');
+?>
+<div class="search-form-container location-search-container">
+  <form method="get"
+        action="<?= $this->url('site/resource', ['controller' => 'item', 'action' => 'browse'], true); ?>"
+        class="search-form location-search-form"
+        id="location-search-form">
+
+    <div class="search-filters">
+      <div class="filter-row">
+
+        <!-- State -->
+        <div class="search-filter-group">
+          <label for="state" class="filter-label">
+            <?= $translate('State'); ?> <span class="required">*</span>
+          </label>
+          <select id="state" name="property[0][text]" class="filter-select state-select">
+            <option value=""><?= $escape($selectStateLabel) ?></option>
+            <?php foreach ($states as $state): ?>
+              <option value="<?= $escape($state) ?>" <?= $state === $selectedState ? 'selected' : '' ?>>
+                <?= $escape($state) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <!-- County -->
+        <div class="search-filter-group">
+          <label for="county" class="filter-label"><?= $translate('County (optional)'); ?></label>
+          <select id="county" name="property[1][text]" class="filter-select county-select" <?= $selectedState ? '' : 'disabled' ?>>
+            <option value=""><?= $escape($selectCountyLabel) ?></option>
+            <?php foreach ($countiesForSelected as $county): ?>
+              <option value="<?= $escape($county) ?>" <?= $county === $selectedCounty ? 'selected' : '' ?>>
+                <?= $escape($county) ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <button type="submit" class="search-button location-search-btn">
+          <?= $translate('Search'); ?>
+        </button>
+      </div>
+    </div>
+
+    <!-- Hidden Omeka filters use the *resolved* terms (browse expects terms; OR/AND is handled by origin form) -->
+    <input type="hidden" name="property[0][joiner]"   value="and">
+    <input type="hidden" name="property[0][property]" value="<?= $escape((string)$termOne) ?>">
+    <input type="hidden" name="property[0][type]"     value="eq">
+
+    <input type="hidden" name="property[1][joiner]"   value="and">
+    <input type="hidden" name="property[1][property]" value="<?= $escape((string)$termTwo) ?>">
+    <input type="hidden" name="property[1][type]"     value="eq">
+  </form>
+</div>
+
+<!-- JS: only repopulates counties when state changes -->
+<script>
+(function(){
+  const stateEl  = document.getElementById('state');
+  const countyEl = document.getElementById('county');
+  const SELECT_COUNTY = <?= json_encode($selectCountyLabel) ?>;
+
+  // Embed the map for instant switches
+  const relationshipMap = <?= json_encode($map, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ?>;
+
+  function fillCounties(list, selected) {
+    countyEl.innerHTML = '';
+    countyEl.add(new Option(SELECT_COUNTY, ''));
+    (list || []).forEach(function(c){
+      countyEl.add(new Option(c, c, false, c === selected));
+    });
+    countyEl.disabled = !list || list.length === 0;
+  }
+
+  // Pre-populate if a state is already selected
+  <?php if ($selectedState): ?>
+  fillCounties(relationshipMap[<?= json_encode($selectedState) ?>] || [], <?= json_encode($selectedCounty) ?> || '');
+  <?php endif; ?>
+
+  stateEl.addEventListener('change', function(){
+    const s = this.value;
+    fillCounties(relationshipMap[s] || [], '');
+  });
+})();
+</script>

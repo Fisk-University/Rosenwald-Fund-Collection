@@ -1,0 +1,50 @@
+<?php
+/**
+ * Header Section for Item Display
+ * Extracts school name from title and displays breadcrumb
+ */
+
+// Get the full title
+$fullTitle = $item->displayTitle();
+
+// Extract school name (everything before " in ")
+$schoolName = $fullTitle;
+if (strpos($fullTitle, ' in ') !== false) {
+    $parts = explode(' in ', $fullTitle);
+    $schoolName = $parts[0];
+}
+
+// Get item sets for breadcrumb
+$itemSets = $item->itemSets();
+
+// Get description
+$description = $item->displayDescription();
+?>
+
+<header class="item-header">
+    <div class="header-container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <?php if ($itemSets && count($itemSets) > 0): ?>
+                <?php 
+                $firstItemSet = is_array($itemSets) ? reset($itemSets) : $itemSets[0];
+                if ($firstItemSet): 
+                ?>
+                    <a href="<?php echo $firstItemSet->url(); ?>" class="breadcrumb-link">
+                        <?php echo $escape($firstItemSet->displayTitle()); ?>
+                    </a>
+                    <span class="breadcrumb-separator">/</span>
+                <?php endif; ?>
+            <?php endif; ?>
+            <span class="breadcrumb-current"><?php echo $escape($schoolName); ?></span>
+        </nav>
+        
+        <!-- School Name with Underline -->
+        <h1 class="school-name"><?php echo $escape($schoolName); ?></h1>
+        
+        <!-- Description -->
+        <?php if ($description): ?>
+        <p class="school-description"><?php echo $escape($description); ?></p>
+        <?php endif; ?>
+    </div>
+</header>

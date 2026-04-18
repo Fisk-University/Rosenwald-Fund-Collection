@@ -1,0 +1,151 @@
+/**
+ * Rosenwald Fund Collection - Home Page Styles
+ */
+
+ .home-banner {
+    background-color: var(--light-color);
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.home-title {
+    color: var(--primary-color);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.home-subtitle {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    font-style: italic;
+}
+
+.home-content {
+    padding-bottom: 3rem;
+}
+
+.home-intro {
+    margin-bottom: 4rem;
+}
+
+.home-intro-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+}
+
+.home-featured h2 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.home-featured h2:after {
+    content: "";
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+.home-featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.featured-item {
+    border: 1px solid var(--light-color);
+    border-radius: 4px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.featured-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+}
+
+.featured-item-thumbnail {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.featured-item-thumbnail img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+}
+
+.featured-item-title {
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.featured-item-description {
+    font-size: 0.9rem;
+    color: var(--body-text);
+}
+
+.home-browse-link {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.home-browse-link .button {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .home-banner {
+        padding: 3rem 0;
+    }
+    
+    .home-title {
+        font-size: 2.5rem;
+    }
+    
+    .home-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .home-featured-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .home-banner {
+        padding: 2rem 0;
+    }
+    
+    .home-title {
+        font-size: 2rem;
+    }
+    
+    .home-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .home-featured-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-item {
+        padding: 0.75rem;
+    }
+    
+    .home-browse-link .button {
+        width: 100%;
+    }
+}
