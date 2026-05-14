@@ -526,7 +526,6 @@ input[type=text]:focus, select:focus {
 .team-gallery .gallery-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
   margin-top: 1rem;
 }
 .team-gallery .gallery-grid img {
@@ -1513,6 +1512,8 @@ input[type=text]:focus, select:focus {
   font-weight: 600;
   letter-spacing: 0.5px;
   margin-bottom: 0;
+  padding-top: 1em;
+  padding-bottom: 0.5em;
 }
 @media (min-width: 576px) {
   .blocks .block-blockGroup.section-find-schools + .block .search-card .search-card__heading {
@@ -1558,7 +1559,7 @@ input[type=text]:focus, select:focus {
 }
 .blocks .block-blockGroup.section-find-schools + .block + .block .input-group > label,
 .blocks .block-blockGroup.section-find-schools + .block + .block .input-group label[for=search-input] {
-  display: block;
+  display: none;
   margin-bottom: 0;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
