@@ -4118,9 +4118,9 @@ section article > header > div p {
   margin-left: 0px !important;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form {
-  margin-left: 20px;
-  max-width: 320px;
+  max-width: 100%;
   width: 100%;
+  padding: 1em;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form .input-group {
   display: flex;
@@ -4150,6 +4150,7 @@ section article > header > div p {
   border: 1px solid #947E72;
   border-radius: 4px;
   margin-right: 10px;
+  max-width: 57%;
 }
 .block-ItemSetSearch.school-fund-search-section .search-form form .input-group input[type=text]#search-input::-moz-placeholder {
   color: #000000;
