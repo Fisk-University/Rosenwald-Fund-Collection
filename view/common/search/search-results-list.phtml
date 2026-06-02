@@ -75,10 +75,16 @@ $totalResults = isset($totalResults) ? $totalResults : 0;
         <!-- Results Items -->
         <div class="result-items">
             <?php foreach ($items as $item): ?>
-                <div class="result-item <?php echo $item->getResourceName() === 'item_sets' ? 'result-item-set' : 'result-item-item'; ?>">
+                <?php
+                // Detect resource type - could be 'items' or 'item_sets'
+                $resourceType = method_exists($item, 'getResourceName') ? $item->getResourceName() : get_class($item);
+                $isItemSet = (strpos($resourceType, 'item_set') !== false || strpos(strtolower($resourceType), 'itemset') !== false);
+                $resourceClass = $isItemSet ? 'result-item-set' : 'result-item-item';
+                ?>
+                <div class="result-item <?php echo $resourceClass; ?>">
 
                     <!-- Thumbnail - Only for items, not item sets -->
-                    <?php if ($item->getResourceName() === 'items' && ($primaryMedia = $item->primaryMedia())): ?>
+                    <?php if (!$isItemSet && method_exists($item, 'primaryMedia') && ($primaryMedia = $item->primaryMedia())): ?>
                         <div class="result-thumbnail">
                             <a href="<?php echo $escape($item->url()); ?>">
                                 <img src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>"
@@ -102,18 +108,10 @@ $totalResults = isset($totalResults) ? $totalResults : 0;
                             </div>
                         <?php endif; ?>
 
-                        <!-- Item count for item sets -->
-                        <?php if ($item->getResourceName() === 'item_sets'): ?>
+                        <!-- Item set badge -->
+                        <?php if ($isItemSet): ?>
                             <div class="result-item-set-count">
-                                <?php
-                                try {
-                                    $itemCount = count($item->getItems());
-                                    echo sprintf($translate('%d item(s)'), $itemCount);
-                                } catch (Exception $e) {
-                                    // Fallback if getItems() is not available
-                                    echo $translate('Item Set');
-                                }
-                                ?>
+                                <?php echo $translate('Item Set'); ?>
                             </div>
                         <?php endif; ?>
                     </div>
