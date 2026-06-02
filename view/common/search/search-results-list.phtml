@@ -75,19 +75,19 @@ $totalResults = isset($totalResults) ? $totalResults : 0;
         <!-- Results Items -->
         <div class="result-items">
             <?php foreach ($items as $item): ?>
-                <div class="result-item">
-                    
-                    <!-- Thumbnail -->
-                    <?php if ($primaryMedia = $item->primaryMedia()): ?>
+                <div class="result-item <?php echo $item->getResourceName() === 'item_sets' ? 'result-item-set' : 'result-item-item'; ?>">
+
+                    <!-- Thumbnail - Only for items, not item sets -->
+                    <?php if ($item->getResourceName() === 'items' && ($primaryMedia = $item->primaryMedia())): ?>
                         <div class="result-thumbnail">
                             <a href="<?php echo $escape($item->url()); ?>">
-                                <img src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>" 
+                                <img src="<?php echo $escape($primaryMedia->thumbnailUrl('medium')); ?>"
                                      alt="<?php echo $escape($primaryMedia->displayTitle()); ?>"
                                      loading="lazy">
                             </a>
                         </div>
                     <?php endif; ?>
-                    
+
                     <!-- Content -->
                     <div class="result-content">
                         <h3 class="result-title">
@@ -95,14 +95,29 @@ $totalResults = isset($totalResults) ? $totalResults : 0;
                                 <?php echo $escape($item->displayTitle()); ?>
                             </a>
                         </h3>
-                        
+
                         <?php if ($description = $item->displayDescription()): ?>
                             <div class="result-description">
                                 <?php echo $description; ?>
                             </div>
                         <?php endif; ?>
+
+                        <!-- Item count for item sets -->
+                        <?php if ($item->getResourceName() === 'item_sets'): ?>
+                            <div class="result-item-set-count">
+                                <?php
+                                try {
+                                    $itemCount = count($item->getItems());
+                                    echo sprintf($translate('%d item(s)'), $itemCount);
+                                } catch (Exception $e) {
+                                    // Fallback if getItems() is not available
+                                    echo $translate('Item Set');
+                                }
+                                ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                    
+
                 </div>
             <?php endforeach; ?>
         </div>

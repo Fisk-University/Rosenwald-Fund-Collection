@@ -100,11 +100,11 @@
 }
 /* Fine-tune vertical alignment for each handle */
 .ui-slider-handle.handle-start {
-  top: -7px;
+  top: -17px;
 }
 
 .ui-slider-handle.handle-end {
-  top: -7px;
+  top: -41px;
 }
 
 @media screen and (min-width: $breakpoint-sm) {
