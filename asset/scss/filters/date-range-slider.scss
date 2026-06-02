@@ -72,14 +72,16 @@
 
 /* Slider handles */
 .ui-slider-handle.ui-corner-all.ui-state-default {
-    width: 24px;
-    height: 24px;
+    display: block;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
     background: $color-white;
     border: 1px solid #000;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.20);
     cursor: grab;
-    top: -7px;
+    top: -17px;
     margin-left: -12px;
 }
 
@@ -111,7 +113,7 @@
 
 @media screen and (min-width: $breakpoint-md) {
     .search-filters-sidebar {
-        position: sticky;
+        position: initial;
         top: 32px;
         float: left;
         width: 200px;
