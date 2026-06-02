@@ -1,0 +1,229 @@
+<?php
+/**
+ * Item Set Browse/Search Results Template
+ *
+ * Mirrors the item browse template to provide consistent search results styling
+ * for both items and item sets searches.
+ */
+
+// Setup
+$translate = $this->plugin('translate');
+$escape = $this->plugin('escapeHtml');
+$this->htmlElement('body')->appendAttribute('class', 'item-set browse');
+
+// Get query parameters
+$query = $this->params()->fromQuery();
+
+// Search Detection
+
+// Initialize search context
+$searchContext = [
+    'type' => 'none',
+    'searchTerm' => '',
+    'searchState' => '',
+    'searchCounty' => ''
+];
+
+// Check for state/county values
+$searchContext['searchState'] = isset($query['property_one_value']) ? $query['property_one_value'] : '';
+$searchContext['searchCounty'] = isset($query['property_two_value']) ? $query['property_two_value'] : '';
+
+// Fallback to simple parameter names
+if (empty($searchContext['searchState']) && isset($query['state'])) {
+    $searchContext['searchState'] = $query['state'];
+}
+if (empty($searchContext['searchCounty']) && isset($query['county'])) {
+    $searchContext['searchCounty'] = $query['county'];
+}
+
+// Determine search type
+// 1. Check for location search first
+if (!empty($searchContext['searchState']) || !empty($searchContext['searchCounty'])) {
+    $searchContext['type'] = 'location';
+}
+// 2. Check for fulltext/keyword search
+elseif (isset($query['fulltext_search']) && !empty($query['fulltext_search'])) {
+    $searchContext['type'] = 'keyword';
+    $searchContext['searchTerm'] = $query['fulltext_search'];
+}
+// 3. Check for simple query parameter
+elseif (isset($query['q']) && !empty($query['q'])) {
+    $searchContext['type'] = 'keyword';
+    $searchContext['searchTerm'] = $query['q'];
+}
+// 4. Check for property-based search
+elseif (isset($query['property']) && !empty($query['property'])) {
+    $isLocationSearch = false;
+
+    if (is_array($query['property'])) {
+        foreach ($query['property'] as $prop) {
+            if (is_array($prop) && isset($prop['property'])) {
+                if ($prop['property'] === 'rfc:state') {
+                    $isLocationSearch = true;
+                    if (!empty($prop['text'])) {
+                        $searchContext['searchState'] = $prop['text'];
+                    }
+                }
+                if ($prop['property'] === 'rfc:county') {
+                    $isLocationSearch = true;
+                    if (!empty($prop['text'])) {
+                        $searchContext['searchCounty'] = $prop['text'];
+                    }
+                }
+            }
+        }
+    }
+
+    if ($isLocationSearch) {
+        $searchContext['type'] = 'location';
+    } else {
+        // It's a keyword property search
+        $searchContext['type'] = 'keyword';
+
+        if (is_array($query['property'])) {
+            foreach ($query['property'] as $value) {
+                if (is_array($value) && isset($value['text'])) {
+                    $searchContext['searchTerm'] = (string)$value['text'];
+                    break;
+                } elseif (!is_array($value) && !empty($value)) {
+                    $searchContext['searchTerm'] = (string)$value;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+// Get total results count and paginator
+$totalResults = isset($itemSets) ? $this->pagination()->getPaginator()->getTotalCount() : 0;
+$paginator = isset($itemSets) ? $this->pagination()->getPaginator() : null;
+
+// Pagination Boundary Check
+// Handle invalid page numbers to prevent misleading "no results" message
+if ($paginator && $totalResults > 0 && isset($query['page'])) {
+    $currentPage = (int) $query['page'];
+
+    // Calculate total pages
+    $perPage = $paginator->getPerPage();
+    $totalPages = (int) ceil($totalResults / $perPage);
+
+    // Check if page number is out of bounds
+    $needsRedirect = false;
+    $correctPage = $currentPage;
+
+    if ($currentPage < 1) {
+        // Page 0 or negative - redirect to first page
+        $correctPage = 1;
+        $needsRedirect = true;
+    } elseif ($currentPage > $totalPages) {
+        // Page exceeds total - redirect to last page
+        $correctPage = $totalPages;
+        $needsRedirect = true;
+    }
+
+    // Perform redirect if needed
+    if ($needsRedirect) {
+        $redirectQuery = $query;
+        $redirectQuery['page'] = $correctPage;
+
+        // Get current site for URL building
+        $site = $this->currentSite();
+
+        $redirectUrl = $this->url(
+            'site/resource',
+            [
+                'site-slug' => $site->slug(),
+                'controller' => 'item-set',
+                'action' => 'browse'
+            ],
+            ['query' => $redirectQuery]
+        );
+        ?>
+        <div class="pagination-redirect-notice">
+            <p><?php echo sprintf($translate('Invalid page number. Redirecting to page %d...'), $correctPage); ?></p>
+            <script>window.location.href = "<?php echo $this->escapeJs($redirectUrl); ?>";</script>
+            <noscript>
+                <meta http-equiv="refresh" content="0;url=<?php echo $this->escapeHtml($redirectUrl); ?>">
+                <p><a href="<?php echo $this->escapeHtml($redirectUrl); ?>"><?php echo $translate('Click here if not redirected'); ?></a></p>
+            </noscript>
+        </div>
+        <style>
+            .pagination-redirect-notice {
+                padding: 20px;
+                text-align: center;
+                background: #f5f5f5;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                margin: 20px auto;
+                max-width: 500px;
+            }
+        </style>
+        <?php
+        return; // Stop rendering the rest of the page
+    }
+}
+
+// Page Rendering
+?>
+
+<div class="search-results-container">
+
+    <?php
+    // Display search results header
+    echo $this->partial('common/search/search-results-header.phtml', [
+        'searchContext' => $searchContext,
+        'totalResults' => $totalResults
+    ]);
+    ?>
+
+    <div class="search-form-wrapper">
+        <?php
+        // Display appropriate search form based on search type
+        if ($searchContext['type'] == 'keyword' || $searchContext['type'] == 'none') {
+            // Show keyword search form
+            echo $this->partial('common/search/search-form-keyword.phtml', [
+                'searchContext' => $searchContext,
+                'query' => $query
+            ]);
+        } else {
+            // Show location search form
+            echo $this->partial('common/search/search-form-location.phtml', [
+                'searchContext' => $searchContext,
+                'query' => $query
+            ]);
+        }
+        ?>
+    </div>
+
+    <div class="search-filters-sidebar">
+        <?php
+        // Include the filter panel from SearchFilterPlus module
+        $filterVars = [
+            'minYear' => 1910,
+            'maxYear' => 1950,
+            'startYear' => 1910,
+            'endYear' => 1950,
+            'property' => 'dcterms:date'
+        ];
+        echo $this->partial('date-range-filter/common/date-range-slider.phtml', $filterVars);
+
+        // File Type Filter
+        echo $this->partial('file-type-filter/common/file-type-filter.phtml');
+
+        // Collection Filter
+        echo $this->partial('collection-filter/common/collection-filter.phtml');
+        ?>
+    </div>
+
+    <?php
+    // Display search results - reuse the search-results-list partial
+    // which handles both items and item sets
+    echo $this->partial('common/search/search-results-list.phtml', [
+        'items' => isset($itemSets) ? $itemSets : [],
+        'searchContext' => $searchContext,
+        'query' => $query,
+        'totalResults' => $totalResults
+    ]);
+    ?>
+
+</div>
