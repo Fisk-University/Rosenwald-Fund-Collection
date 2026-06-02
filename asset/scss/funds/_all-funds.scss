@@ -222,7 +222,8 @@ section {
 }
 
 // Individual Fund Card Styling (Mobile First)
-.item-set.resource {
+// Only apply to item sets within the showcase block, not all item sets
+.block.item-set-showcase .item-set.resource {
   display: flex;
   flex-direction: column;
   border-radius: 8px;
