@@ -4274,36 +4274,46 @@ section article > header > div p {
   }
 }
 
-.block-ItemSetSearch.subcoll-form-title {
+.block-html.subcoll-form-title {
   padding: 0 20px;
   max-width: 1000px;
   width: 100%;
   margin-left: 0px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #5F330F;
+  letter-spacing: 1px;
 }
-.block-ItemSetSearch.subcoll-form-title p {
+.block-html.subcoll-form-title p {
   margin-bottom: 0.2em;
 }
 @media screen and (min-width: 576px) {
-  .block-ItemSetSearch.subcoll-form-title {
+  .block-html.subcoll-form-title {
     padding: 0px 30px;
+    font-size: 16px;
   }
 }
 @media screen and (min-width: 768px) {
-  .block-ItemSetSearch.subcoll-form-title {
+  .block-html.subcoll-form-title {
     padding: 0 30px;
+    font-size: 16px;
   }
 }
 @media screen and (min-width: 992px) {
-  .block-ItemSetSearch.subcoll-form-title {
-    padding: 30px 60px;
+  .block-html.subcoll-form-title {
+    padding: 0 60px;
+    font-size: 18px;
   }
 }
 @media screen and (min-width: 1200px) {
-  .block-ItemSetSearch.subcoll-form-title {
-    padding: 20px 80px;
+  .block-html.subcoll-form-title {
+    padding: 0 80px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    font-size: 20px;
   }
 }
 
@@ -4424,7 +4434,7 @@ section article > header > div p {
 }
 @media screen and (min-width: 992px) {
   .block-ItemSetSearch.subcoll-form {
-    padding: 30px 60px;
+    padding: 0 60px;
   }
   .block-ItemSetSearch.subcoll-form .search-form form {
     max-width: none;
@@ -4445,7 +4455,7 @@ section article > header > div p {
 }
 @media screen and (min-width: 1200px) {
   .block-ItemSetSearch.subcoll-form {
-    padding: 20px 80px;
+    padding: 0 80px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;

@@ -519,34 +519,44 @@
 }
 
 // Sub-collection Search Section - duplicate version
-.block-ItemSetSearch.subcoll-form-title {
+.block-html.subcoll-form-title {
   padding: 0 20px;
   max-width: 1000px;
   width: 100%;
   margin-left: 0px;
+  font-family: $font-sans;
+  font-size: 14px; // Mobile size
+  font-weight: $weight-semibold;
+  text-transform: uppercase;
+  color: #5F330F;
+  letter-spacing: 1px;
 
-    p {
-      margin-bottom: .2em;
-    }
+  p {
+    margin-bottom: .2em;
+  }
 
   // Mobile - 576px
   @media screen and (min-width: $breakpoint-sm) {
     padding: 0px 30px;
+    font-size: 16px;
   }
   // Tablet - 768px
   @media screen and (min-width: $breakpoint-md) {
     padding: 0 30px;
+    font-size: 16px;
   }    
   // Desktop - 992px
   @media screen and (min-width: $breakpoint-lg) {
-    padding: 30px 60px;
+    padding: 0 60px;
+    font-size: 18px;
   }
 // Extra Large - 1200px
   @media screen and (min-width: $breakpoint-xl) {
-    padding: 20px 80px;
+    padding: 0 80px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    font-size: 20px;
   }
 
 }
@@ -688,7 +698,7 @@
   
   // Desktop - 992px
   @media screen and (min-width: $breakpoint-lg) {
-    padding: 30px 60px;
+    padding: 0 60px;
     
     .search-form {
         form{
@@ -716,7 +726,7 @@
   
   // Extra Large - 1200px
   @media screen and (min-width: $breakpoint-xl) {
-    padding: 20px 80px;
+    padding: 0 80px;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
