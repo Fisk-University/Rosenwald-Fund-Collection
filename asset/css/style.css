@@ -6967,7 +6967,6 @@ body.item.resource.show .skip-link:focus {
   border: 1px solid #000;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
   cursor: grab;
-  top: -17px;
   margin-left: -12px;
 }
 
@@ -6984,6 +6983,15 @@ body.item.resource.show .skip-link:focus {
 
 .ui-slider-handle:focus {
   outline: none;
+}
+
+/* Fine-tune vertical alignment for each handle */
+.ui-slider-handle.handle-start {
+  top: -7px;
+}
+
+.ui-slider-handle.handle-end {
+  top: -7px;
 }
 
 @media screen and (min-width: 576px) {
