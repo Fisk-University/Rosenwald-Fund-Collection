@@ -1,0 +1,35 @@
+# Git Attributes for Rosenwald Fund Collection Theme
+# This file configures which files are excluded from release archives
+# created with: git archive --output=Rosenwald-Fund-Collection.zip --prefix=Rosenwald-Fund-Collection/ main
+
+# Exclude repository configuration files
+/.gitattributes export-ignore
+/.gitignore export-ignore
+
+# Exclude GitHub workflows and CI/CD configuration
+/.github/ export-ignore
+
+# Exclude development and build tools
+/gulpfile.js export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+
+# Exclude node modules (dependencies)
+/node_modules/ export-ignore
+
+# Exclude OS-specific files
+.DS_Store export-ignore
+.DS_Store? export-ignore
+*.swp export-ignore
+*.swo export-ignore
+*~ export-ignore
+
+# Exclude translation source files (if present)
+/language/*.pot export-ignore
+/language/*.po export-ignore
+
+# Exclude any local development directories
+/.vscode/ export-ignore
+/.env export-ignore
+/.env.local export-ignore
+/debug.log export-ignore
