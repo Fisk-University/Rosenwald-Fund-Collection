@@ -142,3 +142,4 @@ Built with ❤️ by LaTaevia Berry & Sai Kiran Boppana for Fisk University and 
 - Localize text for multilingual accessibility
 
 We welcome community feedback and contributions.
+
