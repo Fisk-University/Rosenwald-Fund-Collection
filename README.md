@@ -6,7 +6,7 @@ A custom [Omeka S](https://omeka.org/s/) theme developed for the Fisk University
 
 ---
 
-## 📆 Project Overview
+## Project Overview
 
 The **Rosenwald Fund Collection** theme was created as part of a Mellon Foundation-funded digital humanities initiative. It provides a tailored, elegant frontend for institutions using Omeka S to display archival content, particularly HBCUs and similar cultural heritage organizations seeking to replicate Fisk University's digital infrastructure.
 
@@ -18,7 +18,7 @@ This theme emphasizes:
 
 ---
 
-## 🔧 Installation
+## Installation
 
 To install this theme:
 
@@ -37,7 +37,7 @@ To install this theme:
 
 ---
 
-## 🌈 Features
+## Features
 
 - **Metadata-first layout** optimized for archival clarity
 - **Dynamic page header and item display blocks**
@@ -47,7 +47,7 @@ To install this theme:
 
 ---
 
-## 📊 Configuration Options
+## Configuration Options
 
 From the Omeka S admin panel:
 
@@ -63,7 +63,36 @@ No command-line configuration is required. Advanced users can modify CSS or temp
 
 ---
 
-## 🚀 Recommended Modules
+## Search Architecture
+
+This theme uses a standardized approach to search parameters for consistency across all search mechanisms:
+
+### Search Parameters
+
+- **`fulltext_search`** – Primary keyword/fulltext search parameter used throughout the theme
+  - Used by: Global search form (header), Keyword search form, Browse templates
+  - Example: `?fulltext_search=georgia`
+  - Detected in: `view/omeka/site/item/browse.phtml` and `view/omeka/site/item-set/browse.phtml`
+
+- **`q`** – Fallback/simple query parameter
+  - Supported for backward compatibility
+  - Example: `?q=georgia`
+
+- **`property[n][text]`** – Property-based search (advanced search)
+  - Used in conjunction with `property[n][property]` to filter by metadata fields
+  - Example: `?property[0][property]=rfc:state&property[0][text]=Georgia`
+
+### Search Form Locations
+
+- **Global Search** – `/view/common/search-form.phtml` (displayed in site header)
+- **Keyword Search** – `/view/common/search/search-form-keyword.phtml` (main search results page)
+- **Location-based Search** – `/view/common/search/search-form-location.phtml` (State/County filters)
+
+All forms preserve search parameters when navigating through pagination and sorting controls.
+
+---
+
+## Recommended Modules
 
 For full functionality, install the following modules alongside this theme:
 
@@ -75,7 +104,7 @@ For full functionality, install the following modules alongside this theme:
 
 ---
 
-## 🔍 Folder Structure
+## Folder Structure
 
 ```
 Rosenwald-Fund-Collection/
@@ -95,7 +124,7 @@ Rosenwald-Fund-Collection/
 
 ---
 
-## 📄 License
+## License
 
 This module is published under the [Server Side Public License (SSPL-1.0)](https://www.mongodb.com/legal/licensing/server-side-public-license).
 
@@ -105,7 +134,7 @@ Built with ❤️ by LaTaevia Berry & Sai Kiran Boppana for Fisk University and 
 
 ---
 
-## 🚧 Future Improvements
+## Future Improvements
 
 - Add color scheme configuration via admin UI
 - Improve mobile responsiveness for tablets

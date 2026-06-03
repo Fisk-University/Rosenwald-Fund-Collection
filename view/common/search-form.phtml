@@ -1,5 +1,13 @@
 <?php
 /**
+ * Global Search Form
+ *
+ * This is the primary search form displayed in the site header.
+ * Uses the 'fulltext_search' parameter which is the standard parameter used throughout
+ * this theme for keyword/fulltext searches. This ensures consistency with:
+ * - The keyword search form (search-form-keyword.phtml)
+ * - The browse template search detection logic (item/browse.phtml, item-set/browse.phtml)
+ *
  * @var \Laminas\View\Renderer\PhpRenderer $this
  */
 
@@ -13,10 +21,10 @@ $searchValue = isset($searchValue) ? $searchValue : '';
 <div class="search-form">
     <form id="search-form" action="<?php echo $searchAction; ?>" method="get">
         <div class="search-field">
-            <input type="text" 
-                   name="search" 
-                   id="search" 
-                   value="<?php echo $escape($searchValue); ?>" 
+            <input type="text"
+                   name="fulltext_search"
+                   id="search"
+                   value="<?php echo $escape($searchValue); ?>"
                    placeholder="<?php echo $escape($translate('Enter search')); ?>"
                    aria-label="<?php echo $escape($translate('Search')); ?>">
             <span class="search-icon"></span>
